@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { LatLngExpression } from 'leaflet';
-import { MapContainer } from 'react-leaflet/MapContainer';
-import { TileLayer } from 'react-leaflet/TileLayer';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 
 const MapWrapper = styled('div')({
   flex: 1,
@@ -24,7 +23,9 @@ export const Map = () => {
         minZoom={8}
         zoom={12}
         maxBounds={[SOUTH_WEST_BOUNDS, NORTH_EAST_BOUNDS]}
+        zoomControl={false}
       >
+        <ZoomControl position="topright" />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
