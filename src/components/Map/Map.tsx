@@ -3,12 +3,12 @@ import { LatLngExpression } from 'leaflet';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 
 const MapWrapper = styled('div')({
-  flex: 1,
-  height: '100%',
+  height: '100vh',
+  width: '100vw',
 });
 
 const StyledMap = styled(MapContainer)({
-  height: '100vh',
+  height: '100%',
   width: '100%',
 });
 
