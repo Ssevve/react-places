@@ -4,8 +4,6 @@ import fetch from 'cross-fetch';
 export const handleYelpApi = async (req: Request, res: Response) => {
   const baseQueryOptions = {
     location: 'Gdańsk',
-    // latitude: '54.35',
-    // longitude: '18.65',
     radius: '40000',
     sort_by: 'best_match',
     limit: '50',
@@ -17,8 +15,7 @@ export const handleYelpApi = async (req: Request, res: Response) => {
   const queryOptions = req.originalUrl.split('?')[1] || '';
   const queryOptionsString = queryOptions ? `&${queryOptions}` : '';
 
-  const queryString = `${baseQueryString}${queryOptionsString}`;
-  const url = `https://api.yelp.com/v3/businesses/search?${queryString}`;
+  const url = `https://api.yelp.com/v3/businesses/search?${baseQueryString}${queryOptionsString}`;
 
   try {
     const response = await fetch(url, {
