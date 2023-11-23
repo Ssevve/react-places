@@ -1,9 +1,15 @@
-import { BusinessCard } from '@/components/BusinessCard';
+import { BusinessCard } from './BusinessCard';
+import { useBusinessesQuery } from '@/hooks/useBusinessesQuery';
 
-interface BusinessesProps {
-  businesses: any[];
-}
+export const Businesses = () => {
+  const { data: businesses, error } = useBusinessesQuery();
+  console.log(error?.message);
+  if (businesses) {
+    return businesses.businesses.map((business) => (
+      <BusinessCard key={business.id} business={business} />
+    ));
+  }
 
-export const Businesses = ({ businesses }: BusinessesProps) => {
-  return businesses.map((business) => <BusinessCard key={business.id} business={business} />);
+  if (error) return <span>Error!</span>;
+  return <span>Loading...</span>;
 };

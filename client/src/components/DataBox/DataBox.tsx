@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import { Paper } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
 import { Businesses } from '@/components/Businesses';
 
 const Box = styled(Paper)(({ theme }) => ({
@@ -18,23 +17,10 @@ const Box = styled(Paper)(({ theme }) => ({
   },
 }));
 
-const fetchBusinesses = async () => {
-  const res = await fetch('http://localhost:5000/yelp');
-  if (!res.ok) throw Error('Failed to fetch businesses.');
-  const businesses = await res.json();
-  return businesses;
-};
-
 export const DataBox = () => {
-  const { data: businesses, isLoading } = useQuery({
-    queryFn: () => fetchBusinesses(),
-    queryKey: ['businesses'],
-    staleTime: Infinity,
-  });
-
   return (
     <Box elevation={6}>
-      {isLoading ? <span>Loading...</span> : <Businesses businesses={businesses.businesses} />}
+      <Businesses />
     </Box>
   );
 };
