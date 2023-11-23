@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 const MapWrapper = styled('div')({
   height: '100vh',
   width: '100vw',
+  zIndex: 0,
 });
 
 const StyledMap = styled(MapContainer)({
