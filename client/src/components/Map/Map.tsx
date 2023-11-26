@@ -1,17 +1,6 @@
-import { styled } from '@mui/material/styles';
 import { LatLngExpression } from 'leaflet';
-import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-
-const MapWrapper = styled('div')({
-  height: '100vh',
-  width: '100vw',
-  zIndex: 0,
-});
-
-const StyledMap = styled(MapContainer)({
-  height: '100%',
-  width: '100%',
-});
+import { TileLayer, ZoomControl } from 'react-leaflet';
+import { MapWrapper, StyledMap } from './Map.styles';
 
 export function Map() {
   const GDANSK_COORDS: LatLngExpression = [54.35, 18.65];
