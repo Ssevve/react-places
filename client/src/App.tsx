@@ -1,20 +1,17 @@
-import { CssBaseline } from '@mui/material';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Home } from './pages/Home';
+import { styled } from '@mui/material';
+import { Map } from '@/components/Map';
+import { DataBox } from '@/components/DataBox';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
+const ContentWrapper = styled('div')({
+  display: 'flex',
+  position: 'relative',
 });
 
-export const App = () => {
+export function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <CssBaseline />
-      <Home />
-    </QueryClientProvider>
+    <ContentWrapper>
+      <Map />
+      <DataBox />
+    </ContentWrapper>
   );
-};
+}

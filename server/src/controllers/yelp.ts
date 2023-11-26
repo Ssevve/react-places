@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import fetch from 'cross-fetch';
 
-export const handleYelpApi = async (req: Request, res: Response) => {
+export async function handleYelpApi(req: Request, res: Response) {
   const baseQueryOptions = {
     location: 'Gdańsk',
     radius: '40000',
@@ -28,4 +28,4 @@ export const handleYelpApi = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
   }
-};
+}

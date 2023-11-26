@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { App } from '@/App';
+import { renderWithQueryProvider } from '@/utils/renderWithQueryProvider';
 
 describe('App', () => {
   it('should render <Map /> component', () => {
-    render(<App />);
+    renderWithQueryProvider(<App />);
     screen.getByTestId('map');
   });
 });

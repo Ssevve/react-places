@@ -1,7 +1,7 @@
 import { BusinessCard } from './BusinessCard';
-import { useBusinessesQuery } from '@/hooks/useBusinessesQuery';
+import { useBusinessesQuery } from '@/api/businesses/useBusinessesQuery';
 
-export const Businesses = () => {
+export function Businesses() {
   const { data: businesses, error } = useBusinessesQuery();
   if (businesses) {
     return businesses.businesses.map((business) => (
@@ -11,4 +11,4 @@ export const Businesses = () => {
 
   if (error) return <span>Error!</span>;
   return <span>Loading...</span>;
-};
+}

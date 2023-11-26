@@ -17,10 +17,10 @@ const Box = styled(Paper)(({ theme }) => ({
   },
 }));
 
-export const DataBox = () => {
+export function DataBox() {
   return (
     <Box elevation={6}>
       <Businesses />
     </Box>
   );
-};
+}

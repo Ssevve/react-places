@@ -47,11 +47,11 @@ const fetchBusinesses = async () => {
   return businessesResponseSchema.parse(await res.json());
 };
 
-export const useBusinessesQuery = () => {
+export function useBusinessesQuery() {
   return useQuery({
     queryFn: fetchBusinesses,
     queryKey: ['businesses'],
     staleTime: Infinity,
     select: camelize,
   });
-};
+}

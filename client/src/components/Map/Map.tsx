@@ -13,7 +13,7 @@ const StyledMap = styled(MapContainer)({
   width: '100%',
 });
 
-export const Map = () => {
+export function Map() {
   const GDANSK_COORDS: LatLngExpression = [54.35, 18.65];
   const SOUTH_WEST_BOUNDS: LatLngExpression = [49.0, 14.08];
   const NORTH_EAST_BOUNDS: LatLngExpression = [54.86, 24.15];
@@ -34,4 +34,4 @@ export const Map = () => {
       </StyledMap>
     </MapWrapper>
   );
-};
+}
