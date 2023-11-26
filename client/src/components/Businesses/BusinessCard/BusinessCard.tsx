@@ -1,7 +1,9 @@
+import { Business } from '@/hooks/useBusinessesQuery';
+
 interface BusinessCardProps {
-  business: any;
+  business: Business;
 }
 
 export const BusinessCard = ({ business }: BusinessCardProps) => {
-  return <div>{business.name}</div>;
+  return <div>{business.displayPhone}</div>;
 };

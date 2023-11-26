@@ -1,3 +1,4 @@
+import camelize, { Camelize } from 'camelize-ts';
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
@@ -15,10 +16,9 @@ const businessSchema = z.object({
   rating: z.number().optional(),
   price: z.string().optional(),
   coordinates: coordinatesSchema,
+  is_closed: z.boolean(),
   location: z.object({
-    address1: z.string().nullable(),
-    address2: z.string().nullable(),
-    address3: z.string().nullable(),
+    display_address: z.array(z.string()),
   }),
   display_phone: z.string(),
   categories: z
@@ -31,7 +31,7 @@ const businessSchema = z.object({
     .optional(),
 });
 
-export type Business = z.infer<typeof businessSchema>;
+export type Business = Camelize<z.infer<typeof businessSchema>>;
 
 const businessesResponseSchema = z.object({
   businesses: z.array(businessSchema),
@@ -42,7 +42,7 @@ const businessesResponseSchema = z.object({
 });
 
 const fetchBusinesses = async () => {
-  const res = await fetch('http://localhost:5000/yelsp');
+  const res = await fetch('http://localhost:5000/yelp');
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
   return businessesResponseSchema.parse(await res.json());
 };
@@ -52,5 +52,6 @@ export const useBusinessesQuery = () => {
     queryFn: fetchBusinesses,
     queryKey: ['businesses'],
     staleTime: Infinity,
+    select: camelize,
   });
 };
