@@ -1,10 +1,10 @@
-interface BusinessContactInfoProps {
+interface BusinessCardContactInfoProps {
   phone: string;
   yelpUrl: string | undefined;
   address: string[];
 }
 
-export function BusinessContactInfo({ phone, yelpUrl, address }: BusinessContactInfoProps) {
+export function BusinessCardContactInfo({ phone, yelpUrl, address }: BusinessCardContactInfoProps) {
   return (
     <div>
       <span>{phone}</span>

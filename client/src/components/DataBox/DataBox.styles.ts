@@ -2,7 +2,7 @@ import { styled } from '@mui/material';
 import { Paper } from '@mui/material';
 
 export const Box = styled(Paper)(({ theme }) => ({
-  width: '100vw',
+  width: '100%',
   height: '100vh',
   position: 'absolute',
   [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
