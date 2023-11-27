@@ -10,6 +10,8 @@ import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import { BusinessImage } from '@/components/BusinessImage';
 import { BusinessBaseInfo } from '@/components/BusinessBaseInfo';
+import Box from '@mui/material/Box';
+import { BusinessCardCategories } from '@/components/BusinessCardCategories';
 
 interface BusinessCardProps {
   business: Business;
@@ -34,15 +36,18 @@ export function BusinessCard({ business, index, isExpanded, setExpanded }: Busin
       }}
     >
       <CardActionArea disableRipple onClick={setExpanded}>
-        <CardContent sx={{ display: 'flex', gap: '1rem' }}>
+        <CardContent sx={{ display: 'flex', gap: '1rem', paddingRight: 0 }}>
           <BusinessImage alt={business.name} src={business.imageUrl} />
-          <BusinessBaseInfo
-            index={index}
-            isClosed={business.isClosed}
-            name={business.name}
-            rating={business.rating}
-            reviewCount={business.reviewCount}
-          />
+          <Box display="flex" flexDirection="column" gap="0.5rem">
+            <BusinessBaseInfo
+              index={index}
+              isClosed={business.isClosed}
+              name={business.name}
+              rating={business.rating}
+              reviewCount={business.reviewCount}
+            />
+            <BusinessCardCategories categories={business.categories} />
+          </Box>
         </CardContent>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <CardContent>

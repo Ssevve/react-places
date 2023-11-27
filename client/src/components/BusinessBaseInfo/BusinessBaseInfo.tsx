@@ -18,7 +18,7 @@ export function BusinessBaseInfo({
   isClosed,
 }: BusinessBaseInfoProps) {
   return (
-    <Box display="grid">
+    <Box display="flex" flexDirection="column" gap="0.5rem" alignItems="flex-start">
       <Typography component="h3" fontWeight="bold">
         {`${index}. ${name}`}
       </Typography>
