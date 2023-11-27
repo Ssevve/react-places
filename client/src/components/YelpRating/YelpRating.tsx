@@ -4,8 +4,9 @@ import Box from '@mui/material/Box';
 function getImageName(rating: number) {
   const flatRating = Math.floor(rating);
   const ratingString = rating === 0.5 ? '' : `_${flatRating}`;
-  const isInteger = flatRating === rating;
-  return isInteger ? `regular${ratingString}.png` : `regular${ratingString}_half.png`;
+  return Number.isInteger(rating)
+    ? `regular${ratingString}.png`
+    : `regular${ratingString}_half.png`;
 }
 
 interface YelpRatingProps {
