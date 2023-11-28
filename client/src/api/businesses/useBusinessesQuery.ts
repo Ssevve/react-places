@@ -7,11 +7,6 @@ const coordinatesSchema = z.object({
   longitude: z.number(),
 });
 
-const categorySchema = z.object({
-  alias: z.string(),
-  title: z.string(),
-});
-
 const businessSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -26,11 +21,16 @@ const businessSchema = z.object({
     display_address: z.array(z.string()),
   }),
   display_phone: z.string(),
-  categories: z.array(categorySchema),
+  categories: z.array(
+    z.object({
+      alias: z.string(),
+      title: z.string(),
+    }),
+  ),
 });
 
 export type Business = Camelize<z.infer<typeof businessSchema>>;
-export type Category = Camelize<z.infer<typeof categorySchema>>;
+export type Category = Business['categories'][0];
 
 const businessesResponseSchema = z.object({
   businesses: z.array(businessSchema),
