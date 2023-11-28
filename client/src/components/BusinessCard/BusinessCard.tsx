@@ -22,21 +22,28 @@ interface BusinessCardProps {
 
 // TODO: tests
 export function BusinessCard({ business, index, isExpanded, setExpanded }: BusinessCardProps) {
-  const borderStyles = '5px solid #f40d15';
+  const expandedBorderWidth = '5px';
   return (
     <Card
-      sx={{
-        width: '100%',
-        borderRadius: 0,
-        transition: 'border 150ms ease-out',
-        borderLeft: isExpanded ? borderStyles : 'none',
-        '&:hover': {
-          borderLeft: borderStyles,
+      sx={[
+        {
+          width: '100%',
+          borderRadius: 0,
+          borderWidth: 0,
+          borderColor: '#f40d15',
+          borderStyle: 'solid',
+          transition: 'all 150ms ease-out',
+          '&:hover': {
+            borderLeftWidth: expandedBorderWidth,
+          },
         },
-      }}
+        isExpanded && {
+          borderLeftWidth: expandedBorderWidth,
+        },
+      ]}
     >
       <CardActionArea disableRipple onClick={setExpanded}>
-        <CardContent sx={{ display: 'flex', gap: '1rem', paddingRight: 0 }}>
+        <CardContent sx={{ display: 'flex', gap: '1rem', paddingRight: '0.5rem' }}>
           <BusinessImage alt={business.name} src={business.imageUrl} />
           <Box display="flex" flexDirection="column" gap="0.5rem">
             <BusinessBaseInfo
