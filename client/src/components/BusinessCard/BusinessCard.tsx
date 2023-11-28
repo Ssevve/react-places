@@ -22,7 +22,7 @@ interface BusinessCardProps {
 
 // TODO: tests
 export function BusinessCard({ business, index, isExpanded, setExpanded }: BusinessCardProps) {
-  const borderStyles = '5px solid #d32323';
+  const borderStyles = '5px solid #f40d15';
   return (
     <Card
       sx={{
@@ -43,6 +43,7 @@ export function BusinessCard({ business, index, isExpanded, setExpanded }: Busin
               index={index}
               isClosed={business.isClosed}
               name={business.name}
+              price={business.price}
               rating={business.rating}
               reviewCount={business.reviewCount}
             />

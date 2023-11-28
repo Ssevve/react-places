@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { YelpRating } from '../YelpRating';
+import { YelpRating } from '@/components/YelpRating';
+import { BusinessPriceRating } from '@/components/BusinessPriceRating';
 
 interface BusinessBaseInfoProps {
   index: number;
@@ -8,6 +9,7 @@ interface BusinessBaseInfoProps {
   rating: number;
   reviewCount: number;
   isClosed: boolean;
+  price: string | undefined;
 }
 
 export function BusinessBaseInfo({
@@ -15,6 +17,7 @@ export function BusinessBaseInfo({
   name,
   rating,
   reviewCount,
+  price,
   isClosed,
 }: BusinessBaseInfoProps) {
   return (
@@ -22,12 +25,14 @@ export function BusinessBaseInfo({
       <Typography component="h3" fontWeight="bold">
         {`${index}. ${name}`}
       </Typography>
-      <YelpRating rating={rating} reviewCount={reviewCount} />
-      {isClosed && (
-        <Typography component="span" variant="caption" fontWeight="bold" color="#d32323">
+      {isClosed ? (
+        <Typography component="span" variant="caption" fontWeight="bold" color="#f40d15">
           Permanently Closed
         </Typography>
+      ) : (
+        <BusinessPriceRating price={price} />
       )}
+      <YelpRating rating={rating} reviewCount={reviewCount} />
     </Box>
   );
 }
