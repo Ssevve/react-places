@@ -1,8 +1,9 @@
-import { BusinessCard } from '@/components/BusinessCard';
 import { useBusinessesQuery } from '@/api/businesses/useBusinessesQuery';
-import { useState } from 'react';
-import ListItem from '@mui/material/ListItem';
+import { BusinessCard } from '@/components/BusinessCard';
+import { BusinessListSkeleton } from '@/components/skeletons/BusinessListSkeleton';
 import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { useState } from 'react';
 
 export function BusinessList() {
   const [expandedBusiness, setExpandedBusiness] = useState(-1);
@@ -31,5 +32,5 @@ export function BusinessList() {
   }
 
   if (error) return <span>Error!</span>;
-  return <span>Loading...</span>;
+  return <BusinessListSkeleton />;
 }
