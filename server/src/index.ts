@@ -1,7 +1,7 @@
-import express, { Request, Response } from 'express';
-import { handleYelpApi } from './controllers/yelp';
 import apicache from 'apicache';
 import cors from 'cors';
+import express, { Request, Response } from 'express';
+import { handleYelpApi } from './controllers/yelp';
 
 const app = express();
 

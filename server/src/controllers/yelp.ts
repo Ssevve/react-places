@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
 import fetch from 'cross-fetch';
+import { Request, Response } from 'express';
 
 export async function handleYelpApi(req: Request, res: Response) {
   const baseQueryOptions = {
