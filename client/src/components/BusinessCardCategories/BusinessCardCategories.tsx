@@ -1,6 +1,6 @@
 import { Category } from '@/api/businesses/useBusinessesQuery';
-import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 
 interface BusinessCardCategoriesProps {
   categories: Array<Category>;

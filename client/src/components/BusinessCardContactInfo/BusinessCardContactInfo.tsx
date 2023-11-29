@@ -1,17 +1,17 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import Typography, { TypographyOwnProps } from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import CallIcon from '@mui/icons-material/Call';
 import yelpBurst from '@/assets/yelp_burst.svg';
 import BusinessIcon from '@mui/icons-material/Business';
+import CallIcon from '@mui/icons-material/Call';
+import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material/SvgIcon';
+import Typography, { TypographyOwnProps } from '@mui/material/Typography';
 
 const businessCardContactInfoTypographyProps: Partial<TypographyOwnProps> = {
-  variant: 'subtitle2',
   marginLeft: '0.5rem',
+  variant: 'subtitle2',
 };
 
 function BusinessCardContactInfoSpan({ children }: React.PropsWithChildren) {
@@ -22,6 +22,7 @@ function BusinessCardContactInfoSpan({ children }: React.PropsWithChildren) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type MuiIcon = OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
   muiName: string;
 };

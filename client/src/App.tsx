@@ -1,7 +1,7 @@
-import { styled } from '@mui/material';
-import { Map } from '@/components/Map';
-import Paper from '@mui/material/Paper';
 import { BusinessList } from '@/components/BusinessList';
+import { Map } from '@/components/Map';
+import { styled } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 const AppWrapper = styled('div')({
   display: 'flex',
@@ -9,16 +9,15 @@ const AppWrapper = styled('div')({
 });
 
 export const ContentWrapper = styled(Paper)(({ theme }) => ({
-  width: '100%',
   height: '100vh',
   position: 'absolute',
+  width: '100%',
   [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
     height: '700px',
-    width: '400px',
-    position: 'absolute',
     left: '1rem',
-    top: '1rem',
     overflow: 'auto',
+    top: '1rem',
+    width: '400px',
   },
 }));
 

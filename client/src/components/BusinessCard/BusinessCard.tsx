@@ -1,17 +1,17 @@
 import { Business } from '@/api/businesses/useBusinessesQuery';
-import { BusinessCardContactInfo } from '@/components/BusinessCardContactInfo';
 import yelpLogo from '@/assets/yelp-logo.svg';
+import { BusinessBaseInfo } from '@/components/BusinessBaseInfo';
+import { BusinessCardCategories } from '@/components/BusinessCardCategories';
+import { BusinessCardContactInfo } from '@/components/BusinessCardContactInfo';
+import { BusinessImage } from '@/components/BusinessImage';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
-import { BusinessImage } from '@/components/BusinessImage';
-import { BusinessBaseInfo } from '@/components/BusinessBaseInfo';
-import Box from '@mui/material/Box';
-import { BusinessCardCategories } from '@/components/BusinessCardCategories';
 
 interface BusinessCardProps {
   business: Business;
@@ -27,15 +27,15 @@ export function BusinessCard({ business, index, isExpanded, setExpanded }: Busin
     <Card
       sx={[
         {
-          width: '100%',
-          borderRadius: 0,
-          borderWidth: 0,
-          borderColor: '#f40d15',
-          borderStyle: 'solid',
-          transition: 'all 150ms ease-out',
           '&:hover': {
             borderLeftWidth: expandedBorderWidth,
           },
+          borderColor: '#f40d15',
+          borderRadius: 0,
+          borderStyle: 'solid',
+          borderWidth: 0,
+          transition: 'all 150ms ease-out',
+          width: '100%',
         },
         isExpanded && {
           borderLeftWidth: expandedBorderWidth,

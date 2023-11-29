@@ -1,7 +1,7 @@
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import CircleIcon from '@mui/icons-material/Circle';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 interface PriceRating {
   color: string;

@@ -1,5 +1,5 @@
-import Avatar from '@mui/material/Avatar';
 import BrokenImageRoundedIcon from '@mui/icons-material/BrokenImageRounded';
+import Avatar from '@mui/material/Avatar';
 
 interface BusinessImageProps {
   alt: string;
@@ -14,11 +14,11 @@ export function BusinessImage({ alt, src, size = '6rem' }: BusinessImageProps) {
       src={src}
       variant="rounded"
       sx={{
-        width: size,
         height: size,
+        width: size,
       }}
     >
-      <BrokenImageRoundedIcon sx={{ width: '3rem', height: '3rem' }} />
+      <BrokenImageRoundedIcon sx={{ height: '3rem', width: '3rem' }} />
     </Avatar>
   );
 }
