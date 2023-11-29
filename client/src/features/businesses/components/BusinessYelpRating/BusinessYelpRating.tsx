@@ -9,13 +9,13 @@ function getImageName(rating: number) {
     : `regular${ratingString}_half.png`;
 }
 
-interface YelpRatingProps {
+interface BusinessYelpRatingProps {
   rating: number;
   reviewCount: number;
 }
 
 // TODO: fix half star
-export function YelpRating({ rating, reviewCount }: YelpRatingProps) {
+export function BusinessYelpRating({ rating, reviewCount }: BusinessYelpRatingProps) {
   return (
     <Box display="flex" gap="0.5rem" alignItems="center">
       <img width={102} src={`src/assets/yelp-stars/${getImageName(rating)}`} />

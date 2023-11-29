@@ -52,5 +52,6 @@ export function useBusinessesQuery() {
     queryKey: ['businesses'],
     select: camelize,
     staleTime: Infinity,
+    throwOnError: true,
   });
 }

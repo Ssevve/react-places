@@ -1,5 +1,5 @@
-import { BusinessCardSkeleton } from '@/components/skeletons/BusinessCardSkeleton';
 import Box from '@mui/material/Box';
+import { BusinessCardSkeleton } from '../BusinessCardSkeleton';
 
 export function BusinessListSkeleton() {
   return (

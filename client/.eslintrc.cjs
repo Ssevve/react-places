@@ -24,5 +24,11 @@ module.exports = {
     'import/no-default-export': 'error',
     'import/no-unresolved': 'off',
     'import/named': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['@/features/*/*'],
+      },
+    ],
   },
 };

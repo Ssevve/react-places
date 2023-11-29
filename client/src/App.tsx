@@ -1,7 +1,9 @@
-import { BusinessList } from '@/components/BusinessList';
 import { Map } from '@/components/Map';
+import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
 import { styled } from '@mui/material';
 import Paper from '@mui/material/Paper';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const AppWrapper = styled('div')({
   display: 'flex',
@@ -22,11 +24,14 @@ export const ContentWrapper = styled(Paper)(({ theme }) => ({
 }));
 
 export function App() {
+  const { reset } = useQueryErrorResetBoundary();
   return (
     <AppWrapper>
       <Map />
       <ContentWrapper elevation={6}>
-        <BusinessList />
+        <ErrorBoundary FallbackComponent={BusinessListErrorFallback} onReset={reset}>
+          <BusinessList />
+        </ErrorBoundary>
       </ContentWrapper>
     </AppWrapper>
   );

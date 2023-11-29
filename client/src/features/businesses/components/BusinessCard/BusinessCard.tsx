@@ -1,9 +1,4 @@
-import { Business } from '@/api/businesses/useBusinessesQuery';
 import yelpLogo from '@/assets/yelp-logo.svg';
-import { BusinessBaseInfo } from '@/components/BusinessBaseInfo';
-import { BusinessCardCategories } from '@/components/BusinessCardCategories';
-import { BusinessCardContactInfo } from '@/components/BusinessCardContactInfo';
-import { BusinessImage } from '@/components/BusinessImage';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -12,6 +7,11 @@ import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
+import { Business } from '../../api/useBusinessesQuery';
+import { BusinessBaseInfo } from '../BusinessBaseInfo';
+import { BusinessCardCategories } from '../BusinessCardCategories';
+import { BusinessCardContactInfo } from '../BusinessCardContactInfo';
+import { BusinessImage } from '../BusinessImage';
 
 interface BusinessCardProps {
   business: Business;

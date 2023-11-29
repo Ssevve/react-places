@@ -1,14 +1,14 @@
-import { useBusinessesQuery } from '@/api/businesses/useBusinessesQuery';
-import { BusinessCard } from '@/components/BusinessCard';
-import { BusinessListSkeleton } from '@/components/skeletons/BusinessListSkeleton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useState } from 'react';
+import { useBusinessesQuery } from '../../api/useBusinessesQuery';
+import { BusinessCard } from '../BusinessCard';
+import { BusinessListSkeleton } from '../BusinessListSkeleton';
 
 export function BusinessList() {
   const [expandedBusiness, setExpandedBusiness] = useState(-1);
 
-  const { data: businesses, error } = useBusinessesQuery();
+  const { data: businesses } = useBusinessesQuery();
 
   const toggleExpandedBusiness = (index: number) => {
     return setExpandedBusiness((prev) => (prev === index ? -1 : index));
@@ -31,6 +31,5 @@ export function BusinessList() {
     );
   }
 
-  if (error) return <span>Error!</span>;
   return <BusinessListSkeleton />;
 }

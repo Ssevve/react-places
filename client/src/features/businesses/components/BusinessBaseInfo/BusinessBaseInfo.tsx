@@ -1,7 +1,7 @@
-import { BusinessPriceRating } from '@/components/BusinessPriceRating';
-import { YelpRating } from '@/components/YelpRating';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { BusinessPriceRating } from '../BusinessPriceRating';
+import { BusinessYelpRating } from '../BusinessYelpRating';
 
 interface BusinessBaseInfoProps {
   index: number;
@@ -32,7 +32,7 @@ export function BusinessBaseInfo({
       ) : (
         <BusinessPriceRating price={price} />
       )}
-      <YelpRating rating={rating} reviewCount={reviewCount} />
+      <BusinessYelpRating rating={rating} reviewCount={reviewCount} />
     </Box>
   );
 }
