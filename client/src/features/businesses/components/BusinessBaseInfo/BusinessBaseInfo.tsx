@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import { BusinessPriceRating } from '../BusinessPriceRating';
 import { BusinessYelpRating } from '../BusinessYelpRating';
 
-interface BusinessBaseInfoProps {
+export interface BusinessBaseInfoProps {
   index: number;
   name: string;
   rating: number;
