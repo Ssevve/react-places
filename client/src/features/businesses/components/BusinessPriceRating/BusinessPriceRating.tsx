@@ -3,9 +3,11 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { Price } from '../../api';
-import { priceRatings } from '../../constants';
+import { businessConstraints, priceRatings } from '../../constants';
 
-const getRating = (price: Price, maxRating: number, minRating = 1) => {
+const getPriceRating = (price: Price) => {
+  const minRating = businessConstraints.priceRating.min;
+  const maxRating = businessConstraints.priceRating.max;
   if (!price || price < minRating || price > maxRating) return 0;
   return price;
 };
@@ -15,10 +17,9 @@ interface BusinessPriceRatingProps {
 }
 
 export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
-  const MAX_RATING = 4;
-  const rating = getRating(price, MAX_RATING);
+  const rating = getPriceRating(price);
 
-  const color = rating && priceRatings[rating].color;
+  const color = rating ? priceRatings[rating].color : '';
   const label = rating && priceRatings[rating].label;
 
   const iconSize = '0.5rem';
@@ -27,10 +28,10 @@ export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
     <Box display="flex" gap="0.5rem" alignItems="center" data-testid="business-price-rating">
       <Rating
         value={rating}
-        icon={<CircleIcon sx={{ color, fontSize: iconSize }} />}
+        icon={<CircleIcon htmlColor={color} sx={{ fontSize: iconSize }} />}
         emptyIcon={<CircleIcon sx={{ fontSize: iconSize, opacity: 0.5 }} />}
         defaultValue={0}
-        max={MAX_RATING}
+        max={businessConstraints.priceRating.max}
         readOnly
       />
       <Typography component="span" fontSize={12} fontWeight="500" sx={{ color }}>
