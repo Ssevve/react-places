@@ -31,6 +31,7 @@ const businessSchema = z.object({
 
 export type Business = Camelize<z.infer<typeof businessSchema>>;
 export type Category = Business['categories'][0];
+export type DisplayAddress = Business['location']['displayAddress'];
 
 const businessesResponseSchema = z.object({
   businesses: z.array(businessSchema),

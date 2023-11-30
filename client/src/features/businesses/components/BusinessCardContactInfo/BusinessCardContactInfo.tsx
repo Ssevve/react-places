@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material/SvgIcon';
 import Typography, { TypographyOwnProps } from '@mui/material/Typography';
+import { joinAddress } from './joinAddress';
 
 const businessCardContactInfoTypographyProps: Partial<TypographyOwnProps> = {
   marginLeft: '0.5rem',
@@ -35,14 +36,14 @@ function BusinessCardContactInfoIcon({ icon: Icon }: BusinessCardContactInfoIcon
   return <Icon sx={{ color: '#f40d15' }} />;
 }
 
-interface BusinessCardContactInfoProps {
+export interface BusinessCardContactInfoProps {
   phone: string;
   yelpUrl: string | undefined;
   address: string[];
 }
 
 export function BusinessCardContactInfo({ phone, yelpUrl, address }: BusinessCardContactInfoProps) {
-  const displayAddress = address.join(', ');
+  const displayAddress = joinAddress(address);
   return (
     <List disablePadding>
       <ListItem disableGutters>
