@@ -23,7 +23,10 @@ const businessSchema = z.object({
     display_address: z.array(z.string()),
   }),
   name: z.string(),
-  price: z.string().optional(),
+  price: z
+    .string()
+    .transform((val) => val.length)
+    .optional(),
   rating: z.number(),
   review_count: z.number(),
   url: z.string().url().optional(),
@@ -32,6 +35,7 @@ const businessSchema = z.object({
 export type Business = Camelize<z.infer<typeof businessSchema>>;
 export type Category = Business['categories'][0];
 export type DisplayAddress = Business['location']['displayAddress'];
+export type Price = Business['price'];
 
 const businessesResponseSchema = z.object({
   businesses: z.array(businessSchema),

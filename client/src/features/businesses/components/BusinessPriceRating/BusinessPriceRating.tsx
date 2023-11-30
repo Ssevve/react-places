@@ -2,39 +2,16 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import { Price } from '../../api';
+import { priceRatings } from '../../constants';
 
-interface PriceRating {
-  color: string;
-  label: string;
-}
-
-const priceRatings: Record<PropertyKey, PriceRating> = {
-  1: {
-    color: '#69B34C',
-    label: 'Very Cheap',
-  },
-  2: {
-    color: '#ACB334',
-    label: 'Cheap',
-  },
-  3: {
-    color: '#FAB733',
-    label: 'Expensive',
-  },
-  4: {
-    color: '#FF4E11',
-    label: 'Very Expensive',
-  },
-};
-
-const getRating = (priceString: string | undefined, maxRating: number, minRating = 1) => {
-  const rating = priceString?.length;
-  if (!rating || rating < minRating || rating > maxRating) return 0;
-  return rating;
+const getRating = (price: Price, maxRating: number, minRating = 1) => {
+  if (!price || price < minRating || price > maxRating) return 0;
+  return price;
 };
 
 interface BusinessPriceRatingProps {
-  price: string | undefined;
+  price: Price;
 }
 
 export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {

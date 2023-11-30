@@ -5,7 +5,7 @@ const testInfo: BusinessBaseInfoProps = {
   index: 1,
   isClosed: false,
   name: 'Test Business',
-  price: '$',
+  price: 1,
   rating: 3,
   reviewCount: 17,
 };
