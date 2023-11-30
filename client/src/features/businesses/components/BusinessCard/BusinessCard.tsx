@@ -8,7 +8,7 @@ import Collapse from '@mui/material/Collapse';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import { memo } from 'react';
-import { Business } from '../../api/useBusinessesQuery';
+import { Business } from '../../api';
 import { BusinessBaseInfo } from '../BusinessBaseInfo';
 import { BusinessCardCategories } from '../BusinessCardCategories';
 import { BusinessCardContactInfo } from '../BusinessCardContactInfo';

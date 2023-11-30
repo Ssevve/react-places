@@ -1,7 +1,7 @@
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useCallback, useState } from 'react';
-import { useBusinessesQuery } from '../../api/useBusinessesQuery';
+import { useBusinessesQuery } from '../../api';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
 

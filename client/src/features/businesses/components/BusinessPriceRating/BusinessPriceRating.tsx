@@ -27,11 +27,11 @@ const priceRatings: Record<PropertyKey, PriceRating> = {
   },
 };
 
-function getRating(priceString: string | undefined, maxRating: number, minRating = 1) {
+const getRating = (priceString: string | undefined, maxRating: number, minRating = 1) => {
   const rating = priceString?.length;
   if (!rating || rating < minRating || rating > maxRating) return 0;
   return rating;
-}
+};
 
 interface BusinessPriceRatingProps {
   price: string | undefined;
