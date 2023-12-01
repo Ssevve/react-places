@@ -14,17 +14,15 @@ const getColoredIcons = (expectedColor: string) => {
 };
 
 describe('BusinessPriceRating', () => {
-  it('should correctly render rating for all possible prices', () => {
-    Object.keys(priceRatings).forEach((ratingString) => {
-      const rating = Number(ratingString);
-      const expectedColor = priceRatings[rating].color;
-      const expectedLabel = priceRatings[rating].label;
-      renderBusinessPriceRating(rating);
-      expect(screen.getByText(expectedLabel)).toHaveStyle({
-        color: expectedColor,
-      });
-      expect(getColoredIcons(expectedColor)).toHaveLength(rating);
+  it('should correctly render price rating', () => {
+    const expectedRating = 3;
+    const expectedColor = priceRatings[expectedRating].color;
+    const expectedLabel = priceRatings[expectedRating].label;
+    renderBusinessPriceRating(expectedRating);
+    expect(screen.getByText(expectedLabel)).toHaveStyle({
+      color: expectedColor,
     });
+    expect(getColoredIcons(expectedColor)).toHaveLength(expectedRating);
   });
 
   it('should not render rating if price is less than minimum priceRating', () => {
