@@ -9,12 +9,13 @@ export interface BusinessYelpRatingProps {
 
 // TODO: fix half star
 export function BusinessYelpRating({ rating, reviewCount }: BusinessYelpRatingProps) {
+  const starString = rating === 0.5 || rating === 1 ? 'star' : 'stars';
   return (
     <Box display="flex" gap="0.5rem" alignItems="center">
       <img
         width={102}
-        src={`assets/yelp-stars/${getYelpRatingImageName(rating)}`}
-        alt={`Yelp rating of ${rating}`}
+        src={`src/assets/yelp-stars/${getYelpRatingImageName(rating)}`}
+        alt={`Yelp ${rating} ${starString}`}
       />
       <Typography component="span" fontSize={14} fontWeight="700">
         {rating}
