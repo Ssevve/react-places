@@ -14,14 +14,13 @@ import { BusinessCardCategories } from '../BusinessCardCategories';
 import { BusinessCardContactInfo } from '../BusinessCardContactInfo';
 import { BusinessImage } from '../BusinessImage';
 
-interface BusinessCardProps {
-  business: Business;
+export interface BusinessCardProps {
+  business: Omit<Business, 'coordinates'>;
   index: number;
   isExpanded: boolean;
   setExpanded: (id: string) => void;
 }
 
-// TODO: tests
 export const BusinessCard = memo(
   ({ business, index, isExpanded, setExpanded }: BusinessCardProps) => {
     const expandedBorderWidth = '5px';
