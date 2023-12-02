@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BusinessBaseInfo, BusinessBaseInfoProps } from '.';
 
-const testInfo: BusinessBaseInfoProps = {
+const info: BusinessBaseInfoProps = {
   index: 1,
   isClosed: false,
   name: 'Test Business',
@@ -11,13 +11,13 @@ const testInfo: BusinessBaseInfoProps = {
 };
 
 const renderBusinessBaseInfo = (props?: Partial<BusinessBaseInfoProps>) => {
-  return render(<BusinessBaseInfo {...testInfo} {...props} />);
+  return render(<BusinessBaseInfo {...info} {...props} />);
 };
 
 describe('BusinessBaseInfo', () => {
-  it('should render name with correct index', () => {
+  it('should render name with correct number', () => {
     renderBusinessBaseInfo();
-    expect(screen.getByText(`${testInfo.index}. ${testInfo.name}`)).toBeInTheDocument();
+    expect(screen.getByText(`${info.index + 1}. ${info.name}`)).toBeInTheDocument();
   });
 
   it('should render <BusinessPriceRating /> component if isClosed is false', () => {
@@ -34,6 +34,6 @@ describe('BusinessBaseInfo', () => {
 
   it('should render <BusinessYelpRating /> component', () => {
     renderBusinessBaseInfo();
-    expect(screen.getByText(testInfo.rating)).toBeInTheDocument();
+    expect(screen.getByText(info.rating)).toBeInTheDocument();
   });
 });

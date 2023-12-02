@@ -24,7 +24,7 @@ export function BusinessBaseInfo({
   return (
     <Box display="flex" flexDirection="column" gap="0.5rem" alignItems="flex-start">
       <Typography component="h3" fontWeight="bold">
-        {`${index}. ${name}`}
+        {`${index + 1}. ${name}`}
       </Typography>
       {isClosed ? (
         <Typography component="span" variant="caption" fontWeight="bold" color="#f40d15">

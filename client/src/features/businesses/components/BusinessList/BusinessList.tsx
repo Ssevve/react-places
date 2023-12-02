@@ -21,7 +21,7 @@ export function BusinessList() {
           <ListItem key={business.id} disablePadding disableGutters>
             <BusinessCard
               business={business}
-              index={index + 1}
+              index={index}
               isExpanded={expandedBusiness === business.id}
               setExpanded={toggleExpandedBusiness}
             />
