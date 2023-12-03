@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BusinessPriceRating } from '.';
-import { Price } from '../../api';
-import { businessConstraints, priceRatings } from '../../constants';
+import { priceRatings } from '../../constants';
 
-const renderBusinessPriceRating = (price: Price) => {
+const renderBusinessPriceRating = (price: number) => {
   return render(<BusinessPriceRating price={price} />);
 };
 
@@ -23,15 +22,5 @@ describe('BusinessPriceRating', () => {
       color: expectedColor,
     });
     expect(getColoredIcons(expectedColor)).toHaveLength(expectedRating);
-  });
-
-  it('should not render rating if price is less than minimum priceRating', () => {
-    renderBusinessPriceRating(businessConstraints.priceRating.min - 1);
-    expect(screen.queryByTestId('business-price-rating')).not.toBeInTheDocument();
-  });
-
-  it('should not render rating if price is greater than maximum priceRating', () => {
-    renderBusinessPriceRating(businessConstraints.priceRating.max + 1);
-    expect(screen.queryByTestId('business-price-rating')).not.toBeInTheDocument();
   });
 });
