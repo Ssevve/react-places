@@ -1,27 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { BusinessCard, BusinessCardProps } from '.';
+import camelize from 'camelize-ts';
+import { generateMock } from '@anatine/zod-mock';
+import { businessSchema } from '../../api';
 
-const business: BusinessCardProps['business'] = {
-  categories: [
-    {
-      alias: 'pierogis',
-      title: 'Pierogis',
-    },
-  ],
-  displayPhone: '+48 58 400 30 20',
-  id: 'nnhonxbvEsdMc5bLeF9U6w',
-  imageUrl: 'https://s3-media3.fl.yelpcdn.com/bphoto/qTbDhHqoRwR_CD4jyF-CoQ/o.jpg',
-  isClosed: false,
-  location: {
-    displayAddress: ['ul. Elżbietańska', '80-834 Gdańsk', 'Poland'],
-  },
-  name: 'Pierogarnia',
-  price: 2,
-  rating: 5,
-  reviewCount: 43,
-  url: 'https://www.yelp.com/biz/pierogarniagdansk',
-};
+const business: BusinessCardProps['business'] = camelize(generateMock(businessSchema));
 
 const testProps: BusinessCardProps = {
   business,
