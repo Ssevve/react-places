@@ -1,6 +1,6 @@
 import { App } from '@/App';
 import { server } from '@/__mocks__/server';
-import { renderWithQueryProvider } from '@/utils/renderWithQueryProvider';
+import { renderWithQueryProvider } from '@/tests';
 import { screen, waitFor } from '@testing-library/react';
 import { HttpResponse, http } from 'msw';
 

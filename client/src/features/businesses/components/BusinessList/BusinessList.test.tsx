@@ -1,7 +1,7 @@
-import { renderWithQueryProvider } from '@/utils/renderWithQueryProvider';
+import { mockBusinessesResponse } from '@/__mocks__';
+import { renderWithQueryProvider } from '@/tests';
 import { screen, waitFor } from '@testing-library/react';
 import { BusinessList } from '.';
-import { mockBusinessesResponse } from '@/__mocks__/data/mockBusinessesResponse';
 
 const renderBusinessList = () => {
   return renderWithQueryProvider(<BusinessList />);

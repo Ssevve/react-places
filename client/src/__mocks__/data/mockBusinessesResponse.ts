@@ -7,7 +7,7 @@ const mockFromSchema = generateMock(businessesResponseSchema);
 // It generates as a number, because of transform in the zod schema and throws an error while parsing
 const transformedBusinesses = mockFromSchema.businesses.map(({ price, ...rest }) => ({
   ...rest,
-  price: '$'.repeat(price),
+  price: '$'.repeat(price || 0),
 }));
 
 export const mockBusinessesResponse = {
