@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Price } from '../../api';
 import { BusinessPriceRating } from '../BusinessPriceRating';
 import { BusinessYelpRating } from '../BusinessYelpRating';
 
@@ -9,7 +10,7 @@ export interface BusinessBaseInfoProps {
   rating: number;
   reviewCount: number;
   isClosed: boolean;
-  price: number;
+  price: Price;
 }
 
 export function BusinessBaseInfo({

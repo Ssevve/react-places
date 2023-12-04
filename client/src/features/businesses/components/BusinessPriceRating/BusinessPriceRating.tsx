@@ -2,19 +2,20 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import { Price } from '../../api';
 import { businessConstraints, priceRatings } from '../../constants';
 
 interface BusinessPriceRatingProps {
-  price: number;
+  price: Price;
 }
 
 export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
-  const color = priceRatings[price].color;
-  const label = priceRatings[price].label;
+  const color = price ? priceRatings[price].color : '';
+  const label = price ? priceRatings[price].label : '';
 
   const iconSize = '0.5rem';
 
-  return (
+  return price ? (
     <Box display="flex" gap="0.5rem" alignItems="center" data-testid="business-price-rating">
       <Rating
         value={price}
@@ -28,5 +29,5 @@ export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
         {label}
       </Typography>
     </Box>
-  );
+  ) : null;
 }

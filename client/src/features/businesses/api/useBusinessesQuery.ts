@@ -28,7 +28,8 @@ export const businessSchema = z.object({
     .string()
     .min(businessConstraints.priceRating.min)
     .max(businessConstraints.priceRating.max)
-    .transform((val) => val.length),
+    .transform((val) => val.length)
+    .optional(),
   rating: z.number(),
   review_count: z.number(),
   url: z.string().url().optional(),
@@ -37,6 +38,7 @@ export const businessSchema = z.object({
 export type Business = Camelize<z.infer<typeof businessSchema>>;
 export type Category = Business['categories'][0];
 export type DisplayAddress = Business['location']['displayAddress'];
+export type Price = Business['price'];
 
 export const businessesResponseSchema = z.object({
   businesses: z.array(businessSchema),
