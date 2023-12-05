@@ -1,2 +1,1 @@
-export * from './createQueryHookWrapper';
-export * from './renderWithQueryProvider';
+export * from './createReactQueryWrapper';

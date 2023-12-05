@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export const createQueryHookWrapper = () => {
+export const createReactQueryWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

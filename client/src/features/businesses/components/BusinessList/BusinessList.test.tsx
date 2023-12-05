@@ -1,10 +1,10 @@
 import { mockBusinessesResponse } from '@/__mocks__';
-import { renderWithQueryProvider } from '@/tests';
-import { screen, waitFor } from '@testing-library/react';
+import { createReactQueryWrapper } from '@/tests';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BusinessList } from '.';
 
 const renderBusinessList = () => {
-  return renderWithQueryProvider(<BusinessList />);
+  return render(<BusinessList />, { wrapper: createReactQueryWrapper() });
 };
 
 describe('BusinessList', () => {
