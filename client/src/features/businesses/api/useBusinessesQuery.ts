@@ -54,12 +54,12 @@ const fetchBusinesses = async () => {
   return businessesResponseSchema.parse(await res.json());
 };
 
-export function useBusinessesQuery() {
+export function useBusinessesQuery({ throwOnError = false } = {}) {
   return useQuery({
     queryFn: fetchBusinesses,
     queryKey: ['businesses'],
     select: camelize,
     staleTime: Infinity,
-    throwOnError: true,
+    throwOnError,
   });
 }

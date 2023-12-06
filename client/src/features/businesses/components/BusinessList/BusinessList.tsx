@@ -7,7 +7,7 @@ import { BusinessListSkeleton } from '../BusinessListSkeleton';
 
 export function BusinessList() {
   const [expandedBusiness, setExpandedBusiness] = useState<string>();
-  const { data: businesses } = useBusinessesQuery();
+  const { data: businesses } = useBusinessesQuery({ throwOnError: true });
 
   const toggleExpandedBusiness = useCallback((id: string) => {
     return setExpandedBusiness((prevId) => (prevId === id ? undefined : id));
