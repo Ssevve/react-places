@@ -1,17 +1,23 @@
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { useCallback, useState } from 'react';
 import { useBusinessesQuery } from '../../api';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
 
-export function BusinessList() {
-  const [expandedBusiness, setExpandedBusiness] = useState<string>();
-  const { data: businesses } = useBusinessesQuery({ throwOnError: true });
+interface BusinessListProps {
+  hoveredBusinessId: string | undefined;
+  toggleHoveredBusiness: (id: string) => void;
+  toggleExpandedBusiness: (id: string) => void;
+  expandedBusinessId: string | undefined;
+}
 
-  const toggleExpandedBusiness = useCallback((id: string) => {
-    return setExpandedBusiness((prevId) => (prevId === id ? undefined : id));
-  }, []);
+export function BusinessList({
+  hoveredBusinessId,
+  toggleHoveredBusiness,
+  expandedBusinessId,
+  toggleExpandedBusiness,
+}: BusinessListProps) {
+  const { data: businesses } = useBusinessesQuery({ throwOnError: true });
 
   if (businesses) {
     return (
@@ -21,8 +27,10 @@ export function BusinessList() {
             <BusinessCard
               business={business}
               index={index}
-              isExpanded={expandedBusiness === business.id}
-              setExpanded={toggleExpandedBusiness}
+              isExpanded={expandedBusinessId === business.id}
+              toggleExpanded={toggleExpandedBusiness}
+              isHovered={hoveredBusinessId === business.id}
+              toggleHovered={toggleHoveredBusiness}
             />
           </ListItem>
         ))}

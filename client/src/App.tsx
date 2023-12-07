@@ -1,14 +1,10 @@
 import { Map } from '@/components/Map';
 import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
-import { styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
+import { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
-const AppWrapper = styled('div')({
-  display: 'flex',
-  position: 'relative',
-});
 
 export const ContentWrapper = styled(Paper)(({ theme }) => ({
   height: '100vh',
@@ -24,15 +20,36 @@ export const ContentWrapper = styled(Paper)(({ theme }) => ({
 }));
 
 export function App() {
+  const [hoveredBusinessId, setHoveredBusinessId] = useState<string>();
+  const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
+
   const { reset } = useQueryErrorResetBoundary();
+
+  const toggleHoveredBusiness = useCallback((id: string) => {
+    return setHoveredBusinessId((prevId) => (prevId === id ? undefined : id));
+  }, []);
+
+  const toggleExpandedBusiness = useCallback((id: string) => {
+    return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
+  }, []);
+
   return (
-    <AppWrapper>
-      <Map />
+    <Box display="flex" position="relative">
+      <Map
+        hoveredBusinessId={hoveredBusinessId}
+        toggleHoveredBusiness={toggleHoveredBusiness}
+        expandedBusinessId={expandedBusinessId}
+      />
       <ContentWrapper elevation={6}>
         <ErrorBoundary FallbackComponent={BusinessListErrorFallback} onReset={reset}>
-          <BusinessList />
+          <BusinessList
+            expandedBusinessId={expandedBusinessId}
+            toggleExpandedBusiness={toggleExpandedBusiness}
+            hoveredBusinessId={hoveredBusinessId}
+            toggleHoveredBusiness={toggleHoveredBusiness}
+          />
         </ErrorBoundary>
       </ContentWrapper>
-    </AppWrapper>
+    </Box>
   );
 }

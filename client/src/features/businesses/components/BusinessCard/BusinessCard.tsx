@@ -18,32 +18,37 @@ export interface BusinessCardProps {
   business: Omit<Business, 'coordinates'>;
   index: number;
   isExpanded: boolean;
-  setExpanded: (id: string) => void;
+  toggleExpanded: (id: string) => void;
+  isHovered: boolean;
+  toggleHovered: (id: string) => void;
 }
 
 export const BusinessCard = memo(
-  ({ business, index, isExpanded, setExpanded }: BusinessCardProps) => {
-    const expandedBorderWidth = '5px';
+  ({
+    business,
+    index,
+    isExpanded,
+    toggleExpanded,
+    toggleHovered,
+    isHovered,
+  }: BusinessCardProps) => {
+    const isHighlighted = isExpanded || isHovered;
     return (
       <Card
-        sx={[
-          {
-            '&:hover': {
-              borderLeftWidth: expandedBorderWidth,
-            },
-            borderColor: '#f40d15',
-            borderRadius: 0,
-            borderStyle: 'solid',
-            borderWidth: 0,
-            transition: 'all 150ms ease-out',
-            width: '100%',
-          },
-          isExpanded && {
-            borderLeftWidth: expandedBorderWidth,
-          },
-        ]}
+        onMouseEnter={() => toggleHovered(business.id)}
+        onMouseLeave={() => toggleHovered(business.id)}
+        sx={{
+          borderColor: '#f40d15',
+          borderWidth: 0,
+          // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+          borderLeftWidth: isHighlighted ? '5px' : 0,
+          borderRadius: 0,
+          borderStyle: 'solid',
+          transition: 'all 150ms ease-out',
+          width: '100%',
+        }}
       >
-        <CardActionArea disableRipple onClick={() => setExpanded(business.id)}>
+        <CardActionArea disableRipple onClick={() => toggleExpanded(business.id)}>
           <CardContent sx={{ display: 'flex', gap: '1rem', paddingRight: '0.5rem' }}>
             <BusinessImage alt={business.name} src={business.imageUrl} />
             <Box display="flex" flexDirection="column" gap="0.5rem">

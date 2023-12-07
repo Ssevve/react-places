@@ -1,15 +1,29 @@
 import { useBusinessesQuery } from '@/features/businesses';
 import L from 'leaflet';
+import { useMemo } from 'react';
 import { TileLayer, ZoomControl } from 'react-leaflet';
 import { BusinessMarker } from '../BusinessMarker';
+import { CenterExtendedBusiness } from '../CenterExtendedBusiness';
 import { MapWrapper, StyledMap } from './Map.styles';
 
-export function Map() {
+interface MapProps {
+  toggleHoveredBusiness: (id: string) => void;
+  hoveredBusinessId: string | undefined;
+  expandedBusinessId: string | undefined;
+}
+
+export function Map({ toggleHoveredBusiness, hoveredBusinessId, expandedBusinessId }: MapProps) {
   const { data: businesses } = useBusinessesQuery();
+
+  const expandedBusinessCoords = useMemo(
+    () => businesses?.businesses.find(({ id }) => id === expandedBusinessId)?.coordinates,
+    [expandedBusinessId, businesses?.businesses],
+  );
 
   const GDANSK_COORDS: L.LatLngExpression = [54.35, 18.65];
   const SOUTH_WEST_BOUNDS: L.LatLngExpression = [49.0, 14.08];
   const NORTH_EAST_BOUNDS: L.LatLngExpression = [54.86, 24.15];
+
   return (
     <MapWrapper data-testid="map">
       <StyledMap
@@ -25,8 +39,21 @@ export function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {businesses?.businesses.map((business, index) => {
-          return <BusinessMarker key={business.id} business={business} displayIndex={index + 1} />;
+          return (
+            <BusinessMarker
+              toggleHoveredBusiness={toggleHoveredBusiness}
+              isHovered={hoveredBusinessId === business.id}
+              isExpanded={expandedBusinessId === business.id}
+              key={business.id}
+              business={business}
+              displayIndex={index + 1}
+            />
+          );
         })}
+        <CenterExtendedBusiness
+          latitude={expandedBusinessCoords?.latitude}
+          longitude={expandedBusinessCoords?.longitude}
+        />
       </StyledMap>
     </MapWrapper>
   );
