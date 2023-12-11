@@ -21,7 +21,7 @@ export const ContentWrapper = styled(Paper)(({ theme }) => ({
 
 export function App() {
   const [hoveredBusinessId, setHoveredBusinessId] = useState<string>();
-  const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
+  const [centeredBusinessId, setCenteredBusinessId] = useState<string>();
 
   const { reset } = useQueryErrorResetBoundary();
 
@@ -29,22 +29,18 @@ export function App() {
     return setHoveredBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
-  const toggleExpandedBusiness = useCallback((id: string) => {
-    return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
-  }, []);
-
   return (
     <Box display="flex" position="relative">
       <Map
         hoveredBusinessId={hoveredBusinessId}
         toggleHoveredBusiness={toggleHoveredBusiness}
-        expandedBusinessId={expandedBusinessId}
+        centeredBusinessId={centeredBusinessId}
+        clearCenteredBusiness={() => setCenteredBusinessId(undefined)}
       />
       <ContentWrapper elevation={6}>
         <ErrorBoundary FallbackComponent={BusinessListErrorFallback} onReset={reset}>
           <BusinessList
-            expandedBusinessId={expandedBusinessId}
-            toggleExpandedBusiness={toggleExpandedBusiness}
+            setCenteredBusinessId={setCenteredBusinessId}
             hoveredBusinessId={hoveredBusinessId}
             toggleHoveredBusiness={toggleHoveredBusiness}
           />

@@ -1,5 +1,7 @@
 import yelpLogo from '@/assets/yelp-logo.svg';
+import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
@@ -7,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import { Business } from '../../api';
 import { BusinessBaseInfo } from '../BusinessBaseInfo';
@@ -21,6 +24,7 @@ export interface BusinessCardProps {
   toggleExpanded: (id: string) => void;
   isHovered: boolean;
   toggleHovered: (id: string) => void;
+  setCenteredBusinessId: (id: string) => void;
 }
 
 export const BusinessCard = memo(
@@ -28,6 +32,7 @@ export const BusinessCard = memo(
     business,
     index,
     isExpanded,
+    setCenteredBusinessId,
     toggleExpanded,
     toggleHovered,
     isHovered,
@@ -73,6 +78,22 @@ export const BusinessCard = memo(
             </CardContent>
           </Collapse>
           <CardActions>
+            <ButtonBase
+              component="div"
+              sx={{
+                color: '#f40d15',
+              }}
+              disableRipple
+              onClick={(e) => {
+                e.stopPropagation();
+                setCenteredBusinessId(business.id);
+              }}
+            >
+              <RoomRoundedIcon sx={{ fontSize: '0.85rem' }} />
+              <Typography component="span" variant="subtitle2" fontSize="0.75rem">
+                Show on map
+              </Typography>
+            </ButtonBase>
             <Tooltip arrow title="Visit Yelp page">
               <Link
                 onClick={(e) => e.stopPropagation()}

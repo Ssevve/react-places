@@ -3,21 +3,27 @@ import L from 'leaflet';
 import { useMemo } from 'react';
 import { TileLayer, ZoomControl } from 'react-leaflet';
 import { BusinessMarker } from '../BusinessMarker';
-import { CenterExtendedBusiness } from '../CenterExtendedBusiness';
+import { CenteredBusiness } from '../CenteredBusiness';
 import { MapWrapper, StyledMap } from './Map.styles';
 
 interface MapProps {
   toggleHoveredBusiness: (id: string) => void;
   hoveredBusinessId: string | undefined;
-  expandedBusinessId: string | undefined;
+  centeredBusinessId: string | undefined;
+  clearCenteredBusiness: () => void;
 }
 
-export function Map({ toggleHoveredBusiness, hoveredBusinessId, expandedBusinessId }: MapProps) {
+export function Map({
+  toggleHoveredBusiness,
+  hoveredBusinessId,
+  centeredBusinessId,
+  clearCenteredBusiness,
+}: MapProps) {
   const { data: businesses } = useBusinessesQuery();
 
-  const expandedBusinessCoords = useMemo(
-    () => businesses?.businesses.find(({ id }) => id === expandedBusinessId)?.coordinates,
-    [expandedBusinessId, businesses?.businesses],
+  const centeredBusinessCoords = useMemo(
+    () => businesses?.businesses.find(({ id }) => id === centeredBusinessId)?.coordinates,
+    [centeredBusinessId, businesses?.businesses],
   );
 
   const GDANSK_COORDS: L.LatLngExpression = [54.35, 18.65];
@@ -43,16 +49,17 @@ export function Map({ toggleHoveredBusiness, hoveredBusinessId, expandedBusiness
             <BusinessMarker
               toggleHoveredBusiness={toggleHoveredBusiness}
               isHovered={hoveredBusinessId === business.id}
-              isExpanded={expandedBusinessId === business.id}
+              isExpanded={centeredBusinessId === business.id}
               key={business.id}
               business={business}
               displayIndex={index + 1}
             />
           );
         })}
-        <CenterExtendedBusiness
-          latitude={expandedBusinessCoords?.latitude}
-          longitude={expandedBusinessCoords?.longitude}
+        <CenteredBusiness
+          latitude={centeredBusinessCoords?.latitude}
+          longitude={centeredBusinessCoords?.longitude}
+          clearCenteredBusiness={clearCenteredBusiness}
         />
       </StyledMap>
     </MapWrapper>
