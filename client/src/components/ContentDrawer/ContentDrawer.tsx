@@ -1,38 +1,16 @@
 import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
-import StoreIcon from '@mui/icons-material/Store';
-import { ButtonBase, Drawer, useMediaQuery } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import { Drawer, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
-interface MobileDrawerTogglerProps {
-  isOpen: boolean;
-}
-
-const togglerWidth = 50;
-const MobileDrawerToggler = styled(ButtonBase, {
-  shouldForwardProp: (prop) => prop !== 'isOpen',
-})<MobileDrawerTogglerProps>(({ theme, isOpen }) => ({
-  backgroundColor: isOpen ? '#d3d3d3' : theme.palette.primary.main,
-  borderBottomRightRadius: theme.shape.borderRadius,
-  borderTopRightRadius: theme.shape.borderRadius,
-  color: isOpen ? 'inherit' : 'white',
-  cursor: 'pointer',
-  height: 150,
-  position: 'absolute',
-  right: -togglerWidth,
-  top: '50%',
-  transition: theme.transitions.create('background-color'),
-  translate: '0 -50%',
-  visibility: 'visible',
-  width: togglerWidth,
-}));
+import { MobileDrawerToggler } from './components/MobileDrawerToggler';
 
 interface ContentDrawerProps {
   setCenteredBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
+const togglerWidth = 50;
 const togglerOffset = togglerWidth + 12;
 const drawerWidth = {
   maxWidth: `calc(100% - ${togglerOffset}px)`,
@@ -71,9 +49,11 @@ export function ContentDrawer({ setCenteredBusinessId }: ContentDrawerProps) {
         <BusinessList setCenteredBusinessId={setCenteredBusinessId} toggleDrawer={toggleDrawer} />
       </ErrorBoundary>
       {isMobile && (
-        <MobileDrawerToggler onClick={() => toggleDrawer()} isOpen={isOpen}>
-          <StoreIcon />
-        </MobileDrawerToggler>
+        <MobileDrawerToggler
+          isDrawerOpen={isOpen}
+          width={togglerWidth}
+          toggleDrawer={toggleDrawer}
+        />
       )}
     </Drawer>
   );
