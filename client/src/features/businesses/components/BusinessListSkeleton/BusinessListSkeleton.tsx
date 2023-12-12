@@ -9,6 +9,7 @@ export function BusinessListSkeleton() {
       <BusinessCardSkeleton />
       <BusinessCardSkeleton />
       <BusinessCardSkeleton />
+      <BusinessCardSkeleton />
     </Box>
   );
 }

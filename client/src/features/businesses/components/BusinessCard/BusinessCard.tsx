@@ -67,7 +67,7 @@ export const BusinessCard = memo(
           width: '100%',
         }}
       >
-        <CardActionArea disableRipple onClick={() => toggleExpanded(business.id)}>
+        <CardActionArea onClick={() => toggleExpanded(business.id)}>
           <CardContent
             sx={(theme) => ({
               display: 'flex',
@@ -107,7 +107,6 @@ export const BusinessCard = memo(
               sx={{
                 color: 'primary.main',
               }}
-              disableRipple
               onClick={(e) => {
                 e.stopPropagation();
                 centerBusiness(business.id);

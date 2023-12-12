@@ -17,6 +17,18 @@ export const theme = createTheme({
       sm: 450,
     },
   },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiSkeleton: {
+      defaultProps: {
+        animation: 'wave',
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#f40d15',

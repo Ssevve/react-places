@@ -21,7 +21,6 @@ export const BusinessMarker = memo(
     return (
       <InteractiveMarker position={[latitude, longitude]}>
         <IconButton
-          disableRipple
           sx={{
             bottom: '-50%',
             height: 'auto',
