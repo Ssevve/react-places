@@ -51,6 +51,7 @@ export function ContentDrawer({ setCenteredBusinessId }: ContentDrawerProps) {
 
   return (
     <Drawer
+      data-testid="content-drawer"
       PaperProps={{
         sx: {
           ...drawerWidth,
