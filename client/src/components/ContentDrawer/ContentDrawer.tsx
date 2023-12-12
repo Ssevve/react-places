@@ -11,7 +11,9 @@ interface MobileDrawerTogglerProps {
 }
 
 const togglerWidth = 50;
-const MobileDrawerToggler = styled(ButtonBase)<MobileDrawerTogglerProps>(({ theme, isOpen }) => ({
+const MobileDrawerToggler = styled(ButtonBase, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})<MobileDrawerTogglerProps>(({ theme, isOpen }) => ({
   backgroundColor: isOpen ? '#d3d3d3' : theme.palette.primary.main,
   borderBottomRightRadius: theme.shape.borderRadius,
   borderTopRightRadius: theme.shape.borderRadius,
@@ -41,7 +43,6 @@ export function ContentDrawer({ setCenteredBusinessId }: ContentDrawerProps) {
   const [isOpen, setIsOpen] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   const { reset } = useQueryErrorResetBoundary();
 
   const toggleDrawer = useCallback((newOpen?: boolean) => {
