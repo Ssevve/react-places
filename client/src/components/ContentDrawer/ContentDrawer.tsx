@@ -38,7 +38,7 @@ const drawerWidth = {
 };
 
 export function ContentDrawer({ setCenteredBusinessId }: ContentDrawerProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
