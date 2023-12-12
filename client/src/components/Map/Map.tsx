@@ -1,24 +1,22 @@
 import { useBusinessesQuery } from '@/features/businesses';
+import { Box, styled } from '@mui/material';
 import L from 'leaflet';
 import { useMemo } from 'react';
-import { TileLayer, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { BusinessMarker } from '../BusinessMarker';
 import { CenteredBusiness } from '../CenteredBusiness';
-import { MapWrapper, StyledMap } from './Map.styles';
+
+export const StyledMap = styled(MapContainer)({
+  height: '100%',
+  width: '100%',
+});
 
 interface MapProps {
-  toggleHoveredBusiness: (id: string) => void;
-  hoveredBusinessId: string | undefined;
   centeredBusinessId: string | undefined;
   clearCenteredBusiness: () => void;
 }
 
-export function Map({
-  toggleHoveredBusiness,
-  hoveredBusinessId,
-  centeredBusinessId,
-  clearCenteredBusiness,
-}: MapProps) {
+export function Map({ centeredBusinessId, clearCenteredBusiness }: MapProps) {
   const { data: businesses } = useBusinessesQuery();
 
   const centeredBusinessCoords = useMemo(
@@ -31,7 +29,7 @@ export function Map({
   const NORTH_EAST_BOUNDS: L.LatLngExpression = [54.86, 24.15];
 
   return (
-    <MapWrapper data-testid="map">
+    <Box height="100%" width="100%" data-testid="map">
       <StyledMap
         center={GDANSK_COORDS}
         minZoom={8}
@@ -47,9 +45,7 @@ export function Map({
         {businesses?.businesses.map((business, index) => {
           return (
             <BusinessMarker
-              toggleHoveredBusiness={toggleHoveredBusiness}
-              isHovered={hoveredBusinessId === business.id}
-              isExpanded={centeredBusinessId === business.id}
+              isCentered={centeredBusinessId === business.id}
               key={business.id}
               business={business}
               displayIndex={index + 1}
@@ -62,6 +58,6 @@ export function Map({
           clearCenteredBusiness={clearCenteredBusiness}
         />
       </StyledMap>
-    </MapWrapper>
+    </Box>
   );
 }

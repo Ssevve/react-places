@@ -4,10 +4,11 @@ import Avatar from '@mui/material/Avatar';
 export interface BusinessImageProps {
   alt: string;
   src: string | undefined;
-  size?: string;
+  size?: number;
+  fullWidth?: boolean;
 }
 
-export function BusinessImage({ alt, src, size = '6rem' }: BusinessImageProps) {
+export function BusinessImage({ alt, src, size = 96, fullWidth = false }: BusinessImageProps) {
   return (
     <Avatar
       alt={alt}
@@ -15,10 +16,10 @@ export function BusinessImage({ alt, src, size = '6rem' }: BusinessImageProps) {
       variant="rounded"
       sx={{
         height: size,
-        width: size,
+        width: fullWidth ? '100%' : size,
       }}
     >
-      <BrokenImageRoundedIcon sx={{ height: '50%', width: '50%' }} />
+      <BrokenImageRoundedIcon sx={{ height: size / 2, width: size / 2 }} />
     </Avatar>
   );
 }

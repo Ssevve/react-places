@@ -1,5 +1,6 @@
 import yelpLogo from '@/assets/yelp-logo.svg';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
+import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
@@ -22,10 +23,11 @@ export interface BusinessCardProps {
   index: number;
   isExpanded: boolean;
   toggleExpanded: (id: string) => void;
-  isHovered: boolean;
-  toggleHovered: (id: string) => void;
   setCenteredBusinessId: (id: string) => void;
+  toggleDrawer: (newOpen?: boolean) => void;
 }
+
+const highlightBorderWidth = 4;
 
 export const BusinessCard = memo(
   ({
@@ -34,29 +36,51 @@ export const BusinessCard = memo(
     isExpanded,
     setCenteredBusinessId,
     toggleExpanded,
-    toggleHovered,
-    isHovered,
+    toggleDrawer,
   }: BusinessCardProps) => {
-    const isHighlighted = isExpanded || isHovered;
+    const theme = useTheme();
+    const isSmallMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const centerBusiness = (id: string) => {
+      setCenteredBusinessId(id);
+      toggleDrawer(false);
+    };
+
     return (
       <Card
-        onMouseEnter={() => toggleHovered(business.id)}
-        onMouseLeave={() => toggleHovered(business.id)}
         sx={{
-          borderColor: '#f40d15',
-          borderWidth: 0,
-          // eslint-disable-next-line sort-keys-fix/sort-keys-fix
-          borderLeftWidth: isHighlighted ? '5px' : 0,
+          '&::after': {
+            backgroundColor: 'primary.main',
+            content: "''",
+            height: '100%',
+            left: 0,
+            maxWidth: isExpanded ? highlightBorderWidth : 0,
+            position: 'absolute',
+            top: 0,
+            transition: 'max-width 150ms ease-out',
+            width: highlightBorderWidth,
+          },
+          '&:hover::after': {
+            maxWidth: highlightBorderWidth,
+          },
           borderRadius: 0,
-          borderStyle: 'solid',
-          transition: 'all 150ms ease-out',
+          position: 'relative',
           width: '100%',
         }}
       >
         <CardActionArea disableRipple onClick={() => toggleExpanded(business.id)}>
-          <CardContent sx={{ display: 'flex', gap: '1rem', paddingRight: '0.5rem' }}>
-            <BusinessImage alt={business.name} src={business.imageUrl} />
-            <Box display="flex" flexDirection="column" gap="0.5rem">
+          <CardContent
+            sx={(theme) => ({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              paddingRight: 1,
+              [theme.breakpoints.up('sm')]: {
+                flexDirection: 'row',
+              },
+            })}
+          >
+            <BusinessImage alt={business.name} src={business.imageUrl} fullWidth={isSmallMobile} />
+            <Box display="flex" flexDirection="column" gap={1}>
               <BusinessBaseInfo
                 index={index}
                 isClosed={business.isClosed}
@@ -81,16 +105,16 @@ export const BusinessCard = memo(
             <ButtonBase
               component="div"
               sx={{
-                color: '#f40d15',
+                color: 'primary.main',
               }}
               disableRipple
               onClick={(e) => {
                 e.stopPropagation();
-                setCenteredBusinessId(business.id);
+                centerBusiness(business.id);
               }}
             >
-              <RoomRoundedIcon sx={{ fontSize: '0.85rem' }} />
-              <Typography component="span" variant="subtitle2" fontSize="0.75rem">
+              <RoomRoundedIcon sx={{ fontSize: 14 }} />
+              <Typography component="span" variant="subtitle2" fontSize={12}>
                 Show on map
               </Typography>
             </ButtonBase>
