@@ -8,9 +8,9 @@ interface BusinessCardCategoriesProps {
 
 export function BusinessCardCategories({ categories }: BusinessCardCategoriesProps) {
   return categories && categories.length ? (
-    <Box display="flex" gap="0.25rem" flexWrap="wrap">
+    <Box display="flex" gap={0.5} flexWrap="wrap">
       {categories.map(({ title }) => (
-        <Chip key={title} label={title} size="small" sx={{ fontSize: '0.75rem' }} />
+        <Chip key={title} label={title} size="small" sx={{ fontSize: 12 }} />
       ))}
     </Box>
   ) : null;

@@ -13,10 +13,10 @@ export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
   const color = price ? priceRatings[price].color : '';
   const label = price ? priceRatings[price].label : '';
 
-  const iconSize = '0.5rem';
+  const iconSize = 8;
 
   return price ? (
-    <Box display="flex" gap="0.5rem" alignItems="center" data-testid="business-price-rating">
+    <Box display="flex" gap={1} alignItems="center" data-testid="business-price-rating">
       <Rating
         value={price}
         icon={<CircleIcon htmlColor={color} sx={{ fontSize: iconSize }} />}
@@ -25,7 +25,7 @@ export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
         max={businessConstraints.priceRating.max}
         readOnly
       />
-      <Typography component="span" fontSize={12} fontWeight="500" sx={{ color }}>
+      <Typography component="span" fontSize={12} fontWeight={500} sx={{ color }}>
         {label}
       </Typography>
     </Box>

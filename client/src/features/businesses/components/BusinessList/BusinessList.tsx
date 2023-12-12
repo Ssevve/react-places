@@ -6,16 +6,11 @@ import { BusinessCard } from '../BusinessCard';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
 
 interface BusinessListProps {
-  hoveredBusinessId: string | undefined;
-  toggleHoveredBusiness: (id: string) => void;
   setCenteredBusinessId: (id: string) => void;
+  toggleDrawer: (newOpen?: boolean) => void;
 }
 
-export function BusinessList({
-  hoveredBusinessId,
-  toggleHoveredBusiness,
-  setCenteredBusinessId,
-}: BusinessListProps) {
+export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessListProps) {
   const { data: businesses } = useBusinessesQuery({ throwOnError: true });
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
 
@@ -25,7 +20,7 @@ export function BusinessList({
 
   if (businesses) {
     return (
-      <List disablePadding aria-label="Business list">
+      <List disablePadding aria-label="Businesses" sx={{ overflow: 'auto' }}>
         {businesses.businesses.map((business, index) => (
           <ListItem key={business.id} disablePadding disableGutters>
             <BusinessCard
@@ -33,8 +28,7 @@ export function BusinessList({
               index={index}
               isExpanded={expandedBusinessId === business.id}
               setCenteredBusinessId={setCenteredBusinessId}
-              isHovered={hoveredBusinessId === business.id}
-              toggleHovered={toggleHoveredBusiness}
+              toggleDrawer={toggleDrawer}
               toggleExpanded={toggleExpanded}
             />
           </ListItem>

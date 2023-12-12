@@ -11,7 +11,7 @@ import Typography, { TypographyOwnProps } from '@mui/material/Typography';
 import { joinAddress } from './joinAddress';
 
 const businessCardContactInfoTypographyProps: Partial<TypographyOwnProps> = {
-  marginLeft: '0.5rem',
+  marginLeft: 1,
   variant: 'subtitle2',
 };
 
@@ -33,7 +33,7 @@ interface BusinessCardContactInfoIconProps {
 }
 
 function BusinessCardContactInfoIcon({ icon: Icon }: BusinessCardContactInfoIconProps) {
-  return <Icon sx={{ color: '#f40d15' }} />;
+  return <Icon sx={{ color: 'primary.main' }} />;
 }
 
 export interface BusinessCardContactInfoProps {

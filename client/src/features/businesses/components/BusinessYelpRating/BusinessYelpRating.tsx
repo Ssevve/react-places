@@ -11,16 +11,16 @@ export interface BusinessYelpRatingProps {
 export function BusinessYelpRating({ rating, reviewCount }: BusinessYelpRatingProps) {
   const starString = rating === 0.5 || rating === 1 ? 'star' : 'stars';
   return (
-    <Box display="flex" gap="0.5rem" alignItems="center">
+    <Box display="flex" gap={1} alignItems="center">
       <img
         width={102}
         src={`src/assets/yelp-stars/${getYelpRatingImageName(rating)}`}
         alt={`Yelp ${rating} ${starString}`}
       />
-      <Typography component="span" fontSize={14} fontWeight="700">
+      <Typography component="span" fontSize={14} fontWeight={700}>
         {rating}
       </Typography>
-      <Typography component="span" fontSize={12} fontWeight="500">
+      <Typography component="span" fontSize={12} fontWeight={500}>
         ({reviewCount} reviews)
       </Typography>
     </Box>

@@ -8,7 +8,7 @@ interface BusinessListFallbackProps {
 
 export function BusinessListErrorFallback({ resetErrorBoundary }: BusinessListFallbackProps) {
   return (
-    <Box role="alert" display="grid" justifyContent="center" gap="0.5rem" padding="1rem">
+    <Box role="alert" display="grid" justifyContent="center" gap={1} padding={2}>
       <Typography component="p">Couldn't load businesses</Typography>
       <Button variant="contained" size="small" onClick={resetErrorBoundary}>
         Try again

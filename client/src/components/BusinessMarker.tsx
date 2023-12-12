@@ -9,30 +9,18 @@ import { InteractiveMarker } from './InteractiveMarker';
 interface BusinessMarkerProps {
   business: Business;
   displayIndex: number;
-  toggleHoveredBusiness: (id: string) => void;
-  isHovered: boolean;
-  isExpanded: boolean;
+  isCentered: boolean;
 }
 
 export const BusinessMarker = memo(
-  ({
-    business,
-    displayIndex,
-    toggleHoveredBusiness,
-    isHovered,
-    isExpanded,
-  }: BusinessMarkerProps) => {
+  ({ business, displayIndex, isCentered }: BusinessMarkerProps) => {
     const {
       coordinates: { latitude, longitude },
     } = business;
 
-    const isHighlighted = isExpanded || isHovered;
-
     return (
       <InteractiveMarker position={[latitude, longitude]}>
         <IconButton
-          onMouseEnter={() => toggleHoveredBusiness(business.id)}
-          onMouseLeave={() => toggleHoveredBusiness(business.id)}
           disableRipple
           sx={{
             bottom: '-50%',
@@ -48,22 +36,18 @@ export const BusinessMarker = memo(
             <RoomRoundedIcon
               sx={[
                 {
-                  fill: 'red',
-                  fontSize: '40px',
-                  stroke: 'white',
+                  color: 'primary.main',
+                  fill: isCentered ? 'white' : 'currentColor',
+                  fontSize: 40,
+                  stroke: isCentered ? 'currentColor' : 'white',
                   transition: 'none',
                 },
-                isHighlighted && {
-                  fill: 'white',
-                  stroke: 'red',
-                },
               ]}
-              htmlColor="red"
             />
             <Box
               sx={{
                 aspectRatio: 1,
-                backgroundColor: isHighlighted ? 'white' : 'red',
+                backgroundColor: isCentered ? 'white' : 'primary.main',
                 borderRadius: '50%',
                 height: '40%',
                 left: '50%',
@@ -76,10 +60,10 @@ export const BusinessMarker = memo(
                 component="span"
                 variant="caption"
                 sx={{
-                  color: isHighlighted ? 'red' : 'white',
+                  color: isCentered ? 'primary.main' : 'white',
                   display: 'block',
-                  fontSize: '12px',
-                  fontWeight: '700',
+                  fontSize: 12,
+                  fontWeight: 700,
                 }}
               >
                 {displayIndex}

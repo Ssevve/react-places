@@ -17,7 +17,7 @@ describe('App', () => {
   it('should render <BusinessList /> component failed businesses fetch', async () => {
     renderApp();
     await waitFor(() => {
-      expect(screen.getByRole('list', { name: /business list/i })).toBeInTheDocument();
+      expect(screen.getByRole('list', { name: /businesses/i })).toBeInTheDocument();
     });
 
     expect(screen.queryByText("Couldn't load businesses")).not.toBeInTheDocument();
@@ -33,6 +33,6 @@ describe('App', () => {
       expect(screen.getByText("Couldn't load businesses")).toBeInTheDocument();
     });
 
-    expect(screen.queryByRole('list', { name: /business list/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('list', { name: /businesses/i })).not.toBeInTheDocument();
   });
 });

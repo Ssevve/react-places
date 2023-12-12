@@ -23,7 +23,7 @@ describe('BusinessImage', () => {
   });
 
   it('should render image with correct size', () => {
-    const expectedSize = '5rem';
+    const expectedSize = 80;
     renderBusinessImage({ size: expectedSize });
     expect(screen.getByRole('img').parentElement).toHaveStyle({ height: expectedSize });
     expect(screen.getByRole('img').parentElement).toHaveStyle({ width: expectedSize });
