@@ -67,7 +67,10 @@ export const BusinessCard = memo(
           width: '100%',
         }}
       >
-        <CardActionArea onClick={() => toggleExpanded(business.id)}>
+        <CardActionArea
+          data-testid="business-card-action-area"
+          onClick={() => toggleExpanded(business.id)}
+        >
           <CardContent
             sx={(theme) => ({
               display: 'flex',

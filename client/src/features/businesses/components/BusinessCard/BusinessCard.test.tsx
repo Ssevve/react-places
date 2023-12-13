@@ -1,17 +1,15 @@
+import { mockBusiness } from '@/__mocks__';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { BusinessCard, BusinessCardProps } from '.';
-import camelize from 'camelize-ts';
-import { generateMock } from '@anatine/zod-mock';
-import { businessSchema } from '../../api';
-
-const business: BusinessCardProps['business'] = camelize(generateMock(businessSchema));
+import { BusinessCard, BusinessCardProps } from './BusinessCard';
 
 const testProps: BusinessCardProps = {
-  business,
+  business: mockBusiness,
   index: 0,
   isExpanded: false,
-  setExpanded: vi.fn(),
+  setCenteredBusinessId: vi.fn(),
+  toggleDrawer: vi.fn(),
+  toggleExpanded: vi.fn(),
 };
 
 const renderBusinessCard = (props?: Partial<BusinessCardProps>) => {
@@ -21,40 +19,58 @@ const renderBusinessCard = (props?: Partial<BusinessCardProps>) => {
 describe('BusinessCard', () => {
   it('should render <BusinessImage /> component', () => {
     renderBusinessCard();
-    expect(screen.getByRole('img', { name: business.name })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: mockBusiness.name })).toBeInTheDocument();
   });
 
   it('should render <BusinessBaseInfo /> component', () => {
     renderBusinessCard();
-    expect(screen.getByText(business.rating)).toBeInTheDocument();
+    expect(screen.getByText(mockBusiness.rating)).toBeInTheDocument();
   });
 
   it('should render <BusinessCardCategories /> component', () => {
     renderBusinessCard();
-    expect(screen.getByText(business.categories[0].title)).toBeInTheDocument();
+    expect(screen.getByText(mockBusiness.categories[0].title)).toBeInTheDocument();
   });
 
   it('should render Yelp link for the business', () => {
     renderBusinessCard();
-    expect(screen.getByRole('link')).toHaveAttribute('href', business.url);
+    expect(screen.getByRole('link')).toHaveAttribute('href', mockBusiness.url);
   });
 
   it('should render <BusinessCardContactInfo /> if expanded', async () => {
     renderBusinessCard({ isExpanded: true });
-    expect(screen.getByText(business.displayPhone)).toBeInTheDocument();
+    expect(screen.getByText(mockBusiness.displayPhone)).toBeInTheDocument();
   });
 
   it('should not render <BusinessCardContactInfo /> if not expanded', async () => {
     renderBusinessCard({ isExpanded: false });
-    expect(screen.queryByText(business.displayPhone)).not.toBeInTheDocument();
+    expect(screen.queryByText(mockBusiness.displayPhone)).not.toBeInTheDocument();
   });
 
-  it('should call "setExpanded" on click', async () => {
+  it('should render button to center the business on the map', async () => {
+    renderBusinessCard();
+    expect(screen.getByText(/show on map/i)).toBeInTheDocument();
+  });
+
+  it('should call "setCenteredBusinessId" and "toggleDrawer" on "center business" button click', async () => {
     const user = userEvent.setup();
-    const setExpanded = vi.fn();
-    renderBusinessCard({ setExpanded });
-    const clickableArea = screen.getByRole('button');
-    await user.click(clickableArea);
-    expect(setExpanded).toHaveBeenCalledOnce();
+    const setCenteredBusinessId = vi.fn();
+    const toggleDrawer = vi.fn();
+    renderBusinessCard({ setCenteredBusinessId, toggleDrawer });
+
+    await user.click(screen.getByText(/show on map/i));
+
+    expect(setCenteredBusinessId).toHaveBeenCalledOnce();
+    expect(toggleDrawer).toHaveBeenCalledOnce();
+  });
+
+  it('should call "toggleExpanded" on click', async () => {
+    const user = userEvent.setup();
+    const toggleExpanded = vi.fn();
+    renderBusinessCard({ toggleExpanded });
+
+    await user.click(screen.getByTestId('business-card-action-area'));
+
+    expect(toggleExpanded).toHaveBeenCalledOnce();
   });
 });
