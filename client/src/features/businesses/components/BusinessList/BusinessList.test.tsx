@@ -1,10 +1,9 @@
 import { mockBusinessesResponse } from '@/__mocks__';
-import { createReactQueryWrapper } from '@/tests';
-import { render, screen, waitFor } from '@testing-library/react';
-import { BusinessList } from '.';
+import { render, screen, waitFor } from '@/tests/utils';
+import { BusinessList } from './BusinessList';
 
 const renderBusinessList = () => {
-  return render(<BusinessList />, { wrapper: createReactQueryWrapper() });
+  return render(<BusinessList setCenteredBusinessId={vi.fn()} toggleDrawer={vi.fn()} />);
 };
 
 describe('BusinessList', () => {
