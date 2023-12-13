@@ -22,11 +22,16 @@ describe('BusinessImage', () => {
     expect(screen.getByRole('img')).toHaveAttribute('src', imageProps.src);
   });
 
-  it('should render image with correct size', () => {
+  it('should render image with provided size', () => {
     const expectedSize = 80;
     renderBusinessImage({ size: expectedSize });
-    expect(screen.getByRole('img').parentElement).toHaveStyle({ height: expectedSize });
-    expect(screen.getByRole('img').parentElement).toHaveStyle({ width: expectedSize });
+    expect(screen.getByRole('img').parentElement).toHaveStyle({ height: `${expectedSize}px` });
+    expect(screen.getByRole('img').parentElement).toHaveStyle({ width: `${expectedSize}px` });
+  });
+
+  it('should render with full width if "fullWidth" prop is true', () => {
+    renderBusinessImage({ fullWidth: true });
+    expect(screen.getByRole('img').parentElement).toHaveStyle({ width: '100%' });
   });
 
   it('should render <BrokenImageRoundedIcon /> if image src is not valid', () => {
