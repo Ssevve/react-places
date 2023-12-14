@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { InteractiveMarker } from './InteractiveMarker';
+import { InteractiveMarker } from '@/components/InteractiveMarker';
 
-interface BusinessMarkerProps {
+export interface BusinessMarkerProps {
   business: Business;
   displayIndex: number;
   isCentered: boolean;
@@ -19,7 +19,7 @@ export const BusinessMarker = memo(
     } = business;
 
     return (
-      <InteractiveMarker position={[latitude, longitude]}>
+      <InteractiveMarker riseOnHover shadowPane="none" position={[latitude, longitude]}>
         <IconButton
           sx={{
             bottom: '-50%',
