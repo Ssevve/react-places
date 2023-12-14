@@ -1,4 +1,3 @@
-import { styled } from '@mui/material';
 import L from 'leaflet';
 import { ForwardedRef, forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -7,10 +6,6 @@ import { Marker, MarkerProps } from 'react-leaflet';
 interface InteractiveMarkerProps extends MarkerProps {
   iconOptions?: L.DivIconOptions;
 }
-
-const StyledMarker = styled(Marker)({
-  position: 'relative',
-});
 
 export const InteractiveMarker = forwardRef(
   (
@@ -25,7 +20,7 @@ export const InteractiveMarker = forwardRef(
       <>
         {useMemo(
           () => (
-            <StyledMarker
+            <Marker
               {...rest}
               ref={(node) => setMarkerInstance(node || undefined)}
               icon={L.divIcon({ ...iconOptions, className: '', iconSize: undefined })}
