@@ -12,15 +12,14 @@ import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { Business } from '../../api';
+import { TransformedBusiness } from '../../types';
 import { BusinessBaseInfo } from '../BusinessBaseInfo';
 import { BusinessCardCategories } from '../BusinessCardCategories';
 import { BusinessCardContactInfo } from '../BusinessCardContactInfo';
 import { BusinessImage } from '../BusinessImage';
 
 export interface BusinessCardProps {
-  business: Omit<Business, 'coordinates'>;
-  index: number;
+  business: Omit<TransformedBusiness, 'coordinates'>;
   isExpanded: boolean;
   toggleExpanded: (id: string) => void;
   setCenteredBusinessId: (id: string) => void;
@@ -32,7 +31,6 @@ const highlightBorderWidth = 4;
 export const BusinessCard = memo(
   ({
     business,
-    index,
     isExpanded,
     setCenteredBusinessId,
     toggleExpanded,
@@ -85,7 +83,7 @@ export const BusinessCard = memo(
             <BusinessImage alt={business.name} src={business.imageUrl} fullWidth={isSmallMobile} />
             <Box display="flex" flexDirection="column" gap={1}>
               <BusinessBaseInfo
-                index={index}
+                displayIndex={business.displayIndex}
                 isClosed={business.isClosed}
                 name={business.name}
                 price={business.price}

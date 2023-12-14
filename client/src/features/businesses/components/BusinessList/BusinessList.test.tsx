@@ -1,4 +1,4 @@
-import { mockBusinessesResponse } from '@/__mocks__';
+import { mockYelpBusinessesResponse } from '@/__mocks__';
 import { render, screen, waitFor } from '@/tests/utils';
 import { BusinessList } from './BusinessList';
 
@@ -11,7 +11,7 @@ describe('BusinessList', () => {
     renderBusinessList();
     await waitFor(() => {
       expect(screen.getAllByRole('listitem')).toHaveLength(
-        mockBusinessesResponse.businesses.length,
+        mockYelpBusinessesResponse.businesses.length,
       );
     });
   });

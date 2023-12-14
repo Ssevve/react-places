@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BusinessPriceRating } from '.';
-import { Price } from '../../api';
 import { priceRatings } from '../../constants';
+import { Price } from '../../types';
 
 const renderBusinessPriceRating = (price: Price) => {
   return render(<BusinessPriceRating price={price} />);

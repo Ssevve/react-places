@@ -1,2 +1,2 @@
-export * from './mockBusinessesResponse';
-export * from './mockBusiness';
+export * from './mockYelpBusinessesResponse';
+export * from './mockTransformedBusiness';

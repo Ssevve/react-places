@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BusinessCardCategories } from '.';
-import { Category } from '../../api';
+import { Category } from '../../types';
 
 const categories: Category[] = [
   {

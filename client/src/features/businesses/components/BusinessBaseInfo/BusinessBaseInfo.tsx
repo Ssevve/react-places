@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Price } from '../../api';
+import { Price } from '../../types';
 import { BusinessPriceRating } from '../BusinessPriceRating';
 import { BusinessYelpRating } from '../BusinessYelpRating';
 
 export interface BusinessBaseInfoProps {
-  index: number;
+  displayIndex: number;
   name: string;
   rating: number;
   reviewCount: number;
@@ -14,7 +14,7 @@ export interface BusinessBaseInfoProps {
 }
 
 export function BusinessBaseInfo({
-  index,
+  displayIndex,
   name,
   rating,
   reviewCount,
@@ -24,7 +24,7 @@ export function BusinessBaseInfo({
   return (
     <Box display="flex" flexDirection="column" gap={1} alignItems="flex-start">
       <Typography component="h3" fontWeight={700}>
-        {`${index + 1}. ${name}`}
+        {`${displayIndex}. ${name}`}
       </Typography>
       {isClosed ? (
         <Typography component="span" variant="caption" fontWeight={700} color="primary.main">

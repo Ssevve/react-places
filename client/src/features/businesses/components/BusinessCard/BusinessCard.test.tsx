@@ -1,11 +1,10 @@
-import { mockBusiness } from '@/__mocks__';
+import { mockTransformedBusiness } from '@/__mocks__';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { BusinessCard, BusinessCardProps } from './BusinessCard';
 
 const testProps: BusinessCardProps = {
-  business: mockBusiness,
-  index: 0,
+  business: mockTransformedBusiness,
   isExpanded: false,
   setCenteredBusinessId: vi.fn(),
   toggleDrawer: vi.fn(),
@@ -19,32 +18,32 @@ const renderBusinessCard = (props?: Partial<BusinessCardProps>) => {
 describe('BusinessCard', () => {
   it('should render <BusinessImage /> component', () => {
     renderBusinessCard();
-    expect(screen.getByRole('img', { name: mockBusiness.name })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: mockTransformedBusiness.name })).toBeInTheDocument();
   });
 
   it('should render <BusinessBaseInfo /> component', () => {
     renderBusinessCard();
-    expect(screen.getByText(mockBusiness.rating)).toBeInTheDocument();
+    expect(screen.getByText(mockTransformedBusiness.rating)).toBeInTheDocument();
   });
 
   it('should render <BusinessCardCategories /> component', () => {
     renderBusinessCard();
-    expect(screen.getByText(mockBusiness.categories[0].title)).toBeInTheDocument();
+    expect(screen.getByText(mockTransformedBusiness.categories[0].title)).toBeInTheDocument();
   });
 
   it('should render Yelp link for the business', () => {
     renderBusinessCard();
-    expect(screen.getByRole('link')).toHaveAttribute('href', mockBusiness.url);
+    expect(screen.getByRole('link')).toHaveAttribute('href', mockTransformedBusiness.url);
   });
 
   it('should render <BusinessCardContactInfo /> if expanded', async () => {
     renderBusinessCard({ isExpanded: true });
-    expect(screen.getByText(mockBusiness.displayPhone)).toBeInTheDocument();
+    expect(screen.getByText(mockTransformedBusiness.displayPhone)).toBeInTheDocument();
   });
 
   it('should not render <BusinessCardContactInfo /> if not expanded', async () => {
     renderBusinessCard({ isExpanded: false });
-    expect(screen.queryByText(mockBusiness.displayPhone)).not.toBeInTheDocument();
+    expect(screen.queryByText(mockTransformedBusiness.displayPhone)).not.toBeInTheDocument();
   });
 
   it('should render button to center the business on the map', async () => {

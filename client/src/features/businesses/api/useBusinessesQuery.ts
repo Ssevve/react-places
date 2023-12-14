@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import camelize, { Camelize } from 'camelize-ts';
 import { z } from 'zod';
 import { businessConstraints } from '../constants';
+import { transformBusinessesResponse } from '../utils';
 
 const coordinatesSchema = z.object({
   latitude: z.number(),
   longitude: z.number(),
 });
 
-export const businessSchema = z.object({
+export const yelpBusinessSchema = z.object({
   categories: z.array(
     z.object({
       alias: z.string(),
@@ -28,20 +28,14 @@ export const businessSchema = z.object({
     .string()
     .min(businessConstraints.priceRating.min)
     .max(businessConstraints.priceRating.max)
-    .transform((val) => val.length)
     .optional(),
   rating: z.number(),
   review_count: z.number(),
   url: z.string().url().optional(),
 });
 
-export type Business = Camelize<z.infer<typeof businessSchema>>;
-export type Category = Business['categories'][0];
-export type DisplayAddress = Business['location']['displayAddress'];
-export type Price = Business['price'];
-
-export const businessesResponseSchema = z.object({
-  businesses: z.array(businessSchema),
+export const yelpBusinessesResponseSchema = z.object({
+  businesses: z.array(yelpBusinessSchema),
   region: z.object({
     center: coordinatesSchema,
   }),
@@ -51,14 +45,14 @@ export const businessesResponseSchema = z.object({
 const fetchBusinesses = async () => {
   const res = await fetch('http://localhost:5000/yelp');
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
-  return businessesResponseSchema.parse(await res.json());
+  return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
 export function useBusinessesQuery({ throwOnError = false } = {}) {
   return useQuery({
     queryFn: fetchBusinesses,
     queryKey: ['businesses'],
-    select: camelize,
+    select: transformBusinessesResponse,
     staleTime: Infinity,
     throwOnError,
   });

@@ -21,11 +21,10 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
   if (businesses) {
     return (
       <List disablePadding aria-label="Businesses" sx={{ overflow: 'auto' }}>
-        {businesses.businesses.map((business, index) => (
+        {businesses.businesses.map((business) => (
           <ListItem key={business.id} disablePadding disableGutters>
             <BusinessCard
               business={business}
-              index={index}
               isExpanded={expandedBusinessId === business.id}
               setCenteredBusinessId={setCenteredBusinessId}
               toggleDrawer={toggleDrawer}

@@ -2,8 +2,8 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import { Price } from '../../api';
 import { businessConstraints, priceRatings } from '../../constants';
+import { Price } from '../../types';
 
 interface BusinessPriceRatingProps {
   price: Price;
