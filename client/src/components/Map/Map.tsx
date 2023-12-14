@@ -42,13 +42,12 @@ export function Map({ centeredBusinessId, clearCenteredBusiness }: MapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {businesses?.businesses.map((business, index) => {
+        {businesses?.businesses.map((business) => {
           return (
             <BusinessMarker
               isCentered={centeredBusinessId === business.id}
               key={business.id}
               business={business}
-              displayIndex={index + 1}
             />
           );
         })}
