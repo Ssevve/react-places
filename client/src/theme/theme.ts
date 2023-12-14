@@ -23,6 +23,11 @@ export const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiSkeleton: {
       defaultProps: {
         animation: 'wave',
