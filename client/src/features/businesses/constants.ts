@@ -30,3 +30,5 @@ export const businessConstraints = {
     min: Math.min(...possibleRatings),
   },
 } as const;
+
+export const businessesPerPage = 50;

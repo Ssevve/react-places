@@ -61,6 +61,7 @@ export const BusinessCard = memo(
             maxWidth: highlightBorderWidth,
           },
           borderRadius: 0,
+          boxShadow: 'none',
           position: 'relative',
           width: '100%',
         }}
