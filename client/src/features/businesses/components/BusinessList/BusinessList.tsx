@@ -1,13 +1,13 @@
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Pagination from '@mui/material/Pagination';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useBusinessesQuery } from '../../api';
 import { businessesPerPage } from '../../constants';
 import { BusinessCard } from '../BusinessCard';
+import { BusinessListPagination } from '../BusinessListPagination';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
 
 interface BusinessListProps {
@@ -18,19 +18,30 @@ interface BusinessListProps {
 export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessListProps) {
   const { data: businesses } = useBusinessesQuery({ throwOnError: true });
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get('page') || '1');
+  const [searchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const listWrapperRef = useRef<HTMLUListElement>();
+
+  useEffect(() => {
+    if (!listWrapperRef.current) return;
+    listWrapperRef.current.scrollTo(0, 0);
+  }, [currentPage]);
 
   const toggleExpanded = useCallback((id: string) => {
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
-  const pageCount = businesses?.total ? Math.ceil(businesses?.total / businessesPerPage) : 1;
-
   if (businesses) {
     return (
-      <Box overflow="auto">
-        <List disablePadding aria-label="Businesses" sx={{ boxShadow: 0 }}>
+      <Box overflow="auto" height="100%" width="100%" ref={listWrapperRef}>
+        <List
+          disablePadding
+          aria-label="Businesses"
+          sx={{
+            boxShadow: 0,
+            overflow: 'auto',
+          }}
+        >
           {businesses.businesses.map((business) => (
             <ListItem key={business.id} disablePadding disableGutters>
               <BusinessCard
@@ -44,16 +55,11 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
           ))}
         </List>
         <Divider />
-        <Box display="flex" justifyContent="center">
-          <Pagination
-            defaultPage={1}
-            page={currentPage}
-            onChange={(_, newPage) => setSearchParams({ page: newPage.toString() })}
-            count={pageCount}
-            shape="rounded"
-            sx={{ px: 1, py: 2 }}
-          />
-        </Box>
+        <BusinessListPagination
+          businessesPerPage={businessesPerPage}
+          currentPage={currentPage}
+          totalBusinesses={businesses.total}
+        />
       </Box>
     );
   }

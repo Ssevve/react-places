@@ -2,21 +2,21 @@ import fetch from 'cross-fetch';
 import { Request, Response } from 'express';
 
 export async function handleYelpApi(req: Request, res: Response) {
-  const baseQueryOptions = {
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 25;
+  const queryOptions = {
     location: 'Gdańsk',
     radius: '40000',
     sort_by: 'best_match',
-    limit: '50',
+    limit,
+    offset: (page - 1) * limit,
   };
-  const baseQueryString = Object.entries(baseQueryOptions)
+
+  const queryString = Object.entries(queryOptions)
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
 
-  const queryOptions = req.originalUrl.split('?')[1] || '';
-  const queryOptionsString = queryOptions ? `&${queryOptions}` : '';
-
-  const url = `https://api.yelp.com/v3/businesses/search?${baseQueryString}${queryOptionsString}`;
-
+  const url = `https://api.yelp.com/v3/businesses/search?${queryString}`;
   try {
     const response = await fetch(url, {
       headers: {
