@@ -1,6 +1,6 @@
 import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
-import { Drawer, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useDeviceSizes } from '@/hooks';
+import { Drawer } from '@mui/material';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -19,8 +19,7 @@ const drawerWidth = {
 
 export function ContentDrawer({ setCenteredBusinessId }: ContentDrawerProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile } = useDeviceSizes();
   const { reset } = useQueryErrorResetBoundary();
 
   const toggleDrawer = useCallback((newOpen?: boolean) => {
