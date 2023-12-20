@@ -1,14 +1,23 @@
-import { App } from '@/App';
+import { BrowserRouter } from 'react-router-dom';
+import { Home } from './Home';
 import { render, screen } from '@/tests/utils';
 
-describe('App', () => {
+const renderHome = () => {
+  return render(
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>,
+  );
+};
+
+describe('Home', () => {
   it('should render <Map /> component', () => {
-    render(<App />);
+    renderHome();
     expect(screen.getByTestId('map')).toBeInTheDocument();
   });
 
   it('should render <ContentDrawer /> component', () => {
-    render(<App />);
+    renderHome();
     expect(screen.getByTestId('content-drawer')).toBeInTheDocument();
   });
 });
