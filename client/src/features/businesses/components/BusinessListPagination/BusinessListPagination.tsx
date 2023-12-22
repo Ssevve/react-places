@@ -36,7 +36,7 @@ export function BusinessListPagination({
     );
   };
 
-  return (
+  return pageCount > 1 ? (
     <Box display="flex" justifyContent="center">
       <Pagination
         defaultPage={1}
@@ -48,5 +48,5 @@ export function BusinessListPagination({
         renderItem={renderPaginationItem}
       />
     </Box>
-  );
+  ) : null;
 }
