@@ -1,5 +1,5 @@
+import BusinessIcon from '@mui/icons-material/Business';
 import ButtonBase from '@mui/material/ButtonBase';
-import StoreIcon from '@mui/icons-material/Store';
 
 interface MobileDrawerTogglerProps {
   isDrawerOpen: boolean;
@@ -33,7 +33,7 @@ export function MobileDrawerToggler({
         width,
       })}
     >
-      <StoreIcon />
+      <BusinessIcon />
     </ButtonBase>
   );
 }

@@ -1,5 +1,5 @@
 import yelpBurst from '@/assets/yelp_burst.svg';
-import BusinessIcon from '@mui/icons-material/Business';
+import HomeIcon from '@mui/icons-material/Home';
 import CallIcon from '@mui/icons-material/Call';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
@@ -59,7 +59,7 @@ export function BusinessCardContactInfo({ phone, yelpUrl, address }: BusinessCar
       </ListItem>
       <Divider />
       <ListItem disableGutters>
-        <BusinessCardContactInfoIcon icon={BusinessIcon} />
+        <BusinessCardContactInfoIcon icon={HomeIcon} />
         <BusinessCardContactInfoSpan>{displayAddress}</BusinessCardContactInfoSpan>
       </ListItem>
     </List>
