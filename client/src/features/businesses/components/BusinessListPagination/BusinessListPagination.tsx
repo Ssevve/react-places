@@ -4,7 +4,7 @@ import Pagination, { PaginationRenderItemParams } from '@mui/material/Pagination
 import PaginationItem from '@mui/material/PaginationItem';
 import { Link, createSearchParams, useSearchParams } from 'react-router-dom';
 
-interface BusinessListPaginationProps {
+export interface BusinessListPaginationProps {
   currentPage: number;
   totalBusinesses: number;
   businessesPerPage: number;
