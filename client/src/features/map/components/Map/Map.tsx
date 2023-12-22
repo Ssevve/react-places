@@ -1,11 +1,10 @@
-import { BusinessMarker } from '@/components/BusinessMarker';
-import { useBusinessesQuery } from '@/features/businesses';
+import { BusinessMarker, useBusinessesQuery } from '@/features/businesses';
 import { Box, styled } from '@mui/material';
 import L from 'leaflet';
 import { useMemo } from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-import { CenteredBusiness } from '../CenteredBusiness';
 import { useSearchParams } from 'react-router-dom';
+import { CenteredBusiness } from '../CenteredBusiness';
 
 export const StyledMap = styled(MapContainer)({
   height: '100%',

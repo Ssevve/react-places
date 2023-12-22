@@ -1,10 +1,10 @@
 import { TransformedBusiness } from '@/features/businesses';
+import { InteractiveMarker } from '@/features/map';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { InteractiveMarker } from '@/components/InteractiveMarker';
 
 export interface BusinessMarkerProps {
   business: TransformedBusiness;

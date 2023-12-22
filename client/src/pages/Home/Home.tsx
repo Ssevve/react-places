@@ -1,5 +1,5 @@
 import { ContentDrawer } from '@/components/ContentDrawer';
-import { Map } from '@/components/Map';
+import { Map } from '@/features/map';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 
