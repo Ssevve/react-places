@@ -1,9 +1,16 @@
 import { mockYelpBusinessesResponse } from '@/__mocks__';
+import { server } from '@/__mocks__/server';
 import { render, screen, waitFor } from '@/tests/utils';
+import { generateMock } from '@anatine/zod-mock';
+import { HttpResponse, http } from 'msw';
+import { yelpBusinessesResponseSchema } from '../../api';
 import { BusinessList } from './BusinessList';
 
 const renderBusinessList = () => {
-  return render(<BusinessList setCenteredBusinessId={vi.fn()} toggleDrawer={vi.fn()} />);
+  const emptyFunction = () => {};
+  return render(
+    <BusinessList setCenteredBusinessId={emptyFunction} toggleDrawer={emptyFunction} />,
+  );
 };
 
 describe('BusinessList', () => {
@@ -14,6 +21,20 @@ describe('BusinessList', () => {
       expectedBusinesses.forEach(({ name }) =>
         expect(screen.getByText(name, { exact: false })).toBeInTheDocument(),
       );
+    });
+  });
+
+  it('should show correct message when there are no businesses to show', async () => {
+    server.use(
+      http.get('http://localhost:5000/yelp', () =>
+        HttpResponse.json({ ...generateMock(yelpBusinessesResponseSchema), businesses: [] }),
+      ),
+    );
+    renderBusinessList();
+    await waitFor(() => {
+      expect(
+        screen.getByText('Unfortunately, there are no businesses to show.'),
+      ).toBeInTheDocument();
     });
   });
 

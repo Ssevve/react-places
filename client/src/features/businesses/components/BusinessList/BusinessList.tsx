@@ -2,6 +2,7 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useBusinessesQuery } from '../../api';
@@ -9,6 +10,7 @@ import { businessesPerPage } from '../../constants';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListPagination } from '../BusinessListPagination';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
+import DomainDisabledIcon from '@mui/icons-material/DomainDisabled';
 
 interface BusinessListProps {
   setCenteredBusinessId: (id: string) => void;
@@ -18,7 +20,7 @@ interface BusinessListProps {
 export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessListProps) {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
-  const { data: businesses } = useBusinessesQuery({ page: currentPage, throwOnError: true });
+  const { data: businessesData } = useBusinessesQuery({ page: currentPage, throwOnError: true });
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
 
@@ -31,8 +33,9 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
-  if (businesses) {
-    return (
+  if (businessesData) {
+    const businessesToRender = businessesData.businesses;
+    return businessesToRender.length ? (
       <Box overflow="auto" height="100%" width="100%" ref={listWrapperRef}>
         <List
           disablePadding
@@ -42,7 +45,7 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
             overflow: 'auto',
           }}
         >
-          {businesses.businesses.map((business) => (
+          {businessesToRender.map((business) => (
             <ListItem key={business.id} disablePadding disableGutters>
               <BusinessCard
                 business={business}
@@ -58,8 +61,13 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
         <BusinessListPagination
           businessesPerPage={businessesPerPage}
           currentPage={currentPage}
-          totalBusinesses={businesses.total}
+          totalBusinesses={businessesData.total}
         />
+      </Box>
+    ) : (
+      <Box textAlign="center" padding={1}>
+        <DomainDisabledIcon sx={{ fontSize: 80, opacity: 0.4 }} />
+        <Typography>Unfortunately, there are no businesses to show.</Typography>
       </Box>
     );
   }
