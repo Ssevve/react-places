@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 
 export interface BusinessImageProps {
   alt: string;
-  src: string | undefined;
+  src: string | undefined | null;
   size?: number;
   fullWidth?: boolean;
 }
@@ -12,7 +12,7 @@ export function BusinessImage({ alt, src, size = 96, fullWidth = false }: Busine
   return (
     <Avatar
       alt={alt}
-      src={src}
+      src={src || ''}
       variant="rounded"
       sx={{
         height: size,
