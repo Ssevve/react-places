@@ -16,10 +16,10 @@ interface BusinessListProps {
 }
 
 export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessListProps) {
-  const { data: businesses } = useBusinessesQuery({ throwOnError: true });
-  const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
+  const { data: businesses } = useBusinessesQuery({ page: currentPage, throwOnError: true });
+  const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
 
   useEffect(() => {

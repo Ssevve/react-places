@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
-import { businessConstraints, businessesPerPage } from '../constants';
+import { businessConstraints, businessesPerPage as defaultBusinessesPerPage } from '../constants';
 import { transformBusinessesResponse } from '../utils';
 
 const coordinatesSchema = z.object({
@@ -49,12 +48,20 @@ const fetchBusinesses = async (page: number, perPage: number) => {
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
-export function useBusinessesQuery({ throwOnError = false } = {}) {
-  const [searchParams] = useSearchParams();
-  const page = Number(searchParams.get('page')) || 1;
+interface UseBusinessesQueryProps {
+  throwOnError?: boolean;
+  page?: number;
+  businessesPerPage?: number;
+}
+
+export function useBusinessesQuery({
+  page = 1,
+  businessesPerPage = defaultBusinessesPerPage,
+  throwOnError = false,
+}: UseBusinessesQueryProps = {}) {
   return useQuery({
     queryFn: () => fetchBusinesses(page, businessesPerPage),
-    queryKey: ['businesses', page],
+    queryKey: ['businesses', page, businessesPerPage],
     select: (data) => transformBusinessesResponse({ businessesPerPage, data, page }),
     staleTime: Infinity,
     throwOnError,

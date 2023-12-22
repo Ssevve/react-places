@@ -5,6 +5,7 @@ import L from 'leaflet';
 import { useMemo } from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { CenteredBusiness } from '../CenteredBusiness';
+import { useSearchParams } from 'react-router-dom';
 
 export const StyledMap = styled(MapContainer)({
   height: '100%',
@@ -17,7 +18,9 @@ export interface MapProps {
 }
 
 export function Map({ centeredBusinessId, clearCenteredBusiness }: MapProps) {
-  const { data: businesses } = useBusinessesQuery();
+  const [searchParams] = useSearchParams();
+  const currenPage = Number(searchParams.get('page')) || 1;
+  const { data: businesses } = useBusinessesQuery({ page: currenPage });
 
   const centeredBusinessCoords = useMemo(
     () => businesses?.businesses.find(({ id }) => id === centeredBusinessId)?.coordinates,
