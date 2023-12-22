@@ -74,7 +74,6 @@ export const BusinessCard = memo(
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
-              paddingRight: 1,
               [theme.breakpoints.up('sm')]: {
                 flexDirection: 'row',
               },
@@ -102,7 +101,7 @@ export const BusinessCard = memo(
               />
             </CardContent>
           </Collapse>
-          <CardActions>
+          <CardActions sx={{ px: 2 }}>
             <ButtonBase
               component="div"
               sx={{
