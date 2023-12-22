@@ -1,6 +1,6 @@
 import yelpLogo from '@/assets/yelp-logo.svg';
+import { useDeviceSizes } from '@/hooks';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
-import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
@@ -36,8 +36,7 @@ export const BusinessCard = memo(
     toggleExpanded,
     toggleDrawer,
   }: BusinessCardProps) => {
-    const theme = useTheme();
-    const isSmallMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const { isSmallMobile } = useDeviceSizes();
     const centerBusiness = (id: string) => {
       setCenteredBusinessId(id);
       toggleDrawer(false);
