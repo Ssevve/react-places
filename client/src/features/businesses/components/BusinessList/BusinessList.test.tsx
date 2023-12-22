@@ -7,12 +7,20 @@ const renderBusinessList = () => {
 };
 
 describe('BusinessList', () => {
-  it('should render correct amount of businesses', async () => {
+  it('should render all businesses', async () => {
+    const expectedBusinesses = mockYelpBusinessesResponse.businesses;
     renderBusinessList();
     await waitFor(() => {
-      expect(screen.getAllByRole('listitem')).toHaveLength(
-        mockYelpBusinessesResponse.businesses.length,
+      expectedBusinesses.forEach(({ name }) =>
+        expect(screen.getByText(name, { exact: false })).toBeInTheDocument(),
       );
+    });
+  });
+
+  it('should render <BusinessListPagination /> component', async () => {
+    renderBusinessList();
+    await waitFor(() => {
+      expect(screen.getByLabelText('pagination navigation')).toBeInTheDocument();
     });
   });
 
