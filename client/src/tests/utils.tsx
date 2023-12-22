@@ -3,6 +3,7 @@ import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RenderOptions, render } from '@testing-library/react';
 import React, { ReactElement } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
@@ -16,7 +17,9 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

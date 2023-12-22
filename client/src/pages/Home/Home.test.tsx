@@ -1,13 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
 import { Home } from './Home';
 import { render, screen } from '@/tests/utils';
 
 const renderHome = () => {
-  return render(
-    <BrowserRouter>
-      <Home />
-    </BrowserRouter>,
-  );
+  return render(<Home />);
 };
 
 describe('Home', () => {

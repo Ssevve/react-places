@@ -1,13 +1,8 @@
 import { render, screen } from '@/tests/utils';
 import { NotFound } from './NotFound';
-import { BrowserRouter } from 'react-router-dom';
 
 const renderNotFound = () => {
-  return render(
-    <BrowserRouter>
-      <NotFound />
-    </BrowserRouter>,
-  );
+  return render(<NotFound />);
 };
 
 describe('NotFound', () => {
