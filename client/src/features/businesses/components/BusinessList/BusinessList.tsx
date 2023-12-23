@@ -65,8 +65,8 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
         />
       </Box>
     ) : (
-      <Box textAlign="center" padding={1}>
-        <DomainDisabledIcon sx={{ fontSize: 80, opacity: 0.4 }} />
+      <Box textAlign="center" paddingInline={1} paddingBlock={2}>
+        <DomainDisabledIcon sx={{ fontSize: 80, mb: 2, opacity: 0.4 }} />
         <Typography>Unfortunately, there are no businesses to show.</Typography>
       </Box>
     );
