@@ -1,7 +1,7 @@
 import BusinessIcon from '@mui/icons-material/Business';
 import ButtonBase from '@mui/material/ButtonBase';
 
-interface MobileDrawerTogglerProps {
+export interface MobileDrawerTogglerProps {
   isDrawerOpen: boolean;
   width: number;
   toggleDrawer: () => void;
@@ -14,14 +14,15 @@ export function MobileDrawerToggler({
 }: MobileDrawerTogglerProps) {
   return (
     <ButtonBase
-      data-testid="mobile-drawer-toggler"
       onClick={() => toggleDrawer()}
       aria-label={isDrawerOpen ? 'Close drawer' : 'Open drawer'}
       sx={(theme) => ({
-        backgroundColor: isDrawerOpen ? '#d3d3d3' : theme.palette.primary.main,
+        backgroundColor: isDrawerOpen ? theme.palette.neutral.main : theme.palette.primary.main,
         borderBottomRightRadius: theme.shape.borderRadius,
         borderTopRightRadius: theme.shape.borderRadius,
-        color: isDrawerOpen ? 'inherit' : 'white',
+        color: isDrawerOpen
+          ? theme.palette.neutral.contrastText
+          : theme.palette.primary.contrastText,
         cursor: 'pointer',
         height: 150,
         position: 'absolute',

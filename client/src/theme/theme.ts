@@ -10,7 +10,13 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const theme = createTheme({
+declare module '@mui/material/styles/createPalette' {
+  interface Palette {
+    neutral: Palette['primary'];
+  }
+}
+
+export let theme = createTheme({
   breakpoints: {
     values: {
       md: 768,
@@ -43,5 +49,16 @@ export const theme = createTheme({
     primary: {
       main: '#f40d15',
     },
+  },
+});
+
+theme = createTheme(theme, {
+  palette: {
+    neutral: theme.palette.augmentColor({
+      color: {
+        main: '#d3d3d3',
+      },
+      name: 'neutral',
+    }),
   },
 });

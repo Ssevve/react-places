@@ -33,12 +33,12 @@ describe('ContentDrawer', () => {
   it('should render <MobileDrawerToggler /> component on mobile devices', () => {
     window.matchMedia = createMatchMedia(theme.breakpoints.values.md - 1);
     renderContentDrawer();
-    expect(screen.getByTestId('mobile-drawer-toggler')).toBeInTheDocument();
+    expect(screen.getByLabelText(/close drawer/i)).toBeInTheDocument();
   });
 
   it('should not render <MobileDrawerToggler /> component on non-mobile devices', () => {
     window.matchMedia = createMatchMedia(theme.breakpoints.values.md);
     renderContentDrawer();
-    expect(screen.queryByTestId('mobile-drawer-toggler')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/close drawer/i)).not.toBeInTheDocument();
   });
 });
