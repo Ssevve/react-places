@@ -18,6 +18,11 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,

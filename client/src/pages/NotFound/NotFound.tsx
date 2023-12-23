@@ -19,14 +19,13 @@ export function NotFound() {
       <Typography component="h2" variant="h5" fontWeight={700} color="primary.main">
         Oops!
       </Typography>
-      <Typography component="p" marginBlock={4} fontWeight={500}>
+      <Typography marginBlock={4} fontWeight={500}>
         We don't have that page, but we can help you find something near you to visit.
       </Typography>
       <Button
         component={RouterLink}
         to="/"
         variant="contained"
-        disableElevation
         sx={{ mx: 'auto', width: 'fit-content' }}
       >
         Home page
