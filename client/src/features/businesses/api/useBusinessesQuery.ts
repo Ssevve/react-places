@@ -1,3 +1,4 @@
+import { env } from '@/config/env';
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 import { businessConstraints, businessesPerPage as defaultBusinessesPerPage } from '../constants';
@@ -43,12 +44,12 @@ export const yelpBusinessesResponseSchema = z.object({
 });
 
 const fetchBusinesses = async (page: number, perPage: number) => {
-  const res = await fetch(`http://localhost:5000/yelp?page=${page}&limit=${perPage}`);
+  const res = await fetch(`${env.VITE_BUSINESSES_API_URL}?page=${page}&limit=${perPage}`);
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
-interface UseBusinessesQueryProps {
+export interface UseBusinessesQueryProps {
   throwOnError?: boolean;
   page?: number;
   businessesPerPage?: number;
