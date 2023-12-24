@@ -32,36 +32,39 @@ export const BusinessMarker = memo(({ business, isCentered }: BusinessMarkerProp
         <Box position="relative">
           <RoomRoundedIcon
             sx={[
-              {
-                color: 'primary.main',
-                fill: isCentered ? 'white' : 'currentColor',
+              (theme) => ({
+                fill: isCentered ? theme.palette.primary.contrastText : theme.palette.primary.main,
                 fontSize: 40,
-                stroke: isCentered ? 'currentColor' : 'white',
+                stroke: isCentered
+                  ? theme.palette.primary.main
+                  : theme.palette.primary.contrastText,
                 transition: 'none',
-              },
+              }),
             ]}
           />
           <Box
-            sx={{
+            sx={(theme) => ({
               aspectRatio: 1,
-              backgroundColor: isCentered ? 'white' : 'primary.main',
+              backgroundColor: isCentered
+                ? theme.palette.primary.contrastText
+                : theme.palette.primary.main,
               borderRadius: '50%',
               height: '40%',
               left: '50%',
               position: 'absolute',
               top: '15%',
               translate: '-50%',
-            }}
+            })}
           >
             <Typography
               component="span"
               variant="caption"
-              sx={{
-                color: isCentered ? 'primary.main' : 'white',
+              sx={(theme) => ({
+                color: isCentered ? theme.palette.primary.main : theme.palette.primary.contrastText,
                 display: 'block',
                 fontSize: 12,
                 fontWeight: 700,
-              }}
+              })}
             >
               {business.displayIndex}
             </Typography>
