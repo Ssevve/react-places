@@ -1,5 +1,6 @@
-import Divider from '@mui/material/Divider';
+import DomainDisabledIcon from '@mui/icons-material/DomainDisabled';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
@@ -10,17 +11,25 @@ import { businessesPerPage } from '../../constants';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListPagination } from '../BusinessListPagination';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
-import DomainDisabledIcon from '@mui/icons-material/DomainDisabled';
 
 interface BusinessListProps {
-  setCenteredBusinessId: (id: string) => void;
+  setHighlightedBusinessId: (id: string) => void;
   toggleDrawer: (newOpen?: boolean) => void;
 }
 
-export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessListProps) {
+export function BusinessList({ setHighlightedBusinessId, toggleDrawer }: BusinessListProps) {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
-  const { data: businessesData } = useBusinessesQuery({ page: currentPage, throwOnError: true });
+  const city = searchParams.get('city');
+  const {
+    data: businessesData,
+    isPending,
+    fetchStatus,
+  } = useBusinessesQuery({
+    city,
+    page: currentPage,
+    throwOnError: true,
+  });
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
 
@@ -32,6 +41,16 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
   const toggleExpanded = useCallback((id: string) => {
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
+
+  const isWaitingForInitialInput = isPending && fetchStatus === 'idle';
+  if (isWaitingForInitialInput) {
+    return (
+      <Box textAlign="center" paddingInline={1} paddingBlock={2}>
+        <DomainDisabledIcon sx={{ fontSize: 80, mb: 2, opacity: 0.4 }} />
+        <Typography>We can't show any businesses before you select the city!</Typography>
+      </Box>
+    );
+  }
 
   if (businessesData) {
     const businessesToRender = businessesData.businesses;
@@ -50,7 +69,7 @@ export function BusinessList({ setCenteredBusinessId, toggleDrawer }: BusinessLi
               <BusinessCard
                 business={business}
                 isExpanded={expandedBusinessId === business.id}
-                setCenteredBusinessId={setCenteredBusinessId}
+                setHighlightedBusinessId={setHighlightedBusinessId}
                 toggleDrawer={toggleDrawer}
                 toggleExpanded={toggleExpanded}
               />

@@ -43,26 +43,30 @@ export const yelpBusinessesResponseSchema = z.object({
   total: z.number(),
 });
 
-const fetchBusinesses = async (page: number, perPage: number) => {
-  const res = await fetch(`${env.VITE_BUSINESSES_API_URL}?page=${page}&limit=${perPage}`);
+const fetchBusinesses = async (page: number, perPage: number, city: string | null) => {
+  const url = `${env.VITE_BUSINESSES_API_URL}?page=${page}&limit=${perPage}&city=${city}`;
+  const res = await fetch(url);
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
 export interface UseBusinessesQueryProps {
+  city: string | null;
   throwOnError?: boolean;
   page?: number;
   businessesPerPage?: number;
 }
 
 export function useBusinessesQuery({
+  city,
   page = 1,
   businessesPerPage = defaultBusinessesPerPage,
   throwOnError = false,
-}: UseBusinessesQueryProps = {}) {
+}: UseBusinessesQueryProps) {
   return useQuery({
-    queryFn: () => fetchBusinesses(page, businessesPerPage),
-    queryKey: ['businesses', page, businessesPerPage],
+    enabled: !!city,
+    queryFn: () => fetchBusinesses(page, businessesPerPage, city),
+    queryKey: ['businesses', page, businessesPerPage, city],
     select: (data) => transformBusinessesResponse({ businessesPerPage, data, page }),
     staleTime: Infinity,
     throwOnError,
