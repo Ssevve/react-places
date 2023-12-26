@@ -1,10 +1,17 @@
 import { BusinessMarker, useBusinessesQuery } from '@/features/businesses';
 import { Box, styled } from '@mui/material';
-import L from 'leaflet';
-import { useMemo } from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { useSearchParams } from 'react-router-dom';
-import { CenteredBusiness } from '../CenteredBusiness';
+import {
+  HIGHLIGHTED_BUSINESS_MAP_ZOOM,
+  INITIAL_MAP_CENTER,
+  INITIAL_MAP_ZOOM,
+  MIN_MAP_ZOOM,
+  POLAND_NORTH_EAST_BOUNDS,
+  POLAND_SOUTH_WEST_BOUNDS,
+} from '../../constants';
+import { useMapCenter } from '../../hooks';
+import { CenterView } from '../CenterView';
 
 export const StyledMap = styled(MapContainer)({
   height: '100%',
@@ -12,31 +19,24 @@ export const StyledMap = styled(MapContainer)({
 });
 
 export interface MapProps {
-  centeredBusinessId: string | undefined;
-  clearCenteredBusiness: () => void;
+  highlightedBusinessId: string | undefined;
 }
 
-export function Map({ centeredBusinessId, clearCenteredBusiness }: MapProps) {
+export function Map({ highlightedBusinessId }: MapProps) {
   const [searchParams] = useSearchParams();
-  const currenPage = Number(searchParams.get('page')) || 1;
-  const { data: businesses } = useBusinessesQuery({ page: currenPage });
-
-  const centeredBusinessCoords = useMemo(
-    () => businesses?.businesses.find(({ id }) => id === centeredBusinessId)?.coordinates,
-    [centeredBusinessId, businesses?.businesses],
-  );
-
-  const GDANSK_COORDS: L.LatLngExpression = [54.35, 18.65];
-  const SOUTH_WEST_BOUNDS: L.LatLngExpression = [49.0, 14.08];
-  const NORTH_EAST_BOUNDS: L.LatLngExpression = [54.86, 24.15];
+  const { data: businessesData } = useBusinessesQuery({
+    city: searchParams.get('city'),
+    page: Number(searchParams.get('page')) || 1,
+  });
+  const { center, isBusinessHighlighted } = useMapCenter({ businessesData, highlightedBusinessId });
 
   return (
     <Box height="100%" width="100%" data-testid="map">
       <StyledMap
-        center={GDANSK_COORDS}
-        minZoom={8}
-        zoom={12}
-        maxBounds={[SOUTH_WEST_BOUNDS, NORTH_EAST_BOUNDS]}
+        center={INITIAL_MAP_CENTER}
+        minZoom={MIN_MAP_ZOOM}
+        zoom={INITIAL_MAP_ZOOM}
+        maxBounds={[POLAND_SOUTH_WEST_BOUNDS, POLAND_NORTH_EAST_BOUNDS]}
         zoomControl={false}
       >
         <ZoomControl position="topright" />
@@ -44,19 +44,18 @@ export function Map({ centeredBusinessId, clearCenteredBusiness }: MapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {businesses?.businesses.map((business) => {
+        {businessesData?.businesses.map((business) => {
           return (
             <BusinessMarker
-              isCentered={centeredBusinessId === business.id}
+              isCentered={highlightedBusinessId === business.id}
               key={business.id}
               business={business}
             />
           );
         })}
-        <CenteredBusiness
-          latitude={centeredBusinessCoords?.latitude}
-          longitude={centeredBusinessCoords?.longitude}
-          clearCenteredBusiness={clearCenteredBusiness}
+        <CenterView
+          center={center}
+          zoom={isBusinessHighlighted ? HIGHLIGHTED_BUSINESS_MAP_ZOOM : 12}
         />
       </StyledMap>
     </Box>

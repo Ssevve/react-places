@@ -22,7 +22,7 @@ export interface BusinessCardProps {
   business: Omit<TransformedBusiness, 'coordinates'>;
   isExpanded: boolean;
   toggleExpanded: (id: string) => void;
-  setCenteredBusinessId: (id: string) => void;
+  setHighlightedBusinessId: (id: string) => void;
   toggleDrawer: (newOpen?: boolean) => void;
 }
 
@@ -32,13 +32,13 @@ export const BusinessCard = memo(
   ({
     business,
     isExpanded,
-    setCenteredBusinessId,
+    setHighlightedBusinessId,
     toggleExpanded,
     toggleDrawer,
   }: BusinessCardProps) => {
     const { isSmallMobile } = useDeviceSizes();
     const centerBusiness = (id: string) => {
-      setCenteredBusinessId(id);
+      setHighlightedBusinessId(id);
       toggleDrawer(false);
     };
 
