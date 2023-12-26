@@ -4,8 +4,9 @@ import { Request, Response } from 'express';
 export async function handleYelpApi(req: Request, res: Response) {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 25;
+  const city = req.query.city;
   const queryOptions = {
-    location: 'Gdańsk',
+    location: city,
     radius: '40000',
     sort_by: 'best_match',
     limit,
