@@ -1,13 +1,10 @@
-import { citiesPoland } from '@/data';
 import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
+import { CitiesAutocomplete } from '@/features/cities';
 import { useDeviceSizes } from '@/hooks';
 import { Drawer } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useSearchParams } from 'react-router-dom';
 import { MobileDrawerToggler } from './components/MobileDrawerToggler';
 
 interface ContentDrawerProps {
@@ -22,8 +19,6 @@ const drawerWidth = {
 };
 
 export function ContentDrawer({ setHighlightedBusinessId }: ContentDrawerProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || null);
   const [isOpen, setIsOpen] = useState(true);
   const { isMobile } = useDeviceSizes();
   const { reset } = useQueryErrorResetBoundary();
@@ -31,19 +26,6 @@ export function ContentDrawer({ setHighlightedBusinessId }: ContentDrawerProps) 
   const toggleDrawer = useCallback((newOpen?: boolean) => {
     return newOpen ? setIsOpen(newOpen) : setIsOpen((prev) => !prev);
   }, []);
-
-  const changeSelectedCity = (city: string | null) => {
-    setSelectedCity(city);
-    if (!city) {
-      setSearchParams((params) => {
-        params.delete('city');
-        return params;
-      });
-    } else {
-      setHighlightedBusinessId(undefined);
-      setSearchParams({ city });
-    }
-  };
 
   return (
     <Drawer
@@ -63,14 +45,7 @@ export function ContentDrawer({ setHighlightedBusinessId }: ContentDrawerProps) 
         keepMounted: true,
       }}
     >
-      <Autocomplete
-        disablePortal
-        value={selectedCity}
-        onChange={(_, city) => changeSelectedCity(city)}
-        options={citiesPoland}
-        renderInput={(params) => <TextField {...params} label="Select a city" />}
-        getOptionLabel={(city) => city}
-      />
+      <CitiesAutocomplete setHighlightedBusinessId={setHighlightedBusinessId} />
       <ErrorBoundary FallbackComponent={BusinessListErrorFallback} onReset={reset}>
         <BusinessList
           setHighlightedBusinessId={setHighlightedBusinessId}
