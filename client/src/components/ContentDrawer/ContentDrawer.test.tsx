@@ -6,14 +6,14 @@ import { HttpResponse, http } from 'msw';
 import { ContentDrawer } from './ContentDrawer';
 
 const renderContentDrawer = () => {
-  return render(<ContentDrawer setCenteredBusinessId={vi.fn()} />);
+  return render(<ContentDrawer setHighlightedBusinessId={vi.fn()} />);
 };
 
 describe('ContentDrawer', () => {
-  it('should render <BusinessList /> component on successful businesses fetch', async () => {
+  it('should render <CitiesAutocomplete /> component', async () => {
     renderContentDrawer();
     await waitFor(() => {
-      expect(screen.getByRole('list', { name: /businesses/i })).toBeInTheDocument();
+      expect(screen.getByRole('combobox', { name: /select a city/i })).toBeInTheDocument();
     });
   });
 
@@ -25,9 +25,11 @@ describe('ContentDrawer', () => {
     });
   });
 
-  it('should render <BusinessListSkeleton /> component while fetching businesses data', () => {
+  it('should render <Businesses /> component if city has been provided', async () => {
     renderContentDrawer();
-    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    expect(
+      screen.getByText(/Please provide a city before we can show recommended places!/i),
+    ).toBeInTheDocument();
   });
 
   it('should render <MobileDrawerToggler /> component on mobile devices', () => {

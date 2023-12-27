@@ -1,35 +1,30 @@
-import DomainDisabledIcon from '@mui/icons-material/DomainDisabled';
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Typography from '@mui/material/Typography';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useBusinessesQuery } from '../../api';
+import { TransformedBusiness } from '../..';
 import { businessesPerPage } from '../../constants';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListPagination } from '../BusinessListPagination';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
+import { BusinessesErrorMessage } from '../BusinessesErrorMessage/BusinessesErrorMessage';
 
 interface BusinessListProps {
   setHighlightedBusinessId: (id: string) => void;
   toggleDrawer: (newOpen?: boolean) => void;
+  currentPage: number;
+  totalBusinesses: number;
+  businesses: Array<TransformedBusiness> | undefined;
 }
 
-export function BusinessList({ setHighlightedBusinessId, toggleDrawer }: BusinessListProps) {
-  const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const city = searchParams.get('city');
-  const {
-    data: businessesData,
-    isPending,
-    fetchStatus,
-  } = useBusinessesQuery({
-    city,
-    page: currentPage,
-    throwOnError: true,
-  });
+export function BusinessList({
+  setHighlightedBusinessId,
+  toggleDrawer,
+  currentPage,
+  totalBusinesses,
+  businesses,
+}: BusinessListProps) {
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
 
@@ -42,19 +37,8 @@ export function BusinessList({ setHighlightedBusinessId, toggleDrawer }: Busines
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
-  const isWaitingForInitialInput = isPending && fetchStatus === 'idle';
-  if (isWaitingForInitialInput) {
-    return (
-      <Box textAlign="center" paddingInline={1} paddingBlock={2}>
-        <DomainDisabledIcon sx={{ fontSize: 80, mb: 2, opacity: 0.4 }} />
-        <Typography>We can't show any businesses before you select the city!</Typography>
-      </Box>
-    );
-  }
-
-  if (businessesData) {
-    const businessesToRender = businessesData.businesses;
-    return businessesToRender.length ? (
+  if (businesses) {
+    return businesses.length ? (
       <Box overflow="auto" height="100%" width="100%" ref={listWrapperRef}>
         <List
           disablePadding
@@ -64,7 +48,7 @@ export function BusinessList({ setHighlightedBusinessId, toggleDrawer }: Busines
             overflow: 'auto',
           }}
         >
-          {businessesToRender.map((business) => (
+          {businesses.map((business) => (
             <ListItem key={business.id} disablePadding disableGutters>
               <BusinessCard
                 business={business}
@@ -80,14 +64,11 @@ export function BusinessList({ setHighlightedBusinessId, toggleDrawer }: Busines
         <BusinessListPagination
           businessesPerPage={businessesPerPage}
           currentPage={currentPage}
-          totalBusinesses={businessesData.total}
+          totalBusinesses={totalBusinesses}
         />
       </Box>
     ) : (
-      <Box textAlign="center" paddingInline={1} paddingBlock={2}>
-        <DomainDisabledIcon sx={{ fontSize: 80, mb: 2, opacity: 0.4 }} />
-        <Typography>Unfortunately, there are no businesses to show.</Typography>
-      </Box>
+      <BusinessesErrorMessage message="Unfortunately, there are no businesses to show." />
     );
   }
 

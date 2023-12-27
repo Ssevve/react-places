@@ -1,4 +1,4 @@
-import { BusinessList, BusinessListErrorFallback } from '@/features/businesses';
+import { BusinessListErrorFallback, Businesses } from '@/features/businesses';
 import { CitiesAutocomplete } from '@/features/cities';
 import { useDeviceSizes } from '@/hooks';
 import { Drawer } from '@mui/material';
@@ -47,7 +47,7 @@ export function ContentDrawer({ setHighlightedBusinessId }: ContentDrawerProps) 
     >
       <CitiesAutocomplete setHighlightedBusinessId={setHighlightedBusinessId} />
       <ErrorBoundary FallbackComponent={BusinessListErrorFallback} onReset={reset}>
-        <BusinessList
+        <Businesses
           setHighlightedBusinessId={setHighlightedBusinessId}
           toggleDrawer={toggleDrawer}
         />
