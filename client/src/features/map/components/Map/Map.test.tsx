@@ -3,13 +3,10 @@ import { Map, MapProps } from './Map';
 import { mockYelpBusinessesResponse } from '@/__mocks__';
 import camelize from 'camelize-ts';
 
-const testProps: MapProps = {
-  centeredBusinessId: 'testId',
-  clearCenteredBusiness: () => {},
-};
-
 const renderMap = (props?: Partial<MapProps>) => {
-  return render(<Map {...testProps} {...props} />);
+  return render(<Map highlightedBusinessId="testId" {...props} />, {
+    initialEntries: ['?city=Warsaw'],
+  });
 };
 
 describe('Map', () => {
