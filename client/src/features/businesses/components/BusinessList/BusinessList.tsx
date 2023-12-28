@@ -1,16 +1,16 @@
-import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { TransformedBusiness } from '../..';
 import { businessesPerPage } from '../../constants';
+import { TransformedBusiness } from '../../types';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListPagination } from '../BusinessListPagination';
 import { BusinessListSkeleton } from '../BusinessListSkeleton';
-import { BusinessesErrorMessage } from '../BusinessesErrorMessage/BusinessesErrorMessage';
+import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
 
-interface BusinessListProps {
+export interface BusinessListProps {
   setHighlightedBusinessId: (id: string) => void;
   toggleDrawer: (newOpen?: boolean) => void;
   currentPage: number;
@@ -27,6 +27,7 @@ export function BusinessList({
 }: BusinessListProps) {
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
+  const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / businessesPerPage) : 1;
 
   useEffect(() => {
     if (!listWrapperRef.current) return;
@@ -61,11 +62,9 @@ export function BusinessList({
           ))}
         </List>
         <Divider />
-        <BusinessListPagination
-          businessesPerPage={businessesPerPage}
-          currentPage={currentPage}
-          totalBusinesses={totalBusinesses}
-        />
+        {pageCount > 1 && (
+          <BusinessListPagination currentPage={currentPage} pageCount={pageCount} />
+        )}
       </Box>
     ) : (
       <BusinessesErrorMessage message="Unfortunately, there are no businesses to show." />

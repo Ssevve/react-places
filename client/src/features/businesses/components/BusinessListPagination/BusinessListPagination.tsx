@@ -6,18 +6,12 @@ import { Link, createSearchParams, useSearchParams } from 'react-router-dom';
 
 export interface BusinessListPaginationProps {
   currentPage: number;
-  totalBusinesses: number;
-  businessesPerPage: number;
+  pageCount: number;
 }
 
-export function BusinessListPagination({
-  currentPage,
-  totalBusinesses,
-  businessesPerPage,
-}: BusinessListPaginationProps) {
+export function BusinessListPagination({ currentPage, pageCount }: BusinessListPaginationProps) {
   const { isSmallMobile } = useDeviceSizes();
   const [searchParams] = useSearchParams();
-  const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / businessesPerPage) : 1;
 
   const renderPaginationItem = (item: PaginationRenderItemParams) => {
     const search = createSearchParams(searchParams);
@@ -36,7 +30,7 @@ export function BusinessListPagination({
     );
   };
 
-  return pageCount > 1 ? (
+  return (
     <Box display="flex" justifyContent="center">
       <Pagination
         defaultPage={1}
@@ -48,5 +42,5 @@ export function BusinessListPagination({
         renderItem={renderPaginationItem}
       />
     </Box>
-  ) : null;
+  );
 }
