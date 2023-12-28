@@ -2,11 +2,11 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
 
-interface BusinessListFallbackProps {
+interface BusinessesErrorFallbackProps {
   resetErrorBoundary: () => void;
 }
 
-export function BusinessListErrorFallback({ resetErrorBoundary }: BusinessListFallbackProps) {
+export function BusinessesErrorFallback({ resetErrorBoundary }: BusinessesErrorFallbackProps) {
   return (
     <Box role="alert" display="grid" justifyContent="center" paddingX={2} textAlign="center">
       <BusinessesErrorMessage message="Couldn't load businesses. Please try again." />
