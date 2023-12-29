@@ -17,7 +17,7 @@ describe('ContentDrawer', () => {
     });
   });
 
-  it('should render <BusinessListErrorFallback /> component on failed businesses fetch', async () => {
+  it('should render <BusinessesErrorFallback /> component on failed businesses fetch', async () => {
     server.use(http.get('http://localhost:5000/yelp', HttpResponse.error));
     renderContentDrawer();
     await waitFor(() => {
