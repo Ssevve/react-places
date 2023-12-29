@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BusinessPriceRating } from '.';
 import { priceRatings } from '../../constants';
-import { Price } from '../../types';
 
-const renderBusinessPriceRating = (price: Price) => {
+const renderBusinessPriceRating = (price: number) => {
   return render(<BusinessPriceRating price={price} />);
 };
 
@@ -23,10 +22,5 @@ describe('BusinessPriceRating', () => {
       color: expectedColor,
     });
     expect(getColoredIcons(expectedColor)).toHaveLength(expectedRating);
-  });
-
-  it('should not render if price is undefined', () => {
-    renderBusinessPriceRating(undefined);
-    expect(screen.queryByTestId('business-price-rating')).not.toBeInTheDocument();
   });
 });

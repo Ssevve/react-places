@@ -3,19 +3,18 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { businessConstraints, priceRatings } from '../../constants';
-import { Price } from '../../types';
 
 interface BusinessPriceRatingProps {
-  price: Price;
+  price: number;
 }
 
 export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
-  const color = price ? priceRatings[price].color : '';
-  const label = price ? priceRatings[price].label : '';
+  const color = priceRatings[price].color;
+  const label = priceRatings[price].label;
 
   const iconSize = 8;
 
-  return price ? (
+  return (
     <Box display="flex" gap={1} alignItems="center" data-testid="business-price-rating">
       <Rating
         value={price}
@@ -29,5 +28,5 @@ export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
         {label}
       </Typography>
     </Box>
-  ) : null;
+  );
 }

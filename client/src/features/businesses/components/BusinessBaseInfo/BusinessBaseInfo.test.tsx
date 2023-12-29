@@ -20,10 +20,15 @@ describe('BusinessBaseInfo', () => {
     expect(screen.getByText(`${info.displayIndex}. ${info.name}`)).toBeInTheDocument();
   });
 
-  it('should render <BusinessPriceRating /> component if isClosed is false', () => {
-    renderBusinessBaseInfo({ isClosed: false });
+  it('should render <BusinessPriceRating /> component if isClosed is false and price is defined', () => {
+    renderBusinessBaseInfo({ isClosed: false, price: 1 });
     expect(screen.getByTestId('business-price-rating')).toBeInTheDocument();
     expect(screen.queryByText('Permanently Closed')).not.toBeInTheDocument();
+  });
+
+  it('should not render <BusinessPriceRating /> component if price is not defined', () => {
+    renderBusinessBaseInfo({ isClosed: false, price: undefined });
+    expect(screen.queryByTestId('business-price-rating')).not.toBeInTheDocument();
   });
 
   it('should render "Permanently Closed" if isClosed is true', () => {

@@ -26,13 +26,12 @@ export function BusinessBaseInfo({
       <Typography component="h3" fontWeight={700}>
         {`${displayIndex}. ${name}`}
       </Typography>
-      {isClosed ? (
+      {isClosed && (
         <Typography component="span" variant="caption" fontWeight={700} color="primary.main">
           Permanently Closed
         </Typography>
-      ) : (
-        <BusinessPriceRating price={price} />
       )}
+      {!isClosed && price && <BusinessPriceRating price={price} />}
       <BusinessYelpRating rating={rating} reviewCount={reviewCount} />
     </Box>
   );
