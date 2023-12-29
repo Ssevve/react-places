@@ -8,7 +8,6 @@ export const citiesPoland = [
   'Bielsko-Biała',
   'Biłgoraj',
   'Bolesławiec',
-  'Braniewo',
   'Brodnica',
   'Brzeg',
   'Bydgoszcz',
