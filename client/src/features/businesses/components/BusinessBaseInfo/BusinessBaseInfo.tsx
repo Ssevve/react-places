@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { Price } from '../../types';
 import { BusinessPriceRating } from '../BusinessPriceRating';
 import { BusinessYelpRating } from '../BusinessYelpRating';

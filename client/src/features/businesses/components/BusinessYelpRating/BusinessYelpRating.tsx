@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { getYelpRatingImageName } from './getYelpRatingImageName';
 
 export interface BusinessYelpRatingProps {
@@ -14,7 +14,7 @@ export function BusinessYelpRating({ rating, reviewCount }: BusinessYelpRatingPr
     <Box display="flex" gap={1} alignItems="center">
       <img
         width={102}
-        src={`src/assets/yelp-stars/${getYelpRatingImageName(rating)}`}
+        src={`/assets/yelp-stars/${getYelpRatingImageName(rating)}`}
         alt={`Yelp ${rating} ${starString}`}
       />
       <Typography component="span" fontSize={14} fontWeight={700}>

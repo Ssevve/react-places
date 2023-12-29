@@ -1,4 +1,4 @@
-import yelpBurst from '@/assets/yelp_burst.svg';
+import yelpBurst from '/assets/yelp_burst.svg';
 import HomeIcon from '@mui/icons-material/Home';
 import CallIcon from '@mui/icons-material/Call';
 import Divider from '@mui/material/Divider';

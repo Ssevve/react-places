@@ -1,8 +1,7 @@
-import yelpLogo from '@/assets/yelp-logo.svg';
 import { useDeviceSizes } from '@/hooks';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
-import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
@@ -11,6 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import yelpLogo from '/assets/yelp-logo.svg';
 import { memo } from 'react';
 import { TransformedBusiness } from '../../types';
 import { BusinessBaseInfo } from '../BusinessBaseInfo';

@@ -1,6 +1,6 @@
 import { useMediaQuery, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 
 export function BusinessCardSkeleton() {
   const theme = useTheme();

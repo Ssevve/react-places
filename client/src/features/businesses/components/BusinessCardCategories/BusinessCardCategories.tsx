@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
 import { Category } from '../../types';
 
 interface BusinessCardCategoriesProps {
