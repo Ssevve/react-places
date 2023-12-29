@@ -8,10 +8,10 @@ import { memo } from 'react';
 
 export interface BusinessMarkerProps {
   business: TransformedBusiness;
-  isCentered: boolean;
+  isHighlighted: boolean;
 }
 
-export const BusinessMarker = memo(({ business, isCentered }: BusinessMarkerProps) => {
+export const BusinessMarker = memo(({ business, isHighlighted }: BusinessMarkerProps) => {
   const {
     coordinates: { latitude, longitude },
   } = business;
@@ -33,9 +33,11 @@ export const BusinessMarker = memo(({ business, isCentered }: BusinessMarkerProp
           <RoomRoundedIcon
             sx={[
               (theme) => ({
-                fill: isCentered ? theme.palette.primary.contrastText : theme.palette.primary.main,
+                fill: isHighlighted
+                  ? theme.palette.primary.contrastText
+                  : theme.palette.primary.main,
                 fontSize: 40,
-                stroke: isCentered
+                stroke: isHighlighted
                   ? theme.palette.primary.main
                   : theme.palette.primary.contrastText,
                 transition: 'none',
@@ -45,7 +47,7 @@ export const BusinessMarker = memo(({ business, isCentered }: BusinessMarkerProp
           <Box
             sx={(theme) => ({
               aspectRatio: 1,
-              backgroundColor: isCentered
+              backgroundColor: isHighlighted
                 ? theme.palette.primary.contrastText
                 : theme.palette.primary.main,
               borderRadius: '50%',
@@ -60,7 +62,9 @@ export const BusinessMarker = memo(({ business, isCentered }: BusinessMarkerProp
               component="span"
               variant="caption"
               sx={(theme) => ({
-                color: isCentered ? theme.palette.primary.main : theme.palette.primary.contrastText,
+                color: isHighlighted
+                  ? theme.palette.primary.main
+                  : theme.palette.primary.contrastText,
                 display: 'block',
                 fontSize: 12,
                 fontWeight: 700,

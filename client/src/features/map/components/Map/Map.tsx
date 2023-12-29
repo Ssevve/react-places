@@ -47,7 +47,7 @@ export function Map({ highlightedBusinessId }: MapProps) {
         {businessesData?.businesses.map((business) => {
           return (
             <BusinessMarker
-              isCentered={highlightedBusinessId === business.id}
+              isHighlighted={highlightedBusinessId === business.id}
               key={business.id}
               business={business}
             />
