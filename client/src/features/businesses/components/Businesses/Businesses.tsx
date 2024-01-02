@@ -23,7 +23,7 @@ export function Businesses({ setHighlightedBusinessId, toggleDrawer }: Businesse
 
   const isWaitingForInitialInput = isPending && fetchStatus === 'idle';
   return isWaitingForInitialInput ? (
-    <BusinessesErrorMessage message="Please provide a city before we can show recommended places!" />
+    <BusinessesErrorMessage message="You need to provide a city before we can show recommended places!" />
   ) : (
     <BusinessList
       setHighlightedBusinessId={setHighlightedBusinessId}
