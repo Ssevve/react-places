@@ -37,7 +37,7 @@ describe('BusinessBaseInfo', () => {
     expect(screen.queryByTestId('business-price-rating')).not.toBeInTheDocument();
   });
 
-  it('should render <BusinessYelpRating /> component', () => {
+  it('should render <BusinessYelpStarRating /> component', () => {
     renderBusinessBaseInfo();
     expect(screen.getByText(info.rating)).toBeInTheDocument();
   });

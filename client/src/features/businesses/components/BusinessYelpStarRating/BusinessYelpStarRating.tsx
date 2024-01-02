@@ -1,14 +1,20 @@
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { getYelpRatingImageName } from './getYelpRatingImageName';
 
-export interface BusinessYelpRatingProps {
+const getYelpRatingImageName = (rating: number) => {
+  const flooredRating = Math.floor(rating);
+  const ratingString = rating === 0.5 ? '' : `_${flooredRating}`;
+  return Number.isInteger(rating)
+    ? `regular${ratingString}.png`
+    : `regular${ratingString}_half.png`;
+};
+
+export interface BusinessYelpStarRatingProps {
   rating: number;
   reviewCount: number;
 }
 
-// TODO: fix half star
-export function BusinessYelpRating({ rating, reviewCount }: BusinessYelpRatingProps) {
+export function BusinessYelpStarRating({ rating, reviewCount }: BusinessYelpStarRatingProps) {
   const starString = rating === 0.5 || rating === 1 ? 'star' : 'stars';
   return (
     <Box display="flex" gap={1} alignItems="center">

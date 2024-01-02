@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Price } from '../../types';
 import { BusinessPriceRating } from '../BusinessPriceRating';
-import { BusinessYelpRating } from '../BusinessYelpRating';
+import { BusinessYelpStarRating } from '../BusinessYelpStarRating';
 
 export interface BusinessBaseInfoProps {
   displayIndex: number;
@@ -32,7 +32,7 @@ export function BusinessBaseInfo({
         </Typography>
       )}
       {!isClosed && price && <BusinessPriceRating price={price} />}
-      <BusinessYelpRating rating={rating} reviewCount={reviewCount} />
+      <BusinessYelpStarRating rating={rating} reviewCount={reviewCount} />
     </Box>
   );
 }
