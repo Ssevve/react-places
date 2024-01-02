@@ -1,7 +1,7 @@
 import { server } from '@/__mocks__/server';
+import { cleanup } from '@/tests/utils';
 import '@testing-library/jest-dom';
 import * as matchers from '@testing-library/jest-dom/matchers';
-import { cleanup } from '@testing-library/react';
 import { expect } from 'vitest';
 
 expect.extend(matchers);

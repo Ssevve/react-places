@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-node-access */
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@/tests/utils';
 import { BusinessImage, BusinessImageProps } from '.';
 
 const imageProps: BusinessImageProps = {

@@ -1,5 +1,5 @@
 import { mockTransformedBusiness } from '@/__mocks__';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@/tests/utils';
 import { userEvent } from '@testing-library/user-event';
 import { BusinessCard, BusinessCardProps } from './BusinessCard';
 
