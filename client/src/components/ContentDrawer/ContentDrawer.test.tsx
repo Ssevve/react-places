@@ -25,10 +25,10 @@ describe('ContentDrawer', () => {
     });
   });
 
-  it('should render <Businesses /> component if city has been provided', async () => {
+  it('should render <Businesses /> component', () => {
     renderContentDrawer();
     expect(
-      screen.getByText(/Please provide a city before we can show recommended places!/i),
+      screen.getByText(/You need to provide a city before we can show recommended places!/i),
     ).toBeInTheDocument();
   });
 
