@@ -11,7 +11,6 @@ const renderBusinessList = (props?: Partial<BusinessListProps>) => {
       setHighlightedBusinessId={emptyFunction}
       toggleDrawer={emptyFunction}
       businesses={undefined}
-      currentPage={1}
       totalBusinesses={0}
       {...props}
     />,

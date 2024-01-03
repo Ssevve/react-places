@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
 import { businessConstraints, businessesPerPage as defaultBusinessesPerPage } from '../constants';
 import { transformBusinessesResponse } from '../utils';
@@ -43,31 +44,32 @@ export const yelpBusinessesResponseSchema = z.object({
   total: z.number(),
 });
 
-const fetchBusinesses = async (page: number, perPage: number, city: string | null) => {
-  const url = `${env.VITE_BUSINESSES_API_URL}?page=${page}&limit=${perPage}&city=${city}`;
+interface FetchBusinessesProps {
+  searchParams: URLSearchParams;
+  perPage?: number;
+}
+
+const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) => {
+  const url = `${env.VITE_BUSINESSES_API_URL}?${searchParams.toString()}`;
   const res = await fetch(url);
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
 export interface UseBusinessesQueryProps {
-  city: string | null;
   throwOnError?: boolean;
-  page?: number;
-  businessesPerPage?: number;
 }
 
-export function useBusinessesQuery({
-  city,
-  page = 1,
-  businessesPerPage = defaultBusinessesPerPage,
-  throwOnError = false,
-}: UseBusinessesQueryProps) {
+export function useBusinessesQuery({ throwOnError = false }: UseBusinessesQueryProps = {}) {
+  const [searchParams] = useSearchParams();
+  const city = searchParams.get('city');
+  const page = Number(searchParams.get('page')) || 1;
   return useQuery({
     enabled: !!city,
-    queryFn: () => fetchBusinesses(page, businessesPerPage, city),
-    queryKey: ['businesses', page, businessesPerPage, city],
-    select: (data) => transformBusinessesResponse({ businessesPerPage, data, page }),
+    queryFn: () => fetchBusinesses({ searchParams }),
+    queryKey: ['businesses', searchParams.toString(), searchParams],
+    select: (data) =>
+      transformBusinessesResponse({ businessesPerPage: defaultBusinessesPerPage, data, page }),
     staleTime: Infinity,
     throwOnError,
   });

@@ -1,7 +1,6 @@
 import { BusinessMarker, useBusinessesQuery } from '@/features/businesses';
 import { Box, styled } from '@mui/material';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-import { useSearchParams } from 'react-router-dom';
 import {
   HIGHLIGHTED_BUSINESS_MAP_ZOOM,
   INITIAL_MAP_CENTER,
@@ -23,11 +22,7 @@ export interface MapProps {
 }
 
 export function Map({ highlightedBusinessId }: MapProps) {
-  const [searchParams] = useSearchParams();
-  const { data: businessesData } = useBusinessesQuery({
-    city: searchParams.get('city'),
-    page: Number(searchParams.get('page')) || 1,
-  });
+  const { data: businessesData } = useBusinessesQuery();
   const { center, isBusinessHighlighted } = useMapCenter({ businessesData, highlightedBusinessId });
 
   return (

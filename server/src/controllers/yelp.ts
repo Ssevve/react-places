@@ -1,9 +1,9 @@
 import fetch from 'cross-fetch';
 import { Request, Response } from 'express';
 
-export async function handleYelpApi(req: Request, res: Response) {
+const getYelpQueryString = (req: Request) => {
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 25;
+  const limit = Number(req.query.perPage) || 25;
   const city = req.query.city;
   const queryOptions = {
     location: city,
@@ -17,6 +17,11 @@ export async function handleYelpApi(req: Request, res: Response) {
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
 
+  return queryString;
+};
+
+export async function handleYelpApi(req: Request, res: Response) {
+  const queryString = getYelpQueryString(req);
   const url = `https://api.yelp.com/v3/businesses/search?${queryString}`;
   try {
     const response = await fetch(url, {

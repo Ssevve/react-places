@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
 import { useBusinessesQuery } from '../../api';
 import { BusinessList, BusinessesErrorMessage } from '../../components';
 
@@ -8,16 +7,11 @@ interface BusinessesProps {
 }
 
 export function Businesses({ setHighlightedBusinessId, toggleDrawer }: BusinessesProps) {
-  const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const city = searchParams.get('city');
   const {
     data: businessesData,
     isPending,
     fetchStatus,
   } = useBusinessesQuery({
-    city,
-    page: currentPage,
     throwOnError: true,
   });
 
@@ -30,7 +24,6 @@ export function Businesses({ setHighlightedBusinessId, toggleDrawer }: Businesse
       toggleDrawer={toggleDrawer}
       businesses={businessesData?.businesses}
       totalBusinesses={businessesData?.total || 0}
-      currentPage={currentPage}
     />
   );
 }

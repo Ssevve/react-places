@@ -2,7 +2,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { citiesPoland } from '../..';
+import { citiesPoland } from '../../data';
 
 interface CitiesAutocompleteProps {
   setHighlightedBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;

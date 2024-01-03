@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { businessesPerPage } from '../../constants';
 import { TransformedBusiness } from '../../types';
 import { BusinessCard } from '../BusinessCard';
@@ -13,7 +14,6 @@ import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
 export interface BusinessListProps {
   setHighlightedBusinessId: (id: string) => void;
   toggleDrawer: (newOpen?: boolean) => void;
-  currentPage: number;
   totalBusinesses: number;
   businesses: Array<TransformedBusiness> | undefined;
 }
@@ -21,10 +21,11 @@ export interface BusinessListProps {
 export function BusinessList({
   setHighlightedBusinessId,
   toggleDrawer,
-  currentPage,
   totalBusinesses,
   businesses,
 }: BusinessListProps) {
+  const [searchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || 1;
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const listWrapperRef = useRef<HTMLUListElement>();
   const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / businessesPerPage) : 1;
