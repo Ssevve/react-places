@@ -95,7 +95,7 @@ export const BusinessCard = memo(
               <BusinessCardCategories categories={business.categories} />
             </Box>
           </CardContent>
-          <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <Collapse in={isExpanded} timeout="auto" easing="ease-in-out" unmountOnExit>
             <CardContent>
               <BusinessCardContactInfo
                 phone={business.displayPhone}
