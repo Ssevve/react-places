@@ -38,12 +38,12 @@ describe('BusinessCard', () => {
 
   it('should render <BusinessCardContactInfo /> if expanded', async () => {
     renderBusinessCard({ isExpanded: true });
-    expect(screen.getByText(mockTransformedBusiness.displayPhone)).toBeInTheDocument();
+    expect(screen.getByText(mockTransformedBusiness.displayPhone!)).toBeInTheDocument();
   });
 
   it('should not render <BusinessCardContactInfo /> if not expanded', async () => {
     renderBusinessCard({ isExpanded: false });
-    expect(screen.queryByText(mockTransformedBusiness.displayPhone)).not.toBeInTheDocument();
+    expect(screen.queryByText(mockTransformedBusiness.displayPhone!)).not.toBeInTheDocument();
   });
 
   it('should render button to center the business on the map', async () => {

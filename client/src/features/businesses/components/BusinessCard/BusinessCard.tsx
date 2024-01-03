@@ -42,6 +42,9 @@ export const BusinessCard = memo(
       toggleDrawer(false);
     };
 
+    if (!business.displayPhone) {
+      console.log(business);
+    }
     return (
       <Card
         sx={{

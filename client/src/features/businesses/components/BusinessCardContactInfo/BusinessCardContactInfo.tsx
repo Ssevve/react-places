@@ -37,7 +37,7 @@ function BusinessCardContactInfoIcon({ icon: Icon }: BusinessCardContactInfoIcon
 }
 
 export interface BusinessCardContactInfoProps {
-  phone: string;
+  phone: string | undefined;
   yelpUrl: string | undefined;
   address: string[];
 }
@@ -48,7 +48,7 @@ export function BusinessCardContactInfo({ phone, yelpUrl, address }: BusinessCar
     <List disablePadding>
       <ListItem disableGutters>
         <BusinessCardContactInfoIcon icon={CallIcon} />
-        <BusinessCardContactInfoSpan>{phone}</BusinessCardContactInfoSpan>
+        <BusinessCardContactInfoSpan>{phone || 'Not available'}</BusinessCardContactInfoSpan>
       </ListItem>
       <Divider />
       <ListItem disableGutters>

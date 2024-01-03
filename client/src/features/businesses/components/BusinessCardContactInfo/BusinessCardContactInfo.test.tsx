@@ -15,8 +15,13 @@ const renderBusinessCardContactInfo = (props?: Partial<BusinessCardContactInfoPr
 describe('BusinessCardContactInfo', () => {
   it('should render all contact info', () => {
     renderBusinessCardContactInfo();
-    expect(screen.getByText(contactInfo.phone)).toBeInTheDocument();
+    expect(screen.getByText(contactInfo.phone!)).toBeInTheDocument();
     expect(screen.getByText(joinAddress(contactInfo.address))).toBeInTheDocument();
     expect(screen.getByRole('link')).toHaveAttribute('href', contactInfo.yelpUrl);
+  });
+
+  it('should render correct text if "phone" is not available', () => {
+    renderBusinessCardContactInfo({ phone: undefined });
+    expect(screen.getByText('Not available')).toBeInTheDocument();
   });
 });

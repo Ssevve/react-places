@@ -17,7 +17,7 @@ export const yelpBusinessSchema = z.object({
     }),
   ),
   coordinates: coordinatesSchema,
-  display_phone: z.string(),
+  display_phone: z.string().transform((str) => (str.length ? str : undefined)),
   id: z.string(),
   image_url: z.string().optional().nullable(),
   is_closed: z.boolean(),
