@@ -9,6 +9,7 @@ const renderMobileDrawerToggler = (props?: Partial<MobileDrawerTogglerProps>) =>
   );
 };
 
+// TODO: update - icon prop
 describe('MobileDrawerToggler', () => {
   it('should render with correct width', () => {
     const expectedWidth = 20;

@@ -3,15 +3,15 @@ import { createMatchMedia } from '@/tests/createMatchMedia';
 import { render, screen, waitFor } from '@/tests/utils';
 import { theme } from '@/theme';
 import { HttpResponse, http } from 'msw';
-import { ContentDrawer } from './ContentDrawer';
+import { BusinessesDrawer } from './BusinessesDrawer';
 
-const renderContentDrawer = () => {
-  return render(<ContentDrawer setHighlightedBusinessId={vi.fn()} />);
+const renderBusinessesDrawer = () => {
+  return render(<BusinessesDrawer setHighlightedBusinessId={vi.fn()} />);
 };
 
-describe('ContentDrawer', () => {
+describe('BusinessesDrawer', () => {
   it('should render <CitiesAutocomplete /> component', async () => {
-    renderContentDrawer();
+    renderBusinessesDrawer();
     await waitFor(() => {
       expect(screen.getByRole('combobox', { name: /select a city/i })).toBeInTheDocument();
     });
@@ -19,14 +19,14 @@ describe('ContentDrawer', () => {
 
   it('should render <BusinessesErrorFallback /> component on failed businesses fetch', async () => {
     server.use(http.get('http://localhost:5000/yelp', HttpResponse.error));
-    renderContentDrawer();
+    renderBusinessesDrawer();
     await waitFor(() => {
       expect(screen.queryByRole('list', { name: /businesses/i })).not.toBeInTheDocument();
     });
   });
 
   it('should render <Businesses /> component', () => {
-    renderContentDrawer();
+    renderBusinessesDrawer();
     expect(
       screen.getByText(/You need to provide a city before we can show recommended places!/i),
     ).toBeInTheDocument();
@@ -34,13 +34,13 @@ describe('ContentDrawer', () => {
 
   it('should render <MobileDrawerToggler /> component on mobile devices', () => {
     window.matchMedia = createMatchMedia(theme.breakpoints.values.md - 1);
-    renderContentDrawer();
+    renderBusinessesDrawer();
     expect(screen.getByLabelText(/close drawer/i)).toBeInTheDocument();
   });
 
   it('should not render <MobileDrawerToggler /> component on non-mobile devices', () => {
     window.matchMedia = createMatchMedia(theme.breakpoints.values.md);
-    renderContentDrawer();
+    renderBusinessesDrawer();
     expect(screen.queryByLabelText(/close drawer/i)).not.toBeInTheDocument();
   });
 });

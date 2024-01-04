@@ -27,10 +27,6 @@ export function CitiesAutocomplete({ setHighlightedBusinessId }: CitiesAutocompl
 
   return (
     <Autocomplete
-      sx={{
-        px: 1,
-        py: 2,
-      }}
       disablePortal
       value={selectedCity}
       onChange={(_, city) => changeSelectedCity(city)}

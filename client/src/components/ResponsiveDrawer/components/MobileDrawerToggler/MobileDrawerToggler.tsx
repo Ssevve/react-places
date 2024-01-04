@@ -1,21 +1,22 @@
-import BusinessIcon from '@mui/icons-material/Business';
 import ButtonBase from '@mui/material/ButtonBase';
 
 export interface MobileDrawerTogglerProps {
   isDrawerOpen: boolean;
   width: number;
+  icon?: React.ReactNode;
   toggleDrawer: () => void;
 }
 
 export function MobileDrawerToggler({
   width,
+  icon,
   isDrawerOpen,
   toggleDrawer,
 }: MobileDrawerTogglerProps) {
   return (
     <ButtonBase
       onClick={() => toggleDrawer()}
-      aria-label={isDrawerOpen ? 'Close drawer' : 'Open drawer'}
+      aria-label={isDrawerOpen ? 'close drawer' : 'open drawer'}
       sx={(theme) => ({
         backgroundColor: isDrawerOpen ? theme.palette.neutral.main : theme.palette.primary.main,
         borderBottomRightRadius: theme.shape.borderRadius,
@@ -34,7 +35,7 @@ export function MobileDrawerToggler({
         width,
       })}
     >
-      <BusinessIcon />
+      {icon}
     </ButtonBase>
   );
 }

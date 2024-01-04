@@ -11,8 +11,8 @@ describe('Home', () => {
     expect(screen.getByTestId('map')).toBeInTheDocument();
   });
 
-  it('should render <ContentDrawer /> component', () => {
+  it('should render <BusinessesDrawer /> component', () => {
     renderHome();
-    expect(screen.getByTestId('content-drawer')).toBeInTheDocument();
+    expect(screen.getByTestId('businesses-drawer')).toBeInTheDocument();
   });
 });

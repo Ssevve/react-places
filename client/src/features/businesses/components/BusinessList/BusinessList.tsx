@@ -64,7 +64,9 @@ export function BusinessList({
         </List>
         <Divider />
         {pageCount > 1 && (
-          <BusinessListPagination currentPage={currentPage} pageCount={pageCount} />
+          <Box display="flex" justifyContent="center" paddingY={2} paddingX={1}>
+            <BusinessListPagination currentPage={currentPage} pageCount={pageCount} />
+          </Box>
         )}
       </Box>
     ) : (
