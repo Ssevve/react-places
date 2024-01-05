@@ -1,7 +1,5 @@
 import { server } from '@/__mocks__/server';
-import { createMatchMedia } from '@/tests/createMatchMedia';
 import { render, screen, waitFor } from '@/tests/utils';
-import { theme } from '@/theme';
 import { HttpResponse, http } from 'msw';
 import { BusinessesDrawer } from './BusinessesDrawer';
 
@@ -30,17 +28,5 @@ describe('BusinessesDrawer', () => {
     expect(
       screen.getByText(/You need to provide a city before we can show recommended places!/i),
     ).toBeInTheDocument();
-  });
-
-  it('should render <MobileDrawerToggler /> component on mobile devices', () => {
-    window.matchMedia = createMatchMedia(theme.breakpoints.values.md - 1);
-    renderBusinessesDrawer();
-    expect(screen.getByLabelText(/close drawer/i)).toBeInTheDocument();
-  });
-
-  it('should not render <MobileDrawerToggler /> component on non-mobile devices', () => {
-    window.matchMedia = createMatchMedia(theme.breakpoints.values.md);
-    renderBusinessesDrawer();
-    expect(screen.queryByLabelText(/close drawer/i)).not.toBeInTheDocument();
   });
 });

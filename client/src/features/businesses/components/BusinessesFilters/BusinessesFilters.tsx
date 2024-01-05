@@ -1,7 +1,6 @@
-import { Box, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import { ResponsiveDrawer } from '@/components/ResponsiveDrawer';
-import { useDeviceSizes } from '@/hooks';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, IconButton, Typography } from '@mui/material';
 
 interface BusinessesFiltersProps {
   isOpen: boolean;
@@ -9,16 +8,8 @@ interface BusinessesFiltersProps {
 }
 
 export function BusinessesFilters({ isOpen, close, ...props }: BusinessesFiltersProps) {
-  const { isMobile } = useDeviceSizes();
   return (
-    <ResponsiveDrawer
-      isMobile={isMobile}
-      open={isOpen}
-      variant="temporary"
-      onClose={close}
-      hideBackdrop
-      {...props}
-    >
+    <ResponsiveDrawer open={isOpen} variant="temporary" onClose={close} hideBackdrop {...props}>
       <Box
         display="flex"
         alignItems="center"

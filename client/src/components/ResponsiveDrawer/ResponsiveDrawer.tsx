@@ -1,6 +1,7 @@
+import { useDeviceSizes } from '@/hooks';
 import { Drawer, DrawerProps } from '@mui/material';
-import { MobileDrawerToggler } from './components/MobileDrawerToggler';
 import React from 'react';
+import { MobileResponsiveDrawerToggler } from './components/MobileResponsiveDrawerToggler';
 
 interface PropsWithoutToggler {
   includeToggler?: never | false;
@@ -10,11 +11,13 @@ interface PropsWithoutToggler {
 
 interface PropsWithToggler {
   includeToggler: true;
-  togglerIcon: React.ReactNode;
+  togglerIcon?: React.ReactNode;
   toggleDrawer: () => void;
 }
 
-type ResponsiveDrawerProps = { isMobile: boolean; keepMounted?: boolean } & DrawerProps &
+export type ResponsiveDrawerProps = {
+  keepMounted?: boolean;
+} & DrawerProps &
   (PropsWithToggler | PropsWithoutToggler);
 
 const drawerWidth = 425;
@@ -25,9 +28,7 @@ const drawerSx = {
   width: drawerWidth,
 };
 
-// TODO: tests - test toggler props
 export function ResponsiveDrawer({
-  isMobile,
   children,
   open = false,
   includeToggler = false,
@@ -36,11 +37,12 @@ export function ResponsiveDrawer({
   togglerIcon,
   ...props
 }: ResponsiveDrawerProps) {
-  const renderToggler = toggleDrawer && includeToggler && togglerIcon && isMobile;
+  const { isMobile } = useDeviceSizes();
+  const renderToggler = toggleDrawer && includeToggler && isMobile;
 
   return (
     <Drawer
-      data-testid="content-drawer"
+      data-testid="responsive-drawer"
       PaperProps={{
         sx: {
           ...drawerSx,
@@ -56,7 +58,7 @@ export function ResponsiveDrawer({
     >
       {children}
       {renderToggler && (
-        <MobileDrawerToggler
+        <MobileResponsiveDrawerToggler
           icon={togglerIcon}
           isDrawerOpen={open}
           width={togglerWidth}

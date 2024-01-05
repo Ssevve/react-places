@@ -1,18 +1,18 @@
 import ButtonBase from '@mui/material/ButtonBase';
 
-export interface MobileDrawerTogglerProps {
+export interface MobileResponsiveDrawerTogglerProps {
   isDrawerOpen: boolean;
   width: number;
   icon?: React.ReactNode;
   toggleDrawer: () => void;
 }
 
-export function MobileDrawerToggler({
+export function MobileResponsiveDrawerToggler({
   width,
   icon,
   isDrawerOpen,
   toggleDrawer,
-}: MobileDrawerTogglerProps) {
+}: MobileResponsiveDrawerTogglerProps) {
   return (
     <ButtonBase
       onClick={() => toggleDrawer()}

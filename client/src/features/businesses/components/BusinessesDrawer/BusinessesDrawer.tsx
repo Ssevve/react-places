@@ -1,18 +1,17 @@
+import { ResponsiveDrawer } from '@/components';
 import {
-  BusinessesErrorFallback,
   Businesses,
+  BusinessesErrorFallback,
   BusinessesFilters,
   useBusinessesQuery,
 } from '@/features/businesses';
 import { CitiesAutocomplete } from '@/features/cities';
+import TuneIcon from '@mui/icons-material/Tune';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ResponsiveDrawer } from '@/components';
-import TuneIcon from '@mui/icons-material/Tune';
-import { useDeviceSizes } from '@/hooks';
-import { Button } from '@mui/material';
 
 interface BusinessesDrawerProps {
   setHighlightedBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -22,7 +21,6 @@ interface BusinessesDrawerProps {
 export function BusinessesDrawer({ setHighlightedBusinessId }: BusinessesDrawerProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
-  const { isMobile } = useDeviceSizes();
   const { reset } = useQueryErrorResetBoundary();
   const { data: businessesData } = useBusinessesQuery();
 
@@ -34,7 +32,6 @@ export function BusinessesDrawer({ setHighlightedBusinessId }: BusinessesDrawerP
 
   return (
     <ResponsiveDrawer
-      isMobile={isMobile}
       data-testid="businesses-drawer"
       onClose={() => setIsOpen(false)}
       open={isOpen}
