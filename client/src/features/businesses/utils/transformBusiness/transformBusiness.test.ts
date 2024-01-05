@@ -6,7 +6,6 @@ import { transformBusiness } from './transformBusiness';
 const testBusinessesPerPage = 20;
 const testPage = 1;
 
-// TODO: update
 describe('transformBusiness', () => {
   it('should return correctly transformed data', () => {
     const mockBusiness = { ...generateMock(yelpBusinessSchema), price: '$' };
