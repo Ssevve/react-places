@@ -9,7 +9,6 @@ const renderMobileDrawerToggler = (props?: Partial<MobileDrawerTogglerProps>) =>
   );
 };
 
-// TODO: update - icon prop
 describe('MobileDrawerToggler', () => {
   it('should render with correct width', () => {
     const expectedWidth = 20;
@@ -37,5 +36,10 @@ describe('MobileDrawerToggler', () => {
     renderMobileDrawerToggler({ toggleDrawer: mockToggleDrawer });
     await user.click(screen.getByRole('button'));
     expect(mockToggleDrawer).toHaveBeenCalledOnce();
+  });
+
+  it('should render provided icon', () => {
+    renderMobileDrawerToggler({ icon: <span>Test icon</span> });
+    expect(screen.getByText('Test icon')).toBeInTheDocument();
   });
 });
