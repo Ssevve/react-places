@@ -17,7 +17,6 @@ interface BusinessesDrawerProps {
   setHighlightedBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-// TODO: tests
 export function BusinessesDrawer({ setHighlightedBusinessId }: BusinessesDrawerProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [showFilters, setShowFilters] = useState(false);

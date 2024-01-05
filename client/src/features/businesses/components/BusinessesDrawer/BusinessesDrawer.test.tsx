@@ -1,18 +1,17 @@
 import { server } from '@/__mocks__/server';
 import { render, screen, waitFor } from '@/tests/utils';
+import { userEvent } from '@testing-library/user-event';
 import { HttpResponse, http } from 'msw';
 import { BusinessesDrawer } from './BusinessesDrawer';
 
-const renderBusinessesDrawer = () => {
-  return render(<BusinessesDrawer setHighlightedBusinessId={vi.fn()} />);
+const renderBusinessesDrawer = (initialEntries: Array<string> = ['/']) => {
+  return render(<BusinessesDrawer setHighlightedBusinessId={vi.fn()} />, { initialEntries });
 };
 
 describe('BusinessesDrawer', () => {
-  it('should render <CitiesAutocomplete /> component', async () => {
+  it('should render <CitiesAutocomplete /> component', () => {
     renderBusinessesDrawer();
-    await waitFor(() => {
-      expect(screen.getByRole('combobox', { name: /select a city/i })).toBeInTheDocument();
-    });
+    expect(screen.getByRole('combobox', { name: 'Select a city' })).toBeInTheDocument();
   });
 
   it('should render <BusinessesErrorFallback /> component on failed businesses fetch', async () => {
@@ -26,7 +25,26 @@ describe('BusinessesDrawer', () => {
   it('should render <Businesses /> component', () => {
     renderBusinessesDrawer();
     expect(
-      screen.getByText(/You need to provide a city before we can show recommended places!/i),
+      screen.getByText('You need to provide a city before we can show recommended places!'),
     ).toBeInTheDocument();
+  });
+
+  it('should render "filters button" after successful fetch', async () => {
+    renderBusinessesDrawer(['/?city=Warsaw']);
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Filters' })).toBeInTheDocument();
+    });
+  });
+
+  it('should show filters on "filters button" click', async () => {
+    const user = userEvent.setup();
+    renderBusinessesDrawer(['/?city=Warsaw']);
+
+    await waitFor(async () => {
+      const filtersButton = screen.getByRole('button', { name: 'Filters' });
+      await user.click(filtersButton);
+    });
+
+    expect(screen.getByRole('heading', { name: 'Filters' })).toBeInTheDocument();
   });
 });
