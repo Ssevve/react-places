@@ -1,6 +1,6 @@
 import { render, screen } from '@/tests/utils';
-import { BusinessPriceRating } from '.';
 import { priceRatings } from '../../constants';
+import { BusinessPriceRating } from './BusinessPriceRating';
 
 const renderBusinessPriceRating = (price: number) => {
   return render(<BusinessPriceRating price={price} />);
@@ -14,13 +14,11 @@ const getColoredIcons = (expectedColor: string) => {
 
 describe('BusinessPriceRating', () => {
   it('should correctly render price rating', () => {
-    const expectedRating = 3;
-    const expectedColor = priceRatings[expectedRating].color;
-    const expectedLabel = priceRatings[expectedRating].label;
-    renderBusinessPriceRating(expectedRating);
-    expect(screen.getByText(expectedLabel)).toHaveStyle({
-      color: expectedColor,
+    const expectedRating = priceRatings[1];
+    renderBusinessPriceRating(expectedRating.value);
+    expect(screen.getByText(expectedRating.label)).toHaveStyle({
+      color: expectedRating.color,
     });
-    expect(getColoredIcons(expectedColor)).toHaveLength(expectedRating);
+    expect(getColoredIcons(expectedRating.color)).toHaveLength(expectedRating.value);
   });
 });

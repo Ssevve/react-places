@@ -3,26 +3,30 @@ export interface PriceRating {
   label: string;
 }
 
-export const priceRatings: Record<number, PriceRating> = {
-  1: {
+export const priceRatings = [
+  {
     color: '#69B34C',
     label: 'Very Cheap',
+    value: 1,
   },
-  2: {
+  {
     color: '#ACB334',
     label: 'Cheap',
+    value: 2,
   },
-  3: {
+  {
     color: '#FAB733',
     label: 'Expensive',
+    value: 3,
   },
-  4: {
+  {
     color: '#FF4E11',
     label: 'Very Expensive',
+    value: 4,
   },
-} as const;
+] as const;
 
-const possibleRatings = Object.keys(priceRatings).map(Number);
+const possibleRatings = priceRatings.map(({ value }) => value);
 
 export const businessConstraints = {
   priceRating: {

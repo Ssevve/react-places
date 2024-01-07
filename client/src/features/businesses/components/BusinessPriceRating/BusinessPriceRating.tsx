@@ -9,8 +9,9 @@ interface BusinessPriceRatingProps {
 }
 
 export function BusinessPriceRating({ price }: BusinessPriceRatingProps) {
-  const color = priceRatings[price].color;
-  const label = priceRatings[price].label;
+  const rating = priceRatings.find(({ value }) => price === value);
+  const color = rating?.color;
+  const label = rating?.label;
 
   const iconSize = 8;
 
