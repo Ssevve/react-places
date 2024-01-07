@@ -1,36 +1,29 @@
-import fetch from 'cross-fetch';
 import { Request, Response } from 'express';
+import api from 'api';
+import { YelpGetBusinessesQuery } from '../validation';
 
-const getYelpQueryString = (req: Request) => {
+const sdk = api('@api/yelp-developers/v1.0#8e0h2zlqcimwm0');
+sdk.auth(`Bearer ${process.env.YELP_API_KEY}`);
+
+export async function getBusinesses(
+  req: Request<{}, {}, {}, YelpGetBusinessesQuery>,
+  res: Response,
+) {
+  const location = req.query.city;
+  const price = req.query.price;
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.perPage) || 25;
-  const city = req.query.city;
-  const queryOptions = {
-    location: city,
-    radius: '40000',
-    sort_by: 'best_match',
-    limit,
-    offset: (page - 1) * limit,
-  };
 
-  const queryString = Object.entries(queryOptions)
-    .map(([key, value]) => `${key}=${value}`)
-    .join('&');
-
-  return queryString;
-};
-
-export async function handleYelpApi(req: Request, res: Response) {
-  const queryString = getYelpQueryString(req);
-  const url = `https://api.yelp.com/v3/businesses/search?${queryString}`;
   try {
-    const response = await fetch(url, {
-      headers: {
-        authorization: `Bearer ${process.env.YELP_API_KEY!}`,
-      },
+    const response = await sdk.v3_business_search({
+      location,
+      price,
+      radius: '40000',
+      sort_by: 'best_match',
+      limit,
+      offset: (page - 1) * limit,
     });
-    const data = await response.json();
-    return res.json(data);
+    res.json(response.data);
   } catch (err) {
     console.log(err);
   }

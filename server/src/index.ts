@@ -1,7 +1,8 @@
 import apicache from 'apicache';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
-import { handleYelpApi } from './controllers/yelp';
+import { getBusinesses } from './controllers/yelp';
+import { YelpGetBusinessesSchema, validate } from './validation';
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 
 const cache = apicache.middleware;
 
-app.use('/yelp', cache('12 hours'), handleYelpApi);
+app.use('/yelp', validate(YelpGetBusinessesSchema), cache('12 hours'), getBusinesses);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server listening at http://localhost:${process.env.PORT}`);
