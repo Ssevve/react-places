@@ -1,12 +1,11 @@
 import { ResponsiveDrawer } from '@/components/ResponsiveDrawer';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BusinessesFiltersPrice } from './components';
+import { BusinessesFiltersPrice, BusinessesFiltersSetButton } from './components';
 
 export interface BusinessesFiltersProps {
   isOpen: boolean;
@@ -41,15 +40,7 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
         <Box display="grid" gap={2}>
           <BusinessesFiltersPrice priceFilters={priceFilters} setPriceFilters={setPriceFilters} />
         </Box>
-        <Button
-          variant="contained"
-          onClick={() => {
-            setFilters();
-            close();
-          }}
-        >
-          Set Filters
-        </Button>
+        <BusinessesFiltersSetButton setFilters={setFilters} closeFilters={close} />
       </Box>
     </ResponsiveDrawer>
   );
