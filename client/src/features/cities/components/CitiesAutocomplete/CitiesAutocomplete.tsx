@@ -21,7 +21,7 @@ export function CitiesAutocomplete({ setHighlightedBusinessId }: CitiesAutocompl
       });
     } else {
       setHighlightedBusinessId(undefined);
-      setSearchParams({ city });
+      setSearchParams({ city }, { replace: true });
     }
   };
 

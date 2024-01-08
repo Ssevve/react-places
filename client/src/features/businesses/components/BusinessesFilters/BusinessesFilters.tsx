@@ -22,7 +22,9 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
     else searchParams.set('price', priceFilters.join(','));
 
     searchParams.delete('page');
-    setSearchParams(searchParams);
+    setSearchParams(searchParams, {
+      replace: true,
+    });
   };
 
   return (
