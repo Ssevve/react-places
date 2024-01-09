@@ -6,18 +6,15 @@ import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 
 export interface BusinessesFiltersPriceProps {
-  setPriceFilters: React.Dispatch<React.SetStateAction<string[]>>;
-  priceFilters: Array<string>;
+  setPrices: React.Dispatch<React.SetStateAction<string[]>>;
+  prices: Array<string>;
 }
 
-export function BusinessesFiltersPrice({
-  priceFilters,
-  setPriceFilters,
-}: BusinessesFiltersPriceProps) {
+export function BusinessesFiltersPrice({ prices, setPrices }: BusinessesFiltersPriceProps) {
   const onPriceFilterChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     const price = event.target.value;
-    if (checked) setPriceFilters((prev) => [...prev, price]);
-    else setPriceFilters((prev) => prev.filter((_price) => price !== _price));
+    if (checked) setPrices((prev) => [...prev, price]);
+    else setPrices((prev) => prev.filter((_price) => price !== _price));
   };
 
   return (
@@ -31,7 +28,7 @@ export function BusinessesFiltersPrice({
             key={label}
             control={
               <Checkbox
-                checked={priceFilters.includes(value.toString())}
+                checked={prices.includes(value.toString())}
                 onChange={onPriceFilterChange}
               />
             }

@@ -3,7 +3,7 @@ import { render, screen } from '@/tests/utils';
 import { BusinessesFiltersPrice, BusinessesFiltersPriceProps } from './BusinessesFiltersPrice';
 
 const renderBusinessesFiltersPrice = (props?: Partial<BusinessesFiltersPriceProps>) => {
-  return render(<BusinessesFiltersPrice setPriceFilters={() => {}} priceFilters={[]} {...props} />);
+  return render(<BusinessesFiltersPrice setPrices={() => {}} prices={[]} {...props} />);
 };
 
 describe('BusinessesFiltersPrice', () => {
@@ -20,7 +20,7 @@ describe('BusinessesFiltersPrice', () => {
   it('should render checkboxes with correct initial checked state', () => {
     const expectedCheckedCheckbox = priceRatings[0];
     const expectedUncheckedLength = priceRatings.length - 1;
-    renderBusinessesFiltersPrice({ priceFilters: [expectedCheckedCheckbox.value.toString()] });
+    renderBusinessesFiltersPrice({ prices: [expectedCheckedCheckbox.value.toString()] });
     expect(screen.getByRole('checkbox', { name: expectedCheckedCheckbox.label })).toBeChecked();
     expect(screen.getAllByRole('checkbox', { checked: false })).toHaveLength(
       expectedUncheckedLength,
