@@ -6,6 +6,7 @@ export const YelpGetBusinessesSchema = z.object({
     perPage: z.string().optional(),
     page: z.string().optional(),
     price: z.string().optional(),
+    radius: z.string().optional(),
   }),
 });
 

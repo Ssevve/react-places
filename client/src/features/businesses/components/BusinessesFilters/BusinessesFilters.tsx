@@ -3,9 +3,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BusinessesFiltersPrice, BusinessesFiltersSetButton } from './components';
+import { radiusOptions } from '../../constants';
+import {
+  BusinessesFiltersPrice,
+  BusinessesFiltersRadius,
+  BusinessesFiltersSetButton,
+} from './components';
 
 export interface BusinessesFiltersProps {
   isOpen: boolean;
@@ -14,17 +19,22 @@ export interface BusinessesFiltersProps {
 
 export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [priceFilters, setPriceFilters] = useState(searchParams.get('price')?.split(',') || []);
+  const [prices, setPrices] = useState(searchParams.get('price')?.split(',') || []);
+  const [radius, setRadius] = useState(Number(searchParams.get('radius')) || radiusOptions.default);
 
-  const setFilters = () => {
-    if (priceFilters.length === 0) searchParams.delete('price');
-    else searchParams.set('price', priceFilters.join(','));
+  const setFilters = useCallback(() => {
+    if (prices.length === 0) searchParams.delete('price');
+    else searchParams.set('price', prices.join(','));
+
+    if (radius) searchParams.set('radius', radius.toString());
+    else searchParams.delete('radius');
 
     searchParams.delete('page');
     setSearchParams(searchParams, {
       replace: true,
     });
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prices, radius]);
 
   return (
     <ResponsiveDrawer open={isOpen} variant="temporary" onClose={close} hideBackdrop>
@@ -38,7 +48,8 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
           </Typography>
         </Box>
         <Box display="grid" gap={2}>
-          <BusinessesFiltersPrice priceFilters={priceFilters} setPriceFilters={setPriceFilters} />
+          <BusinessesFiltersPrice prices={prices} setPrices={setPrices} />
+          <BusinessesFiltersRadius radius={radius} setRadius={setRadius} />
         </Box>
         <BusinessesFiltersSetButton setFilters={setFilters} closeFilters={close} />
       </Box>

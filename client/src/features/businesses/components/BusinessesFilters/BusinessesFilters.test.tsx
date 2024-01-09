@@ -30,6 +30,11 @@ describe('BusinessesFilters', () => {
     expect(screen.getByRole('heading', { name: 'Price' })).toBeInTheDocument();
   });
 
+  it('should render radius filter', () => {
+    renderBusinessesFilters();
+    expect(screen.getByRole('heading', { name: 'Radius' })).toBeInTheDocument();
+  });
+
   it('should render a button to set selected filters', () => {
     renderBusinessesFilters();
     expect(screen.getByRole('button', { name: 'Set Filters' })).toBeInTheDocument();
