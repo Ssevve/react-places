@@ -4,6 +4,10 @@ import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import { floorToNearestDivisibleBy } from './utils';
 
+function formatRadiusLabelText(radius: number) {
+  return `${radius / 1000}km`;
+}
+
 export interface BusinessesFiltersRadiusProps {
   radius: number;
   setRadius: (radius: number) => void;
@@ -21,9 +25,9 @@ export function BusinessesFiltersRadius({ radius, setRadius }: BusinessesFilters
         Radius
       </Typography>
       <Slider
-        sx={{ display: 'block', mx: 'auto', width: '85%' }}
+        sx={{ display: 'block', mx: 'auto', pt: 2, width: '85%' }}
         onChange={onRadiusChange}
-        getAriaValueText={(radius) => radius.toString()}
+        getAriaValueText={(radius) => formatRadiusLabelText(radius)}
         aria-label="Radius"
         value={floorToNearestDivisibleBy(radius, radiusOptions.step)}
         valueLabelDisplay="auto"
