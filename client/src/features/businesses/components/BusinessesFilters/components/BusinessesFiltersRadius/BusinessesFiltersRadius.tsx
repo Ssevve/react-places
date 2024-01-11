@@ -27,7 +27,8 @@ export function BusinessesFiltersRadius({ radius, setRadius }: BusinessesFilters
       <Slider
         sx={{ display: 'block', mx: 'auto', pt: 2, width: '85%' }}
         onChange={onRadiusChange}
-        getAriaValueText={(radius) => formatRadiusLabelText(radius)}
+        getAriaValueText={formatRadiusLabelText}
+        valueLabelFormat={formatRadiusLabelText}
         aria-label="Radius"
         value={floorToNearestDivisibleBy(radius, radiusOptions.step)}
         valueLabelDisplay="auto"
