@@ -6,7 +6,7 @@ export function Home() {
   return (
     <Box display="flex">
       <BusinessesDrawer />
-      <Box height="100vh" width="100%">
+      <Box height="100vh" flex={1}>
         <Map />
       </Box>
     </Box>

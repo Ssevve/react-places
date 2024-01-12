@@ -1,5 +1,5 @@
 import { useDeviceSizes } from '@/hooks';
-import { Drawer, DrawerProps } from '@mui/material';
+import { Box, Drawer, DrawerProps } from '@mui/material';
 import React from 'react';
 import { MobileResponsiveDrawerToggler } from './components/MobileResponsiveDrawerToggler';
 
@@ -31,7 +31,7 @@ const togglerOffset = TOGGLER_WIDTH + TOGGLER_SCREEN_EDGE_MARGIN;
 
 export function ResponsiveDrawer({
   children,
-  open = false,
+  open = true,
   includeToggler = false,
   keepMounted = false,
   toggleDrawer,
@@ -42,31 +42,33 @@ export function ResponsiveDrawer({
   const renderToggler = toggleDrawer && includeToggler && isMobile;
 
   return (
-    <Drawer
-      data-testid="responsive-drawer"
-      PaperProps={{
-        sx: {
-          maxWidth: `calc(100% - ${togglerOffset}px)`,
-          overflow: 'visible',
-          width: DRAWER_WIDTH,
-        },
-      }}
-      ModalProps={{
-        keepMounted,
-      }}
-      open={open}
-      variant={isMobile ? 'temporary' : 'permanent'}
-      {...props}
-    >
-      {children}
-      {renderToggler && (
-        <MobileResponsiveDrawerToggler
-          icon={togglerIcon}
-          isDrawerOpen={open}
-          width={TOGGLER_WIDTH}
-          toggleDrawer={toggleDrawer}
-        />
-      )}
-    </Drawer>
+    <Box width={DRAWER_WIDTH} position={isMobile ? 'fixed' : 'static'}>
+      <Drawer
+        data-testid="responsive-drawer"
+        PaperProps={{
+          sx: {
+            maxWidth: `calc(100% - ${togglerOffset}px)`,
+            overflow: 'visible',
+            width: DRAWER_WIDTH,
+          },
+        }}
+        ModalProps={{
+          keepMounted,
+        }}
+        open={open}
+        variant={isMobile ? 'temporary' : 'permanent'}
+        {...props}
+      >
+        {children}
+        {renderToggler && (
+          <MobileResponsiveDrawerToggler
+            icon={togglerIcon}
+            isDrawerOpen={open}
+            width={TOGGLER_WIDTH}
+            toggleDrawer={toggleDrawer}
+          />
+        )}
+      </Drawer>
+    </Box>
   );
 }
