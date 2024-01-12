@@ -56,21 +56,21 @@ const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) => {
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
-export interface UseBusinessesQueryProps {
-  throwOnError?: boolean;
-}
-
-export function useBusinessesQuery({ throwOnError = false }: UseBusinessesQueryProps = {}) {
+export function useBusinessesQuery({ enabled = true } = {}) {
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city');
   const page = Number(searchParams.get('page')) || 1;
   return useQuery({
-    enabled: !!city,
+    enabled: enabled && !!city,
     queryFn: () => fetchBusinesses({ searchParams }),
     queryKey: ['businesses', searchParams.toString(), searchParams],
-    select: (data) =>
-      transformBusinessesResponse({ businessesPerPage: defaultBusinessesPerPage, data, page }),
+    select: (data) => {
+      return transformBusinessesResponse({
+        businessesPerPage: defaultBusinessesPerPage,
+        data,
+        page,
+      });
+    },
     staleTime: Infinity,
-    throwOnError,
   });
 }

@@ -3,26 +3,16 @@ import { createQueryHookWrapper } from '@/tests/createQueryHookWrapper';
 import { renderHook, waitFor } from '@/tests/utils';
 import { businessesPerPage } from '../constants';
 import { transformBusinessesResponse } from '../utils';
-import { UseBusinessesQueryProps, useBusinessesQuery } from './useBusinessesQuery';
+import { useBusinessesQuery } from './useBusinessesQuery';
 
 interface RenderUseBusinessesQueryProps {
-  props?: Partial<UseBusinessesQueryProps>;
   initialEntries?: Array<string>;
 }
 
-const renderUseBusinessesQuery = ({
-  props,
-  initialEntries,
-}: RenderUseBusinessesQueryProps = {}) => {
-  return renderHook(
-    () =>
-      useBusinessesQuery({
-        ...props,
-      }),
-    {
-      wrapper: ({ children }) => createQueryHookWrapper({ children, initialEntries }),
-    },
-  );
+const renderUseBusinessesQuery = ({ initialEntries }: RenderUseBusinessesQueryProps = {}) => {
+  return renderHook(() => useBusinessesQuery(), {
+    wrapper: ({ children }) => createQueryHookWrapper({ children, initialEntries }),
+  });
 };
 
 describe('useBusinessesQuery', () => {

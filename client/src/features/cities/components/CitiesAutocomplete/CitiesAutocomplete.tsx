@@ -4,11 +4,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { citiesPoland } from '../../data';
 
-interface CitiesAutocompleteProps {
-  setHighlightedBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-
-export function CitiesAutocomplete({ setHighlightedBusinessId }: CitiesAutocompleteProps) {
+export function CitiesAutocomplete() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || null);
 
@@ -20,7 +16,6 @@ export function CitiesAutocomplete({ setHighlightedBusinessId }: CitiesAutocompl
         return params;
       });
     } else {
-      setHighlightedBusinessId(undefined);
       setSearchParams({ city }, { replace: true });
     }
   };

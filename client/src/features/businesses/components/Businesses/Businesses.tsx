@@ -1,29 +1,44 @@
+import { useSearchParams } from 'react-router-dom';
 import { useBusinessesQuery } from '../../api';
-import { BusinessList, BusinessesErrorMessage } from '../../components';
+import { BusinessesErrorFallback, BusinessesErrorMessage } from '../../components';
+import { BusinessListSkeleton } from '../BusinessListSkeleton';
+import { BusinessesNoResults } from '../BusinessesNoResults';
+import { BusinessesResults } from '../BusinessesResults';
 
 interface BusinessesProps {
-  toggleDrawer: () => void;
-  setHighlightedBusinessId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  openFilters: () => void;
 }
 
-export function Businesses({ setHighlightedBusinessId, toggleDrawer }: BusinessesProps) {
-  const {
-    data: businessesData,
-    isPending,
-    fetchStatus,
-  } = useBusinessesQuery({
-    throwOnError: true,
-  });
+export function Businesses({ openFilters }: BusinessesProps) {
+  const [searchParams] = useSearchParams();
+  const city = searchParams.get('city');
+  const getBusinesses = useBusinessesQuery();
+  const businesses = getBusinesses.data?.businesses || [];
+  const totalBusinesses = getBusinesses.data?.total || 0;
 
-  const isWaitingForInitialInput = isPending && fetchStatus === 'idle';
-  return isWaitingForInitialInput ? (
-    <BusinessesErrorMessage message="You need to provide a city before we can show recommended places!" />
-  ) : (
-    <BusinessList
-      setHighlightedBusinessId={setHighlightedBusinessId}
-      toggleDrawer={toggleDrawer}
-      businesses={businessesData?.businesses}
-      totalBusinesses={businessesData?.total || 0}
+  if (getBusinesses.isError) {
+    return <BusinessesErrorFallback />;
+  }
+
+  if (getBusinesses.isLoading) {
+    return <BusinessListSkeleton />;
+  }
+
+  if (!city) {
+    return (
+      <BusinessesErrorMessage message="You need to provide a city before we can show any results!" />
+    );
+  }
+
+  if (businesses.length === 0) {
+    return <BusinessesNoResults openFilters={openFilters} />;
+  }
+
+  return (
+    <BusinessesResults
+      businesses={businesses}
+      openFilters={openFilters}
+      totalBusinesses={totalBusinesses}
     />
   );
 }

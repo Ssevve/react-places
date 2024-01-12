@@ -8,10 +8,9 @@ import { memo } from 'react';
 
 export interface BusinessMarkerProps {
   business: TransformedBusiness;
-  isHighlighted: boolean;
 }
 
-export const BusinessMarker = memo(({ business, isHighlighted }: BusinessMarkerProps) => {
+export const BusinessMarker = memo(({ business }: BusinessMarkerProps) => {
   const {
     coordinates: { latitude, longitude },
   } = business;
@@ -33,13 +32,9 @@ export const BusinessMarker = memo(({ business, isHighlighted }: BusinessMarkerP
           <RoomRoundedIcon
             sx={[
               (theme) => ({
-                fill: isHighlighted
-                  ? theme.palette.primary.contrastText
-                  : theme.palette.primary.main,
+                fill: theme.palette.primary.main,
                 fontSize: 40,
-                stroke: isHighlighted
-                  ? theme.palette.primary.main
-                  : theme.palette.primary.contrastText,
+                stroke: theme.palette.primary.contrastText,
                 transition: 'none',
               }),
             ]}
@@ -47,9 +42,7 @@ export const BusinessMarker = memo(({ business, isHighlighted }: BusinessMarkerP
           <Box
             sx={(theme) => ({
               aspectRatio: 1,
-              backgroundColor: isHighlighted
-                ? theme.palette.primary.contrastText
-                : theme.palette.primary.main,
+              backgroundColor: theme.palette.primary.main,
               borderRadius: '50%',
               height: '40%',
               left: '50%',
@@ -62,9 +55,7 @@ export const BusinessMarker = memo(({ business, isHighlighted }: BusinessMarkerP
               component="span"
               variant="caption"
               sx={(theme) => ({
-                color: isHighlighted
-                  ? theme.palette.primary.main
-                  : theme.palette.primary.contrastText,
+                color: theme.palette.primary.contrastText,
                 display: 'block',
                 fontSize: 12,
                 fontWeight: 700,

@@ -7,26 +7,27 @@ interface PropsWithoutToggler {
   includeToggler?: never | false;
   toggleDrawer?: never;
   togglerIcon?: never;
+  togglerWidth?: never;
 }
 
 interface PropsWithToggler {
   includeToggler: true;
   togglerIcon?: React.ReactNode;
   toggleDrawer: () => void;
+  togglerWidth?: number;
 }
 
 export type ResponsiveDrawerProps = {
+  drawerWidth?: number;
   keepMounted?: boolean;
 } & DrawerProps &
   (PropsWithToggler | PropsWithoutToggler);
 
-const drawerWidth = 425;
-const togglerWidth = 50;
-const togglerOffset = togglerWidth + 12;
-const drawerSx = {
-  maxWidth: `calc(100% - ${togglerOffset}px)`,
-  width: drawerWidth,
-};
+const DRAWER_WIDTH = 425;
+const TOGGLER_WIDTH = 50;
+const TOGGLER_SCREEN_EDGE_MARGIN = 12;
+
+const togglerOffset = TOGGLER_WIDTH + TOGGLER_SCREEN_EDGE_MARGIN;
 
 export function ResponsiveDrawer({
   children,
@@ -45,8 +46,9 @@ export function ResponsiveDrawer({
       data-testid="responsive-drawer"
       PaperProps={{
         sx: {
-          ...drawerSx,
+          maxWidth: `calc(100% - ${togglerOffset}px)`,
           overflow: 'visible',
+          width: DRAWER_WIDTH,
         },
       }}
       ModalProps={{
@@ -61,7 +63,7 @@ export function ResponsiveDrawer({
         <MobileResponsiveDrawerToggler
           icon={togglerIcon}
           isDrawerOpen={open}
-          width={togglerWidth}
+          width={TOGGLER_WIDTH}
           toggleDrawer={toggleDrawer}
         />
       )}

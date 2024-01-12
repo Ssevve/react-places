@@ -2,7 +2,7 @@ import { render, screen } from '@/tests/utils';
 import { BusinessesErrorFallback } from './BusinessesErrorFallback';
 
 const renderBusinessesErrorFallback = () => {
-  return render(<BusinessesErrorFallback resetErrorBoundary={() => vi.fn()} />);
+  return render(<BusinessesErrorFallback />);
 };
 
 describe('BusinessesErrorFallback', () => {

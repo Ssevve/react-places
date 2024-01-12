@@ -2,77 +2,54 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { businessesPerPage } from '../../constants';
 import { TransformedBusiness } from '../../types';
 import { BusinessCard } from '../BusinessCard';
 import { BusinessListPagination } from '../BusinessListPagination';
-import { BusinessListSkeleton } from '../BusinessListSkeleton';
-import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
 
 export interface BusinessListProps {
-  setHighlightedBusinessId: (id: string) => void;
-  toggleDrawer: (newOpen?: boolean) => void;
   totalBusinesses: number;
-  businesses: Array<TransformedBusiness> | undefined;
+  businesses: Array<TransformedBusiness>;
 }
 
-export function BusinessList({
-  setHighlightedBusinessId,
-  toggleDrawer,
-  totalBusinesses,
-  businesses,
-}: BusinessListProps) {
+export function BusinessList({ totalBusinesses, businesses }: BusinessListProps) {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
-  const listWrapperRef = useRef<HTMLUListElement>();
   const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / businessesPerPage) : 1;
-
-  useEffect(() => {
-    if (!listWrapperRef.current) return;
-    listWrapperRef.current.scrollTo(0, 0);
-  }, [currentPage]);
 
   const toggleExpanded = useCallback((id: string) => {
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
-  if (businesses) {
-    return businesses.length ? (
-      <Box overflow="auto" height="100%" width="100%" ref={listWrapperRef}>
-        <List
-          disablePadding
-          aria-label="Businesses"
-          sx={{
-            boxShadow: 0,
-            overflow: 'auto',
-          }}
-        >
-          {businesses.map((business) => (
-            <ListItem key={business.id} disablePadding disableGutters>
-              <BusinessCard
-                business={business}
-                isExpanded={expandedBusinessId === business.id}
-                setHighlightedBusinessId={setHighlightedBusinessId}
-                toggleDrawer={toggleDrawer}
-                toggleExpanded={toggleExpanded}
-              />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        {pageCount > 1 && (
-          <Box display="flex" justifyContent="center" paddingY={2} paddingX={1}>
-            <BusinessListPagination currentPage={currentPage} pageCount={pageCount} />
-          </Box>
-        )}
-      </Box>
-    ) : (
-      <BusinessesErrorMessage message="Unfortunately, there are no businesses to show." />
-    );
-  }
-
-  return <BusinessListSkeleton />;
+  return (
+    <>
+      <List
+        disablePadding
+        aria-label="Businesses"
+        sx={{
+          boxShadow: 0,
+          overflow: 'auto',
+        }}
+      >
+        {businesses.map((business) => (
+          <ListItem key={business.id} disablePadding disableGutters>
+            <BusinessCard
+              business={business}
+              isExpanded={expandedBusinessId === business.id}
+              toggleExpanded={toggleExpanded}
+            />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      {pageCount > 1 && (
+        <Box display="flex" justifyContent="center" paddingY={2} paddingX={1}>
+          <BusinessListPagination currentPage={currentPage} pageCount={pageCount} />
+        </Box>
+      )}
+    </>
+  );
 }
