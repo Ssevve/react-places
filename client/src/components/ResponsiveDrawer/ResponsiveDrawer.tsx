@@ -1,6 +1,5 @@
 import { useDeviceSizes } from '@/hooks';
 import { Box, Drawer, DrawerProps } from '@mui/material';
-import React from 'react';
 import { MobileResponsiveDrawerToggler } from './components/MobileResponsiveDrawerToggler';
 
 interface PropsWithoutToggler {

@@ -1,7 +1,6 @@
 import Button, { ButtonProps } from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TuneIcon from '@mui/icons-material/Tune';
-import React from 'react';
 
 interface OpenerType extends Pick<ButtonProps, 'sx' | 'variant'> {}
 

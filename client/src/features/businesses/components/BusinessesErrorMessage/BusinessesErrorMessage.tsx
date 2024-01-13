@@ -1,7 +1,6 @@
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import DomainDisabledIcon from '@mui/icons-material/DomainDisabled';
-import React from 'react';
 
 interface BusinessesErrorMessageProps extends React.PropsWithChildren {
   message?: string;

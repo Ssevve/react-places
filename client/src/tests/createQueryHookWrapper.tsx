@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 export interface CreateQueryHookWrapperProps extends React.PropsWithChildren {
