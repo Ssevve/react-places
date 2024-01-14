@@ -20,7 +20,7 @@ export function BusinessList({ totalBusinesses, businesses }: BusinessListProps)
   const [expandedBusinessId, setExpandedBusinessId] = useState<string>();
   const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / businessesPerPage) : 1;
 
-  const toggleExpanded = useCallback((id: string) => {
+  const toggleExpandedBusinessCard = useCallback((id: string) => {
     return setExpandedBusinessId((prevId) => (prevId === id ? undefined : id));
   }, []);
 
@@ -39,7 +39,7 @@ export function BusinessList({ totalBusinesses, businesses }: BusinessListProps)
             <BusinessCard
               business={business}
               isExpanded={expandedBusinessId === business.id}
-              toggleExpanded={toggleExpanded}
+              toggleExpanded={toggleExpandedBusinessCard}
             />
           </ListItem>
         ))}

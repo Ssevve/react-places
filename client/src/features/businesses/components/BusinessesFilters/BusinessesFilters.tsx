@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { radiusOptions } from '../../constants';
 import {
@@ -22,7 +22,7 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
   const [prices, setPrices] = useState(searchParams.get('price')?.split(',') || []);
   const [radius, setRadius] = useState(Number(searchParams.get('radius')) || radiusOptions.default);
 
-  const setFilters = useCallback(() => {
+  const setFilters = () => {
     if (prices.length === 0) searchParams.delete('price');
     else searchParams.set('price', prices.join(','));
 
@@ -34,7 +34,7 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
       replace: true,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prices, radius]);
+  };
 
   return (
     <ResponsiveDrawer
