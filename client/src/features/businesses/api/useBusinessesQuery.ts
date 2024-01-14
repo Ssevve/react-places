@@ -56,7 +56,11 @@ const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) => {
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
 
-export function useBusinessesQuery({ enabled = true } = {}) {
+export interface UseBusinessesQueryProps {
+  enabled?: boolean;
+}
+
+export function useBusinessesQuery({ enabled = true }: UseBusinessesQueryProps = {}) {
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city');
   const page = Number(searchParams.get('page')) || 1;
