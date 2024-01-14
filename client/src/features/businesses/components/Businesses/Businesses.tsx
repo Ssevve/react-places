@@ -15,15 +15,15 @@ interface BusinessesProps {
 export function Businesses({ openFilters }: BusinessesProps) {
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city');
-  const getBusinesses = useBusinessesQuery();
-  const businesses = getBusinesses.data?.businesses || [];
-  const totalBusinesses = getBusinesses.data?.total || 0;
+  const { data, isLoading, isError } = useBusinessesQuery();
+  const businesses = data?.businesses || [];
+  const totalBusinesses = data?.total || 0;
 
-  if (getBusinesses.isError) {
+  if (isError) {
     return <BusinessesErrorFallback />;
   }
 
-  if (getBusinesses.isLoading) {
+  if (isLoading) {
     return <BusinessesSkeleton />;
   }
 
