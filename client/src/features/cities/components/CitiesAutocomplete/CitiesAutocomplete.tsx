@@ -16,7 +16,8 @@ export function CitiesAutocomplete() {
         return params;
       });
     } else {
-      setSearchParams({ city }, { replace: true });
+      searchParams.set('city', city);
+      setSearchParams(searchParams, { replace: true });
     }
   };
 
