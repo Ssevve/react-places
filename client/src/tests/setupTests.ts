@@ -1,4 +1,4 @@
-import { server } from '@/__mocks__/server';
+import { server } from '@/__mocks__';
 import { cleanup } from '@/tests/utils';
 import '@testing-library/jest-dom';
 import * as matchers from '@testing-library/jest-dom/matchers';

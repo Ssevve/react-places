@@ -1,8 +1,7 @@
+import { mockYelpBusinessesResponse } from '@/__mocks__';
+import { env } from '@/config/env';
 import { http, HttpResponse } from 'msw';
-import { mockYelpBusinessesResponse } from './data';
 
 export const handlers = [
-  http.get('http://localhost:5000/yelp/businesses', () =>
-    HttpResponse.json(mockYelpBusinessesResponse),
-  ),
+  http.get(env.VITE_BUSINESSES_API_URL, () => HttpResponse.json(mockYelpBusinessesResponse)),
 ];

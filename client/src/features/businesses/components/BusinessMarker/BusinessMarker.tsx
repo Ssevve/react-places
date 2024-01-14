@@ -4,13 +4,12 @@ import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { memo } from 'react';
 
 export interface BusinessMarkerProps {
   business: TransformedBusiness;
 }
 
-export const BusinessMarker = memo(({ business }: BusinessMarkerProps) => {
+export const BusinessMarker = ({ business }: BusinessMarkerProps) => {
   const {
     coordinates: { latitude, longitude },
   } = business;
@@ -68,4 +67,4 @@ export const BusinessMarker = memo(({ business }: BusinessMarkerProps) => {
       </IconButton>
     </InteractiveMarker>
   );
-});
+};

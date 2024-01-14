@@ -1,11 +1,11 @@
-import { server } from '@/__mocks__/server';
+import { server } from '@/__mocks__';
 import { render, screen, waitFor } from '@/tests/utils';
 import { userEvent } from '@testing-library/user-event';
 import { HttpResponse, http } from 'msw';
 import { BusinessesDrawer } from './BusinessesDrawer';
 
 const renderBusinessesDrawer = (initialEntries: Array<string> = ['/']) => {
-  return render(<BusinessesDrawer setHighlightedBusinessId={vi.fn()} />, { initialEntries });
+  return render(<BusinessesDrawer />, { initialEntries });
 };
 
 describe('BusinessesDrawer', () => {

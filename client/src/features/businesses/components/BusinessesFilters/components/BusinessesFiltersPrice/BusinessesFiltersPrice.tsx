@@ -26,12 +26,7 @@ export function BusinessesFiltersPrice({ prices, setPrices }: BusinessesFiltersP
         {priceRatings.map(({ label, value }) => (
           <FormControlLabel
             key={label}
-            control={
-              <Checkbox
-                checked={prices.includes(value.toString())}
-                onChange={onPriceFilterChange}
-              />
-            }
+            control={<Checkbox checked={prices.includes(value.toString())} onChange={onPriceFilterChange} />}
             value={value}
             label={label}
           />

@@ -22,8 +22,6 @@ describe('BusinessesFiltersPrice', () => {
     const expectedUncheckedLength = priceRatings.length - 1;
     renderBusinessesFiltersPrice({ prices: [expectedCheckedCheckbox.value.toString()] });
     expect(screen.getByRole('checkbox', { name: expectedCheckedCheckbox.label })).toBeChecked();
-    expect(screen.getAllByRole('checkbox', { checked: false })).toHaveLength(
-      expectedUncheckedLength,
-    );
+    expect(screen.getAllByRole('checkbox', { checked: false })).toHaveLength(expectedUncheckedLength);
   });
 });

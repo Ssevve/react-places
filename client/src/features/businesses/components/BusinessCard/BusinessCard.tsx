@@ -1,3 +1,4 @@
+import { TransformedBusiness } from '@/features/businesses';
 import { useDeviceSizes } from '@/hooks';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
@@ -11,11 +12,13 @@ import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { TransformedBusiness } from '../../types';
-import { BusinessBaseInfo } from '../BusinessBaseInfo';
-import { BusinessCardCategories } from '../BusinessCardCategories';
-import { BusinessCardContactInfo } from '../BusinessCardContactInfo';
-import { BusinessImage } from '../BusinessImage';
+import {
+  BusinessCardBaseInfo,
+  BusinessCardCategories,
+  BusinessCardContactInfo,
+  BusinessCardImage,
+} from './components';
+
 import yelpLogo from '/assets/yelp-logo.svg';
 
 export interface BusinessCardProps {
@@ -52,10 +55,7 @@ export const BusinessCard = memo(({ business, isExpanded, toggleExpanded }: Busi
         width: '100%',
       }}
     >
-      <CardActionArea
-        data-testid="business-card-action-area"
-        onClick={() => toggleExpanded(business.id)}
-      >
+      <CardActionArea data-testid="business-card-action-area" onClick={() => toggleExpanded(business.id)}>
         <CardContent
           sx={(theme) => ({
             display: 'flex',
@@ -66,9 +66,9 @@ export const BusinessCard = memo(({ business, isExpanded, toggleExpanded }: Busi
             },
           })}
         >
-          <BusinessImage alt={business.name} src={business.imageUrl} fullWidth={isSmallMobile} />
+          <BusinessCardImage alt={business.name} src={business.imageUrl} fullWidth={isSmallMobile} />
           <Box display="flex" flexDirection="column" gap={1}>
-            <BusinessBaseInfo
+            <BusinessCardBaseInfo
               displayIndex={business.displayIndex}
               isClosed={business.isClosed}
               name={business.name}

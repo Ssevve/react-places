@@ -1,11 +1,11 @@
 import Button from '@mui/material/Button';
 
-interface FiltersToggleProps {
+interface BusinessesFiltersSetButtonProps {
   setFilters: () => void;
   closeFilters: () => void;
 }
 
-export function BusinessesFiltersSetButton({ setFilters, closeFilters }: FiltersToggleProps) {
+export function BusinessesFiltersSetButton({ setFilters, closeFilters }: BusinessesFiltersSetButtonProps) {
   return (
     <Button
       variant="contained"

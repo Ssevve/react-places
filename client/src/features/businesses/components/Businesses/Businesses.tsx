@@ -1,9 +1,12 @@
+import { useBusinessesQuery } from '@/features/businesses';
 import { useSearchParams } from 'react-router-dom';
-import { useBusinessesQuery } from '../../api';
-import { BusinessesErrorFallback, BusinessesErrorMessage } from '../../components';
-import { BusinessListSkeleton } from '../BusinessListSkeleton';
-import { BusinessesNoResults } from '../BusinessesNoResults';
-import { BusinessesResults } from '../BusinessesResults';
+import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
+import {
+  BusinessesErrorFallback,
+  BusinessesNoResults,
+  BusinessesResults,
+  BusinessesSkeleton,
+} from './components';
 
 interface BusinessesProps {
   openFilters: () => void;
@@ -21,13 +24,11 @@ export function Businesses({ openFilters }: BusinessesProps) {
   }
 
   if (getBusinesses.isLoading) {
-    return <BusinessListSkeleton />;
+    return <BusinessesSkeleton />;
   }
 
   if (!city) {
-    return (
-      <BusinessesErrorMessage message="You need to provide a city before we can show any results!" />
-    );
+    return <BusinessesErrorMessage message="You need to provide a city before we can show any results!" />;
   }
 
   if (businesses.length === 0) {
@@ -35,10 +36,6 @@ export function Businesses({ openFilters }: BusinessesProps) {
   }
 
   return (
-    <BusinessesResults
-      businesses={businesses}
-      openFilters={openFilters}
-      totalBusinesses={totalBusinesses}
-    />
+    <BusinessesResults businesses={businesses} openFilters={openFilters} totalBusinesses={totalBusinesses} />
   );
 }

@@ -1,15 +1,15 @@
 import { BusinessMarker, useBusinessesQuery } from '@/features/businesses';
-import { Box, styled } from '@mui/material';
-import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import {
   INITIAL_MAP_CENTER,
   INITIAL_MAP_ZOOM,
   MIN_MAP_ZOOM,
   POLAND_NORTH_EAST_BOUNDS,
   POLAND_SOUTH_WEST_BOUNDS,
-} from '../../constants';
-import { useMapCenter } from '../../hooks';
-import { CenterView } from '../CenterView';
+  useMapCenter,
+} from '@/features/map';
+import { Box, styled } from '@mui/material';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
+import { CenterView } from './components';
 
 export const StyledMap = styled(MapContainer)({
   height: '100%',

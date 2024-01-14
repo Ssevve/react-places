@@ -1,10 +1,10 @@
+import { citiesPoland } from '@/features/cities';
 import { render, screen } from '@/tests/utils';
 import { userEvent } from '@testing-library/user-event';
-import { citiesPoland } from '../../data';
 import { CitiesAutocomplete } from './CitiesAutocomplete';
 
-const renderCitiesAutocomplete = ({ setHighlightedBusinessId = () => {}, city = '' } = {}) => {
-  return render(<CitiesAutocomplete setHighlightedBusinessId={setHighlightedBusinessId} />, {
+const renderCitiesAutocomplete = ({ city = '' } = {}) => {
+  return render(<CitiesAutocomplete />, {
     initialEntries: [`/?city=${city}`],
   });
 };
@@ -28,16 +28,5 @@ describe('CitiesAutocomplete', () => {
     const expectedCity = citiesPoland[0];
     renderCitiesAutocomplete({ city: expectedCity });
     expect(screen.getByRole('combobox')).toHaveValue(expectedCity);
-  });
-
-  it('should call "setHighlightedBusinessId" on city selection', async () => {
-    const user = userEvent.setup();
-    const mockSetHighlightedBusinessId = vi.fn();
-    renderCitiesAutocomplete({ setHighlightedBusinessId: mockSetHighlightedBusinessId });
-
-    await user.click(screen.getByRole('combobox'));
-    await user.click(screen.getByText(citiesPoland[0]));
-
-    expect(mockSetHighlightedBusinessId).toHaveBeenCalledOnce();
   });
 });

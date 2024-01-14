@@ -10,5 +10,4 @@ export type TransformedBusinessesResponse = ReturnType<typeof transformBusinesse
 
 export type TransformedBusiness = ReturnType<typeof transformBusiness>;
 export type Category = TransformedBusiness['categories'][0];
-export type DisplayAddress = TransformedBusiness['location']['displayAddress'];
 export type Price = TransformedBusiness['price'];

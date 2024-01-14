@@ -8,9 +8,7 @@ describe('BusinessesFiltersSetButton', () => {
     const mockSetFilters = vi.fn();
     const mockCloseFilters = vi.fn();
 
-    render(
-      <BusinessesFiltersSetButton setFilters={mockSetFilters} closeFilters={mockCloseFilters} />,
-    );
+    render(<BusinessesFiltersSetButton setFilters={mockSetFilters} closeFilters={mockCloseFilters} />);
     await user.click(screen.getByRole('button'));
 
     expect(mockSetFilters).toHaveBeenCalledOnce();

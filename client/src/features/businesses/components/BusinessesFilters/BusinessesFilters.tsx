@@ -1,16 +1,12 @@
 import { ResponsiveDrawer } from '@/components/ResponsiveDrawer';
+import { radiusOptions } from '@/features/businesses';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { radiusOptions } from '../../constants';
-import {
-  BusinessesFiltersPrice,
-  BusinessesFiltersRadius,
-  BusinessesFiltersSetButton,
-} from './components';
+import { BusinessesFiltersPrice, BusinessesFiltersRadius, BusinessesFiltersSetButton } from './components';
 
 export interface BusinessesFiltersProps {
   isOpen: boolean;

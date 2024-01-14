@@ -6,8 +6,6 @@ import { BusinessCard, BusinessCardProps } from './BusinessCard';
 const testProps: BusinessCardProps = {
   business: mockTransformedBusiness,
   isExpanded: false,
-  setHighlightedBusinessId: vi.fn(),
-  toggleDrawer: vi.fn(),
   toggleExpanded: vi.fn(),
 };
 
@@ -49,18 +47,6 @@ describe('BusinessCard', () => {
   it('should render button to center the business on the map', async () => {
     renderBusinessCard();
     expect(screen.getByText(/show on map/i)).toBeInTheDocument();
-  });
-
-  it('should call "setHighlightedBusinessId" and "toggleDrawer" on "center business" button click', async () => {
-    const user = userEvent.setup();
-    const setHighlightedBusinessId = vi.fn();
-    const toggleDrawer = vi.fn();
-    renderBusinessCard({ setHighlightedBusinessId, toggleDrawer });
-
-    await user.click(screen.getByText(/show on map/i));
-
-    expect(setHighlightedBusinessId).toHaveBeenCalledOnce();
-    expect(toggleDrawer).toHaveBeenCalledOnce();
   });
 
   it('should call "toggleExpanded" on click', async () => {
