@@ -32,7 +32,7 @@ export function Businesses({ openFilters }: BusinessesProps) {
   }
 
   if (businesses.length === 0) {
-    return <BusinessesNoResults openFilters={openFilters} />;
+    return <BusinessesNoResults openFilters={openFilters} city={city} />;
   }
 
   return (
