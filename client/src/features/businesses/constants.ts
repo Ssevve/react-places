@@ -37,4 +37,4 @@ export const businessConstraints = {
   },
 } as const;
 
-export const businessesPerPage = 25;
+export const BUSINESSES_PER_PAGE = 25;

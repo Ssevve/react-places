@@ -1,7 +1,7 @@
 import { mockYelpBusinessesResponse } from '@/__mocks__';
 import { createQueryHookWrapper } from '@/tests/createQueryHookWrapper';
 import { renderHook, waitFor } from '@/tests/utils';
-import { businessesPerPage } from '../constants';
+import { BUSINESSES_PER_PAGE } from '../constants';
 import { transformBusinessesResponse } from '../utils';
 import { UseBusinessesQueryProps, useBusinessesQuery } from './useBusinessesQuery';
 
@@ -9,10 +9,7 @@ interface RenderUseBusinessesQueryProps extends UseBusinessesQueryProps {
   initialEntries?: Array<string>;
 }
 
-const renderUseBusinessesQuery = ({
-  enabled,
-  initialEntries,
-}: RenderUseBusinessesQueryProps = {}) => {
+const renderUseBusinessesQuery = ({ enabled, initialEntries }: RenderUseBusinessesQueryProps = {}) => {
   return renderHook(() => useBusinessesQuery({ enabled }), {
     wrapper: ({ children }) => createQueryHookWrapper({ children, initialEntries }),
   });
@@ -34,7 +31,7 @@ describe('useBusinessesQuery', () => {
   it('should return correctly transformed data on success', async () => {
     const testPage = 2;
     const expectedData = transformBusinessesResponse({
-      businessesPerPage: businessesPerPage,
+      businessesPerPage: BUSINESSES_PER_PAGE,
       data: mockYelpBusinessesResponse,
       page: testPage,
     });

@@ -2,7 +2,7 @@ import { env } from '@/config/env';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
-import { businessConstraints, businessesPerPage as defaultBusinessesPerPage } from '../constants';
+import { businessConstraints, BUSINESSES_PER_PAGE } from '../constants';
 import { transformBusinessesResponse } from '../utils';
 
 const coordinatesSchema = z.object({
@@ -70,7 +70,7 @@ export function useBusinessesQuery({ enabled = true }: UseBusinessesQueryProps =
     queryKey: ['businesses', searchParams.toString(), searchParams],
     select: (data) => {
       return transformBusinessesResponse({
-        businessesPerPage: defaultBusinessesPerPage,
+        businessesPerPage: BUSINESSES_PER_PAGE,
         data,
         page,
       });
