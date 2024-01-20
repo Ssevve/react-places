@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { BusinessCardSkeleton } from './components';
+import { BusinessCardSkeleton } from './BusinessCard';
 
 export function BusinessesSkeleton() {
   return (

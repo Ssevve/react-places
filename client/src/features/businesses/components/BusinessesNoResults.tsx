@@ -1,15 +1,14 @@
-import { BusinessesErrorMessage, BusinessesFiltersOpener } from '@/features/businesses';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useSearchParams } from 'react-router-dom';
+import { BusinessesErrorMessage } from './BusinessesErrorMessage';
+import { BusinessesFiltersOpener } from './BusinessesFilters';
 
-interface BusinessesNoResultsProps {
+export interface BusinessesNoResultsProps {
   openFilters: () => void;
+  city: string;
 }
 
-export function BusinessesNoResults({ openFilters }: BusinessesNoResultsProps) {
-  const [searchParams] = useSearchParams();
-  const city = searchParams.get('city');
+export function BusinessesNoResults({ openFilters, city }: BusinessesNoResultsProps) {
   return (
     <>
       <Box marginBottom={2} marginLeft={1}>

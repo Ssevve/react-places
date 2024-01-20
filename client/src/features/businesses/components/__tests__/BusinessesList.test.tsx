@@ -1,7 +1,7 @@
 import { mockTransformedBusiness } from '@/__mocks__';
 import { TransformedBusiness } from '@/features/businesses';
 import { render, screen } from '@/tests/utils';
-import { BusinessesList } from './BusinessesList';
+import { BusinessesList } from '../BusinessesList';
 
 describe('BusinessesList', () => {
   it('should render all businesses', () => {

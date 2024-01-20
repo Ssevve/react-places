@@ -1,9 +1,9 @@
-import { BUSINESSES_PER_PAGE } from '@/features/businesses';
 import { useDeviceSizes } from '@/hooks';
 import Box from '@mui/material/Box';
 import Pagination, { PaginationRenderItemParams } from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { Link, createSearchParams, useSearchParams } from 'react-router-dom';
+import { BUSINESSES_PER_PAGE } from '../constants';
 
 export interface BusinessesPaginationProps {
   currentPage: number;

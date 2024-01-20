@@ -1,9 +1,9 @@
 /* eslint-disable testing-library/no-node-access */
 import { render, screen } from '@/tests/utils';
-import { BusinessesErrorMessage } from './BusinessesErrorMessage';
+import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
 
 describe('BusinessesErrorMessage', () => {
-  it('should render correct icon', () => {
+  it('should render correct image', () => {
     render(<BusinessesErrorMessage message="Test" />);
     expect(screen.getByTestId('DomainDisabledIcon')).toBeInTheDocument();
   });

@@ -1,6 +1,7 @@
-import { BusinessesErrorMessage, useBusinessesQuery } from '@/features/businesses';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { useBusinessesQuery } from '../api';
+import { BusinessesErrorMessage } from './BusinessesErrorMessage';
 
 export function BusinessesErrorFallback() {
   const { refetch } = useBusinessesQuery({ enabled: false });

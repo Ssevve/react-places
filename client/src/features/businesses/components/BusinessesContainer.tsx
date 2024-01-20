@@ -1,18 +1,16 @@
 import { useBusinessesQuery } from '@/features/businesses';
 import { useSearchParams } from 'react-router-dom';
-import { BusinessesErrorMessage } from '../BusinessesErrorMessage';
-import {
-  BusinessesErrorFallback,
-  BusinessesNoResults,
-  BusinessesResults,
-  BusinessesSkeleton,
-} from './components';
+import { BusinessesErrorMessage } from './BusinessesErrorMessage';
+import { BusinessesErrorFallback } from './BusinessesErrorFallback';
+import { BusinessesResults } from './BusinessesResults';
+import { BusinessesSkeleton } from './BusinessesSkeleton';
+import { BusinessesNoResults } from './BusinessesNoResults';
 
-interface BusinessesProps {
+interface BusinessesContainerProps {
   openFilters: () => void;
 }
 
-export function Businesses({ openFilters }: BusinessesProps) {
+export function BusinessesContainer({ openFilters }: BusinessesContainerProps) {
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city');
   const { data, isLoading, isError } = useBusinessesQuery();

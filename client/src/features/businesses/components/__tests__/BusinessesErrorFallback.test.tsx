@@ -1,5 +1,5 @@
 import { render, screen } from '@/tests/utils';
-import { BusinessesErrorFallback } from './BusinessesErrorFallback';
+import { BusinessesErrorFallback } from '../BusinessesErrorFallback';
 
 const renderBusinessesErrorFallback = () => {
   return render(<BusinessesErrorFallback />);
