@@ -16,6 +16,6 @@ describe('BusinessCardCategories', () => {
 
   it('should not render if categories array are not available', () => {
     const { container } = renderBusinessCardCategories({ categories: [] });
-    expect(container).toBeEmptyDOMElement();
+    expect(container.firstChild).toBeNull();
   });
 });

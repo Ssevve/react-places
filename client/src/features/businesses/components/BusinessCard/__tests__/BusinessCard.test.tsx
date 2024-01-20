@@ -1,10 +1,10 @@
 import { mockTransformedBusiness as business } from '@/__mocks__';
 import { render, screen } from '@/tests/utils';
 import { BusinessCard, BusinessCardProps } from '../BusinessCard';
+import * as categoriesExports from '../BusinessCardCategories';
 import * as imageExports from '../BusinessCardImage';
 import * as priceRatingExports from '../BusinessCardPriceRating';
 import * as yelpRatingExports from '../BusinessCardYelpStarRating';
-import * as categoriesExports from '../BusinessCardCategories';
 import { joinAddress } from '../utils';
 
 const testProps: BusinessCardProps = {
@@ -37,7 +37,12 @@ describe('BusinessCard', () => {
     expect(screen.getByTestId('yelp-rating')).toBeInTheDocument();
   });
 
-  it('should render price rating', () => {
+  it('should render permanently closed message if business is permanently closed', () => {
+    renderBusinessCard({ business: { ...business, isClosed: true } });
+    expect(screen.getByText(/permanently closed/i)).toBeInTheDocument();
+  });
+
+  it('should render price rating if business is not permanently closed', () => {
     vi.spyOn(priceRatingExports, 'BusinessCardPriceRating').mockReturnValue(
       <div data-testid="price-rating" />,
     );

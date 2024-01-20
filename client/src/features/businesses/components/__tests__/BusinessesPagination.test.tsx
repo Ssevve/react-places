@@ -16,6 +16,6 @@ describe('BusinessesPagination', () => {
     const { container } = render(
       <BusinessesPagination currentPage={1} totalBusinesses={testBusinessCount} />,
     );
-    expect(container).toBeEmptyDOMElement();
+    expect(container.firstChild).toBeNull();
   });
 });

@@ -72,7 +72,13 @@ export const BusinessCard = memo(
               <Typography component="h3" fontWeight={700}>
                 {`${business.displayIndex}. ${business.name}`}
               </Typography>
-              <BusinessCardPriceRating price={business.price} isClosed={business.isClosed} />
+              {business.isClosed ? (
+                <Typography component="span" variant="caption" fontWeight={700} color="primary.main">
+                  Permanently Closed
+                </Typography>
+              ) : (
+                <BusinessCardPriceRating price={business.price} />
+              )}
               <BusinessCardYelpStarRating rating={business.rating} reviewCount={business.reviewCount} />
             </Box>
             <BusinessCardCategories categories={business.categories} />

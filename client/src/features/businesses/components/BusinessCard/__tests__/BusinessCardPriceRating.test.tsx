@@ -3,7 +3,7 @@ import { render, screen } from '@/tests/utils';
 import { BusinessCardPriceRating, BusinessCardPriceRatingProps } from '../BusinessCardPriceRating';
 
 const renderBusinessCardPriceRating = (props?: Partial<BusinessCardPriceRatingProps>) => {
-  return render(<BusinessCardPriceRating price={2} isClosed={false} {...props} />);
+  return render(<BusinessCardPriceRating price={2} {...props} />);
 };
 
 const getColoredIcons = (expectedColor: string) => {
@@ -22,11 +22,6 @@ describe('BusinessCardPriceRating', () => {
 
   it('should not render if price is falsy', () => {
     const { container } = renderBusinessCardPriceRating({ price: 0 });
-    expect(container).toBeEmptyDOMElement();
-  });
-
-  it('should show permanently closed message if business is closed', () => {
-    renderBusinessCardPriceRating({ isClosed: true });
-    expect(screen.getByText(/permanently closed/i)).toBeInTheDocument();
+    expect(container.firstChild).toBeNull();
   });
 });
