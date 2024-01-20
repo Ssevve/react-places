@@ -1,6 +1,6 @@
 /* eslint-disable testing-library/no-node-access */
 import { render, screen } from '@/tests/utils';
-import { BusinessCardImage, BusinessCardImageProps } from './BusinessCardImage';
+import { BusinessCardImage, BusinessCardImageProps } from '../BusinessCardImage';
 
 const imageProps: BusinessCardImageProps = {
   alt: 'Test alt',
@@ -34,7 +34,7 @@ describe('BusinessCardImage', () => {
     expect(screen.getByRole('img').parentElement).toHaveStyle({ width: '100%' });
   });
 
-  it('should render <BrokenImageRoundedIcon /> if image src is not valid', () => {
+  it('should render broken image icon if image src is not valid', () => {
     renderBusinessCardImage({ src: '' });
     expect(screen.getByTestId('BrokenImageRoundedIcon')).toBeInTheDocument();
     expect(screen.queryByRole('img')).not.toBeInTheDocument();

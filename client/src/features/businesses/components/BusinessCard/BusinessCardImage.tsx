@@ -8,7 +8,7 @@ export interface BusinessCardImageProps {
   fullWidth?: boolean;
 }
 
-export function BusinessCardImage({ alt, src, size = 96, fullWidth = false }: BusinessCardImageProps) {
+export const BusinessCardImage = ({ alt, src, size = 96, fullWidth = false }: BusinessCardImageProps) => {
   return (
     <Avatar
       alt={alt}
@@ -22,4 +22,4 @@ export function BusinessCardImage({ alt, src, size = 96, fullWidth = false }: Bu
       <BrokenImageRoundedIcon sx={{ height: size / 2, width: size / 2 }} />
     </Avatar>
   );
-}
+};

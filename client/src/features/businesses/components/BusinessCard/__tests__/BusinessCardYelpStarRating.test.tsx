@@ -1,5 +1,5 @@
 import { render, screen } from '@/tests/utils';
-import { BusinessCardYelpStarRating, BusinessCardYelpStarRatingProps } from './BusinessCardYelpStarRating';
+import { BusinessCardYelpStarRating, BusinessCardYelpStarRatingProps } from '../BusinessCardYelpStarRating';
 
 const renderBusinessCardYelpStarRating = ({
   rating = 5,
