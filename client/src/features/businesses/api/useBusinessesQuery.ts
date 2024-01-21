@@ -13,7 +13,6 @@ const coordinatesSchema = z.object({
 export const yelpBusinessSchema = z.object({
   categories: z.array(
     z.object({
-      alias: z.string(),
       title: z.string(),
     }),
   ),
