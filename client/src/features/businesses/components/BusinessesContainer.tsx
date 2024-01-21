@@ -1,10 +1,14 @@
 import { useBusinessesQuery } from '@/features/businesses';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import { useSearchParams } from 'react-router-dom';
 import { BusinessesErrorMessage } from './BusinessesErrorMessage';
-import { BusinessesErrorFallback } from './BusinessesErrorFallback';
-import { BusinessesResults } from './BusinessesResults';
+import { BusinessesFiltersOpener } from './BusinessesFilters';
+import { BusinessesList } from './BusinessesList';
+import { BusinessesPagination } from './BusinessesPagination';
 import { BusinessesSkeleton } from './BusinessesSkeleton';
-import { BusinessesNoResults } from './BusinessesNoResults';
 
 interface BusinessesContainerProps {
   openFilters: () => void;
@@ -12,13 +16,21 @@ interface BusinessesContainerProps {
 
 export function BusinessesContainer({ openFilters }: BusinessesContainerProps) {
   const [searchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || 1;
   const city = searchParams.get('city');
-  const { data, isLoading, isError } = useBusinessesQuery();
+  const { data, isLoading, isError, refetch } = useBusinessesQuery();
   const businesses = data?.businesses || [];
   const totalBusinesses = data?.total || 0;
 
   if (isError) {
-    return <BusinessesErrorFallback />;
+    return (
+      <Box role="alert" display="grid" justifyContent="center" paddingX={2} textAlign="center">
+        <BusinessesErrorMessage message="Couldn't load businesses. Please try again." />
+        <Button variant="contained" onClick={() => refetch()}>
+          Try again
+        </Button>
+      </Box>
+    );
   }
 
   if (isLoading) {
@@ -29,11 +41,27 @@ export function BusinessesContainer({ openFilters }: BusinessesContainerProps) {
     return <BusinessesErrorMessage message="You need to provide a city before we can show any results!" />;
   }
 
-  if (businesses.length === 0) {
-    return <BusinessesNoResults openFilters={openFilters} city={city} />;
+  if (totalBusinesses === 0) {
+    return (
+      <BusinessesErrorMessage>
+        <Box>
+          <Typography marginBottom={1} fontWeight={700}>
+            No results for {city}?
+          </Typography>
+          <Typography>Consider changing the radius value in the</Typography>
+          <BusinessesFiltersOpener type="text" openFilters={openFilters}>
+            filters
+          </BusinessesFiltersOpener>
+        </Box>
+      </BusinessesErrorMessage>
+    );
   }
 
   return (
-    <BusinessesResults businesses={businesses} openFilters={openFilters} totalBusinesses={totalBusinesses} />
+    <Box overflow="auto">
+      <BusinessesList businesses={businesses} />
+      <Divider />
+      <BusinessesPagination currentPage={currentPage} totalBusinesses={totalBusinesses} />
+    </Box>
   );
 }

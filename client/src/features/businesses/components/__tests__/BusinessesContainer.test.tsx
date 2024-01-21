@@ -1,14 +1,12 @@
-/* eslint-disable testing-library/no-node-access */
-import { mockYelpBusinessesResponse, server } from '@/__mocks__';
+import { mockYelpBusinessesResponse } from '@/__mocks__/data';
+import { server } from '@/__mocks__/server';
 import { env } from '@/config/env';
 import { render, screen } from '@/tests/utils';
 import { HttpResponse, http } from 'msw';
 import { BusinessesContainer } from '../BusinessesContainer';
-import * as errorFallbackExports from '../BusinessesErrorFallback';
-import * as noResultsExports from '../BusinessesNoResults';
-import * as resultsExports from '../BusinessesResults';
+import * as paginationExports from '../BusinessesPagination';
 
-const renderBusinessesContainer = (city = 'Test') => {
+const renderBusinessesContainer = ({ city = 'Test' } = {}) => {
   return render(<BusinessesContainer openFilters={() => {}} />, {
     initialEntries: [`/?city=${city}`],
   });
@@ -16,7 +14,7 @@ const renderBusinessesContainer = (city = 'Test') => {
 
 describe('BusinessesContainer', () => {
   it('should render correct message if city was not selected', () => {
-    renderBusinessesContainer('');
+    renderBusinessesContainer({ city: '' });
     expect(
       screen.getByText('You need to provide a city before we can show any results!'),
     ).toBeInTheDocument();
@@ -27,33 +25,33 @@ describe('BusinessesContainer', () => {
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  it('should render error fallback on error', async () => {
-    vi.spyOn(errorFallbackExports, 'BusinessesErrorFallback').mockReturnValue(
-      <div data-testid="error-fallback" />,
-    );
-
+  it('should render correct message with try again button on error', async () => {
     server.use(http.get(env.VITE_BUSINESSES_API_URL, HttpResponse.error));
 
     renderBusinessesContainer();
-    expect(await screen.findByTestId('error-fallback')).toBeInTheDocument();
+    expect(await screen.findByText("Couldn't load businesses. Please try again.")).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument();
   });
 
-  it('should render no results on empty businesses list', async () => {
-    vi.spyOn(noResultsExports, 'BusinessesNoResults').mockReturnValue(<div data-testid="no-results" />);
-
+  it('should render correct message if no businesses are available', async () => {
     server.use(
       http.get(env.VITE_BUSINESSES_API_URL, () =>
-        HttpResponse.json({ ...mockYelpBusinessesResponse, businesses: [] }),
+        HttpResponse.json({ ...mockYelpBusinessesResponse, businesses: [], total: 0 }),
       ),
     );
-
-    renderBusinessesContainer('Test');
-    expect(await screen.findByTestId('no-results')).toBeInTheDocument();
+    const expectedCity = 'London';
+    renderBusinessesContainer({ city: expectedCity });
+    expect(await screen.findByText(`No results for ${expectedCity}?`)).toBeInTheDocument();
   });
 
-  it('should render results if successfully received data', async () => {
-    vi.spyOn(resultsExports, 'BusinessesResults').mockReturnValue(<div data-testid="results" />);
+  it('should render business list if businesses are available', async () => {
     renderBusinessesContainer();
-    expect(await screen.findByTestId('results')).toBeInTheDocument();
+    expect(await screen.findByLabelText(/businesses/i)).toBeInTheDocument();
+  });
+
+  it('should render business list if businesses are available', async () => {
+    vi.spyOn(paginationExports, 'BusinessesPagination').mockReturnValue(<div data-testid="pagination" />);
+    renderBusinessesContainer();
+    expect(await screen.findByTestId('pagination')).toBeInTheDocument();
   });
 });
