@@ -1,6 +1,6 @@
 import { priceRatings } from '@/features/businesses';
 import { render, screen } from '@/tests/utils';
-import { BusinessesFiltersPrice, BusinessesFiltersPriceProps } from './BusinessesFiltersPrice';
+import { BusinessesFiltersPrice, BusinessesFiltersPriceProps } from '../BusinessesFiltersPrice';
 
 const renderBusinessesFiltersPrice = (props?: Partial<BusinessesFiltersPriceProps>) => {
   return render(<BusinessesFiltersPrice setPrices={() => {}} prices={[]} {...props} />);

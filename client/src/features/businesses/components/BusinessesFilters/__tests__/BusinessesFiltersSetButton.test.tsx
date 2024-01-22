@@ -1,6 +1,6 @@
 import { render, screen } from '@/tests/utils';
 import { userEvent } from '@testing-library/user-event';
-import { BusinessesFiltersSetButton } from './BusinessesFiltersSetButton';
+import { BusinessesFiltersSetButton } from '../BusinessesFiltersSetButton';
 
 describe('BusinessesFiltersSetButton', () => {
   it('should call "setFilters" and "closeFilters" props on click', async () => {

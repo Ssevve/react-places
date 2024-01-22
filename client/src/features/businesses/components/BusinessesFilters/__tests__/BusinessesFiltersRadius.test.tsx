@@ -1,5 +1,5 @@
 import { render, screen } from '@/tests/utils';
-import { BusinessesFiltersRadius, BusinessesFiltersRadiusProps } from './BusinessesFiltersRadius';
+import { BusinessesFiltersRadius, BusinessesFiltersRadiusProps } from '../BusinessesFiltersRadius';
 
 const renderBusinessesFiltersRadius = (props?: Partial<BusinessesFiltersRadiusProps>) => {
   return render(<BusinessesFiltersRadius setRadius={() => {}} radius={5000} {...props} />);

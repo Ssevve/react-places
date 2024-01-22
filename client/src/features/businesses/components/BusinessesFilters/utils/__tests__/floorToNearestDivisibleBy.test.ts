@@ -1,4 +1,4 @@
-import { floorToNearestDivisibleBy } from './floorToNearestDivisibleBy';
+import { floorToNearestDivisibleBy } from '../floorToNearestDivisibleBy';
 
 describe('floorToNearestDivisibleBy', () => {
   it('should work for positive numbers', () => {

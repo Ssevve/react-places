@@ -18,7 +18,7 @@ export function BusinessesFiltersPrice({ prices, setPrices }: BusinessesFiltersP
   };
 
   return (
-    <Box>
+    <Box data-testid="price-filter">
       <Typography component="h3" variant="subtitle1" fontWeight={500}>
         Price
       </Typography>

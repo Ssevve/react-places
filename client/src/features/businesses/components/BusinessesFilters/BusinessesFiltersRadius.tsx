@@ -20,7 +20,7 @@ export function BusinessesFiltersRadius({ radius, setRadius }: BusinessesFilters
   };
 
   return (
-    <Box>
+    <Box data-testid="radius-filter">
       <Typography component="h3" variant="subtitle1" fontWeight={500}>
         Radius
       </Typography>

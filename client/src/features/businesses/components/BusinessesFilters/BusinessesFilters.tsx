@@ -6,7 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BusinessesFiltersPrice, BusinessesFiltersRadius, BusinessesFiltersSetButton } from './components';
+import { BusinessesFiltersPrice } from './BusinessesFiltersPrice';
+import { BusinessesFiltersRadius } from './BusinessesFiltersRadius';
+import { BusinessesFiltersSetButton } from './BusinessesFiltersSetButton';
 
 export interface BusinessesFiltersProps {
   isOpen: boolean;
@@ -29,11 +31,11 @@ export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
     setSearchParams(searchParams, {
       replace: true,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   return (
     <ResponsiveDrawer
+      data-testid="businesses-filters"
       open={isOpen}
       variant="temporary"
       onClose={close}

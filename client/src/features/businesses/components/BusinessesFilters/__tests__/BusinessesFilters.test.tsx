@@ -1,6 +1,6 @@
 import { render, screen } from '@/tests/utils';
 import { userEvent } from '@testing-library/user-event';
-import { BusinessesFilters, BusinessesFiltersProps } from './BusinessesFilters';
+import { BusinessesFilters, BusinessesFiltersProps } from '../BusinessesFilters';
 
 const renderBusinessesFilters = (props?: Partial<BusinessesFiltersProps>) => {
   return render(<BusinessesFilters close={() => {}} isOpen={true} {...props} />);
@@ -27,12 +27,12 @@ describe('BusinessesFilters', () => {
 
   it('should render price filters', () => {
     renderBusinessesFilters();
-    expect(screen.getByRole('heading', { name: 'Price' })).toBeInTheDocument();
+    expect(screen.getByTestId('price-filter')).toBeInTheDocument();
   });
 
   it('should render radius filter', () => {
     renderBusinessesFilters();
-    expect(screen.getByRole('heading', { name: 'Radius' })).toBeInTheDocument();
+    expect(screen.getByTestId('radius-filter')).toBeInTheDocument();
   });
 
   it('should render a button to set selected filters', () => {
