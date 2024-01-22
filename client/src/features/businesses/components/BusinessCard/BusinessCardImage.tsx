@@ -11,6 +11,7 @@ export interface BusinessCardImageProps {
 export const BusinessCardImage = ({ alt, src, size = 96, fullWidth = false }: BusinessCardImageProps) => {
   return (
     <Avatar
+      data-testid="business-card-image"
       alt={alt}
       src={src || ''}
       variant="rounded"

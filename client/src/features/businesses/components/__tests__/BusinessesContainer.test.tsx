@@ -3,8 +3,8 @@ import { server } from '@/__mocks__/server';
 import { env } from '@/config/env';
 import { render, screen } from '@/tests/utils';
 import { HttpResponse, http } from 'msw';
+import { BUSINESSES_PER_PAGE } from '../..';
 import { BusinessesContainer } from '../BusinessesContainer';
-import * as paginationExports from '../BusinessesPagination';
 
 const renderBusinessesContainer = ({ city = 'Test' } = {}) => {
   return render(<BusinessesContainer openFilters={() => {}} />, {
@@ -46,12 +46,33 @@ describe('BusinessesContainer', () => {
 
   it('should render business list if businesses are available', async () => {
     renderBusinessesContainer();
-    expect(await screen.findByLabelText(/businesses/i)).toBeInTheDocument();
+    expect(await screen.findByRole('list', { name: /businesses/i })).toBeInTheDocument();
   });
 
-  it('should render business list if businesses are available', async () => {
-    vi.spyOn(paginationExports, 'BusinessesPagination').mockReturnValue(<div data-testid="pagination" />);
+  it('should render pagination if there is more than one page of results', async () => {
+    server.use(
+      http.get(env.VITE_BUSINESSES_API_URL, () =>
+        HttpResponse.json({
+          ...mockYelpBusinessesResponse,
+          total: BUSINESSES_PER_PAGE * 2,
+        }),
+      ),
+    );
     renderBusinessesContainer();
-    expect(await screen.findByTestId('pagination')).toBeInTheDocument();
+    expect(await screen.findByTestId('businesses-pagination')).toBeInTheDocument();
+  });
+
+  it('should not render pagination if there are less than two pages of results', async () => {
+    server.use(
+      http.get(env.VITE_BUSINESSES_API_URL, () =>
+        HttpResponse.json({
+          ...mockYelpBusinessesResponse,
+          total: BUSINESSES_PER_PAGE,
+        }),
+      ),
+    );
+    renderBusinessesContainer();
+    await screen.findByRole('list', { name: /businesses/i });
+    expect(screen.queryByTestId('businesses-pagination')).not.toBeInTheDocument();
   });
 });

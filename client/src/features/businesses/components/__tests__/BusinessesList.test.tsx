@@ -1,4 +1,4 @@
-import { mockTransformedBusiness } from '@/__mocks__';
+import { mockTransformedBusiness } from '@/__mocks__/data';
 import { TransformedBusiness } from '@/features/businesses';
 import { render, screen } from '@/tests/utils';
 import { BusinessesList } from '../BusinessesList';

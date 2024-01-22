@@ -15,7 +15,7 @@ export interface BusinessCardYelpStarRatingProps {
 export function BusinessCardYelpStarRating({ rating, reviewCount }: BusinessCardYelpStarRatingProps) {
   const starString = rating === 0.5 || rating === 1 ? 'star' : 'stars';
   return (
-    <Box display="flex" gap={1} alignItems="center">
+    <Box data-testid="business-card-yelp-rating" display="flex" gap={1} alignItems="center">
       <img
         width={102}
         src={`/assets/yelp-stars/${getYelpRatingImageName(rating)}`}

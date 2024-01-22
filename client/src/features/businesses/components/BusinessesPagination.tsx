@@ -18,8 +18,8 @@ export function BusinessesPagination({ currentPage, totalBusinesses }: Businesse
 
   const renderPaginationItem = (item: PaginationRenderItemParams) => {
     const search = createSearchParams(searchParams);
-    if (item.page === 1) search.delete('page');
-    else search.set('page', `${item.page}`);
+    if (!item.page || item.page === 1) search.delete('page');
+    else search.set('page', item.page.toString());
 
     return (
       <PaginationItem
@@ -35,7 +35,13 @@ export function BusinessesPagination({ currentPage, totalBusinesses }: Businesse
 
   return (
     pageCount > 1 && (
-      <Box display="flex" justifyContent="center" paddingY={2} paddingX={1}>
+      <Box
+        data-testid="businesses-pagination"
+        display="flex"
+        justifyContent="center"
+        paddingY={2}
+        paddingX={1}
+      >
         <Pagination
           defaultPage={1}
           page={currentPage}

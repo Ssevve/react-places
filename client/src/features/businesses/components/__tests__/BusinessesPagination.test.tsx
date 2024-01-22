@@ -4,9 +4,9 @@ import { BusinessesPagination } from '../BusinessesPagination';
 
 describe('BusinessesPagination', () => {
   it('should render correct amount of page links', () => {
-    const testBusinessCount = 70;
+    const expectedPageCount = 3;
     const arrowNavigationLinkCount = 2;
-    const expectedPageCount = Math.ceil(testBusinessCount / BUSINESSES_PER_PAGE);
+    const testBusinessCount = BUSINESSES_PER_PAGE * expectedPageCount;
     render(<BusinessesPagination currentPage={1} totalBusinesses={testBusinessCount} />);
     expect(screen.getAllByRole('link')).toHaveLength(expectedPageCount + arrowNavigationLinkCount);
   });
@@ -16,6 +16,6 @@ describe('BusinessesPagination', () => {
     const { container } = render(
       <BusinessesPagination currentPage={1} totalBusinesses={testBusinessCount} />,
     );
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

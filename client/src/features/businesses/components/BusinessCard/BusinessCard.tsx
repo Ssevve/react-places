@@ -32,6 +32,19 @@ export const BusinessCard = memo(
     isExpanded, // toggleExpanded
   }: BusinessCardProps) => {
     const { isSmallMobile } = useDeviceSizes();
+    const {
+      categories,
+      displayIndex,
+      isClosed,
+      name,
+      price,
+      rating,
+      imageUrl,
+      url,
+      displayPhone,
+      reviewCount,
+      location,
+    } = business;
 
     return (
       <Card
@@ -66,30 +79,27 @@ export const BusinessCard = memo(
             },
           })}
         >
-          <BusinessCardImage alt={business.name} src={business.imageUrl} fullWidth={isSmallMobile} />
+          <BusinessCardImage alt={name} src={imageUrl} fullWidth={isSmallMobile} />
           <Box display="flex" flexDirection="column" gap={1}>
             <Box display="flex" flexDirection="column" gap={1} alignItems="flex-start">
               <Typography component="h3" fontWeight={700}>
-                {`${business.displayIndex}. ${business.name}`}
+                {`${displayIndex}. ${name}`}
               </Typography>
-              {business.isClosed ? (
+              {isClosed ? (
                 <Typography component="span" variant="caption" fontWeight={700} color="primary.main">
                   Permanently Closed
                 </Typography>
               ) : (
-                <BusinessCardPriceRating price={business.price} />
+                <BusinessCardPriceRating price={price} />
               )}
-              <BusinessCardYelpStarRating rating={business.rating} reviewCount={business.reviewCount} />
+              <BusinessCardYelpStarRating rating={rating} reviewCount={reviewCount} />
             </Box>
-            <BusinessCardCategories categories={business.categories} />
+            <BusinessCardCategories categories={categories} />
           </Box>
         </CardContent>
         <Collapse in={isExpanded} timeout="auto" easing="ease-in-out" unmountOnExit>
           <CardContent>
-            <BusinessCardContactInfo
-              phone={business.displayPhone}
-              address={business.location.displayAddress}
-            />
+            <BusinessCardContactInfo phone={displayPhone} address={location.displayAddress} />
           </CardContent>
         </Collapse>
         <CardActions sx={{ px: 2 }}>
@@ -109,11 +119,11 @@ export const BusinessCard = memo(
             <Link
               aria-label="visit Yelp page"
               onClick={(e) => e.stopPropagation()}
-              href={business.url}
+              href={url}
               marginLeft="auto"
-              sx={{ pointerEvents: business.url ? 'auto' : 'none' }}
+              sx={{ pointerEvents: url ? 'auto' : 'none' }}
             >
-              <img height={20} src={yelpLogo} alt={`${business.name} yelp page`} />
+              <img height={20} src={yelpLogo} alt={`${name} yelp page`} />
             </Link>
           </Tooltip>
         </CardActions>

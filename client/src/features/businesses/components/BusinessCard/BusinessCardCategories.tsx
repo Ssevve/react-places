@@ -9,6 +9,7 @@ export interface BusinessCardCategoriesProps {
 export function BusinessCardCategories({ categories }: BusinessCardCategoriesProps) {
   return categories && categories.length ? (
     <List
+      data-testid="business-card-categories"
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -17,6 +18,7 @@ export function BusinessCardCategories({ categories }: BusinessCardCategoriesPro
     >
       {categories.map(({ title }) => (
         <ListItem
+          key={title}
           sx={{
             padding: 0,
             width: 'max-content',

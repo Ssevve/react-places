@@ -22,6 +22,6 @@ describe('BusinessCardPriceRating', () => {
 
   it('should not render if price is falsy', () => {
     const { container } = renderBusinessCardPriceRating({ price: 0 });
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

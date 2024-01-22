@@ -15,7 +15,7 @@ export function BusinessCardPriceRating({ price }: BusinessCardPriceRatingProps)
 
   const iconSize = 8;
   return price ? (
-    <Box display="flex" gap={1} alignItems="center" data-testid="business-price-rating">
+    <Box data-testid="business-card-price-rating" display="flex" gap={1} alignItems="center">
       <Rating
         value={price}
         icon={<CircleIcon htmlColor={color} sx={{ fontSize: iconSize }} />}

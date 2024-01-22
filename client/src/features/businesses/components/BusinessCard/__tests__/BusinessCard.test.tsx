@@ -1,10 +1,6 @@
-import { mockTransformedBusiness as business } from '@/__mocks__';
+import { mockTransformedBusiness as business } from '@/__mocks__/data';
 import { render, screen } from '@/tests/utils';
 import { BusinessCard, BusinessCardProps } from '../BusinessCard';
-import * as categoriesExports from '../BusinessCardCategories';
-import * as imageExports from '../BusinessCardImage';
-import * as priceRatingExports from '../BusinessCardPriceRating';
-import * as yelpRatingExports from '../BusinessCardYelpStarRating';
 import { joinAddress } from '../utils';
 
 const testProps: BusinessCardProps = {
@@ -19,9 +15,8 @@ const renderBusinessCard = (props?: Partial<BusinessCardProps>) => {
 
 describe('BusinessCard', () => {
   it('should render image', () => {
-    vi.spyOn(imageExports, 'BusinessCardImage').mockReturnValue(<div data-testid="image" />);
     renderBusinessCard();
-    expect(screen.getByTestId('image')).toBeInTheDocument();
+    expect(screen.getByTestId('business-card-image')).toBeInTheDocument();
   });
 
   it('should render name with correct display index', () => {
@@ -30,11 +25,8 @@ describe('BusinessCard', () => {
   });
 
   it('should render yelp rating', () => {
-    vi.spyOn(yelpRatingExports, 'BusinessCardYelpStarRating').mockReturnValue(
-      <div data-testid="yelp-rating" />,
-    );
     renderBusinessCard();
-    expect(screen.getByTestId('yelp-rating')).toBeInTheDocument();
+    expect(screen.getByTestId('business-card-yelp-rating')).toBeInTheDocument();
   });
 
   it('should render permanently closed message if business is permanently closed', () => {
@@ -43,17 +35,13 @@ describe('BusinessCard', () => {
   });
 
   it('should render price rating if business is not permanently closed', () => {
-    vi.spyOn(priceRatingExports, 'BusinessCardPriceRating').mockReturnValue(
-      <div data-testid="price-rating" />,
-    );
-    renderBusinessCard();
-    expect(screen.getByTestId('yelp-rating')).toBeInTheDocument();
+    renderBusinessCard({ business: { ...business, isClosed: false } });
+    expect(screen.getByTestId('business-card-price-rating')).toBeInTheDocument();
   });
 
   it('should render categories', () => {
-    vi.spyOn(categoriesExports, 'BusinessCardCategories').mockReturnValue(<div data-testid="categories" />);
     renderBusinessCard();
-    expect(screen.getByTestId('categories')).toBeInTheDocument();
+    expect(screen.getByTestId('business-card-categories')).toBeInTheDocument();
   });
 
   it('should render Yelp link for the business', () => {
