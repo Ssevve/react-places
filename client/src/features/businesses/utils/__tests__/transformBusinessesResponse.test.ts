@@ -1,5 +1,5 @@
 import { mockYelpBusinessesResponse } from '@/__mocks__';
-import { transformBusinessesResponse } from './transformBusinessesResponse';
+import { transformBusinessesResponse } from '../transformBusinessesResponse';
 import { transformBusiness } from '../transformBusiness';
 
 describe('transformBusinessesResponse', () => {

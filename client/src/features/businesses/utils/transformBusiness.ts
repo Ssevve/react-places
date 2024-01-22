@@ -1,5 +1,5 @@
 import camelize from 'camelize-ts';
-import { YelpBusiness } from '../../types';
+import { YelpBusiness } from '../types';
 
 interface TransformBusinessProps {
   business: YelpBusiness;
@@ -8,15 +8,10 @@ interface TransformBusinessProps {
   page: number;
 }
 
-export const transformBusiness = ({
-  business,
-  index,
-  businessesPerPage,
-  page,
-}: TransformBusinessProps) => {
+export const transformBusiness = ({ business, index, businessesPerPage, page }: TransformBusinessProps) => {
   return camelize({
     ...business,
     displayIndex: index + businessesPerPage * (page - 1) + 1,
-    price: business.price?.length,
+    price: business.price?.length || 0,
   });
 };

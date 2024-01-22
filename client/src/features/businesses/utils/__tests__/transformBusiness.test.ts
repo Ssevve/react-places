@@ -1,7 +1,7 @@
 import { generateMock } from '@anatine/zod-mock';
 import camelize from 'camelize-ts';
 import { yelpBusinessSchema } from '../../api';
-import { transformBusiness } from './transformBusiness';
+import { transformBusiness } from '../transformBusiness';
 
 const testBusinessesPerPage = 20;
 const testPage = 1;

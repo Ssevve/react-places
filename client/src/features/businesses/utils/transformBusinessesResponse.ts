@@ -1,6 +1,6 @@
 import camelize from 'camelize-ts';
-import { YelpBusinessesResponse } from '../../types';
-import { transformBusiness } from '../transformBusiness';
+import { YelpBusinessesResponse } from '../types';
+import { transformBusiness } from './transformBusiness';
 
 interface TransformBusinessesResponseProps {
   data: YelpBusinessesResponse;
