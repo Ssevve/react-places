@@ -34,7 +34,7 @@ interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
 }
 
 const customRender = (ui: ReactElement, options?: CustomRenderOptions) => {
-  render(ui, {
+  return render(ui, {
     wrapper: (args) =>
       AllTheProviders({
         ...args,
