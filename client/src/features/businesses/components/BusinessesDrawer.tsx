@@ -3,7 +3,7 @@ import { CitiesAutocomplete } from '@/features/cities';
 import ListIcon from '@mui/icons-material/List';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-import { useBusinessesQuery } from '../api';
+import { useBusinessesQuery } from '../hooks';
 import { BusinessesContainer } from './BusinessesContainer';
 import { BusinessesFilters, BusinessesFiltersOpener } from './BusinessesFilters';
 

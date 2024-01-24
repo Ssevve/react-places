@@ -1,9 +1,6 @@
 import { env } from '@/config/env';
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
-import { businessConstraints, BUSINESSES_PER_PAGE } from '../constants';
-import { transformBusinessesResponse } from '../utils';
+import { businessConstraints } from '../constants';
 
 const coordinatesSchema = z.object({
   latitude: z.number(),
@@ -48,32 +45,9 @@ interface FetchBusinessesProps {
   perPage?: number;
 }
 
-const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) => {
+export const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) => {
   const url = `${env.VITE_BUSINESSES_API_URL}?${searchParams.toString()}`;
   const res = await fetch(url);
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
   return yelpBusinessesResponseSchema.parse(await res.json());
 };
-
-export interface UseBusinessesQueryProps {
-  enabled?: boolean;
-}
-
-export function useBusinessesQuery({ enabled = true }: UseBusinessesQueryProps = {}) {
-  const [searchParams] = useSearchParams();
-  const city = searchParams.get('city');
-  const page = Number(searchParams.get('page')) || 1;
-  return useQuery({
-    enabled: enabled && !!city,
-    queryFn: () => fetchBusinesses({ searchParams }),
-    queryKey: ['businesses', searchParams.toString(), searchParams],
-    select: (data) => {
-      return transformBusinessesResponse({
-        businessesPerPage: BUSINESSES_PER_PAGE,
-        data,
-        page,
-      });
-    },
-    staleTime: Infinity,
-  });
-}

@@ -1,6 +1,7 @@
-import { BUSINESSES_PER_PAGE, useBusinessesQuery } from '@/features/businesses';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
+import { BUSINESSES_PER_PAGE } from '../constants';
+import { useBusinessesQuery } from '../hooks';
 import { BusinessesErrorMessage } from './BusinessesErrorMessage';
 import { BusinessesFetchError } from './BusinessesFetchError';
 import { BusinessesResults } from './BusinessesResults';

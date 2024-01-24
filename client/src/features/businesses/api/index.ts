@@ -1,1 +1,1 @@
-export * from './useBusinessesQuery';
+export * from './fetchBusinesses';
