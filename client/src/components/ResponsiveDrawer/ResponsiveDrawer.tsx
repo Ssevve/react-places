@@ -1,6 +1,6 @@
 import { useDeviceSizes } from '@/hooks';
 import { Box, Drawer, DrawerProps } from '@mui/material';
-import { MobileResponsiveDrawerToggler } from './MobileResponsiveDrawerToggler';
+import { ResponsiveDrawerMobileToggler } from './ResponsiveDrawerMobileToggler';
 
 interface PropsWithoutToggler {
   includeToggler?: never | false;
@@ -16,7 +16,7 @@ interface PropsWithToggler {
   togglerWidth?: number;
 }
 
-export type ResponsiveDrawerProps = {
+type ResponsiveDrawerProps = {
   drawerWidth?: number;
   keepMounted?: boolean;
 } & DrawerProps &
@@ -60,7 +60,7 @@ export function ResponsiveDrawer({
       >
         {children}
         {renderToggler && (
-          <MobileResponsiveDrawerToggler
+          <ResponsiveDrawerMobileToggler
             icon={togglerIcon}
             isDrawerOpen={open}
             width={TOGGLER_WIDTH}

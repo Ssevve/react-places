@@ -2,24 +2,17 @@ import { render, screen } from '@/tests/utils';
 import { theme } from '@/theme';
 import { userEvent } from '@testing-library/user-event';
 import {
-  MobileResponsiveDrawerToggler,
-  MobileResponsiveDrawerTogglerProps,
-} from './MobileResponsiveDrawerToggler';
+  ResponsiveDrawerMobileToggler,
+  ResponsiveDrawerMobileTogglerProps,
+} from '../ResponsiveDrawerMobileToggler';
 
-const renderMobileResponsiveDrawerToggler = (
-  props?: Partial<MobileResponsiveDrawerTogglerProps>,
-) => {
+const renderMobileResponsiveDrawerToggler = (props?: Partial<ResponsiveDrawerMobileTogglerProps>) => {
   return render(
-    <MobileResponsiveDrawerToggler
-      width={20}
-      isDrawerOpen={false}
-      toggleDrawer={vi.fn()}
-      {...props}
-    />,
+    <ResponsiveDrawerMobileToggler width={20} isDrawerOpen={false} toggleDrawer={vi.fn()} {...props} />,
   );
 };
 
-describe('MobileResponsiveDrawerToggler', () => {
+describe('ResponsiveDrawerMobileToggler', () => {
   it('should render with correct width', () => {
     const expectedWidth = 20;
     renderMobileResponsiveDrawerToggler({ width: expectedWidth });

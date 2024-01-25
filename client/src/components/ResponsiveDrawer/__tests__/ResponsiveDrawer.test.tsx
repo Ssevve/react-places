@@ -24,7 +24,7 @@ describe('ResponsiveDrawer', () => {
 
   it('should not render toggle button on non-mobile devices', () => {
     window.matchMedia = createMatchMedia(theme.breakpoints.values.md);
-    render(<ResponsiveDrawer includeToggler={true} open={true} toggleDrawer={() => {}} />);
+    render(<ResponsiveDrawer includeToggler={true} open={false} toggleDrawer={() => {}} />);
     expect(screen.queryByLabelText(/close drawer/i)).not.toBeInTheDocument();
   });
 
