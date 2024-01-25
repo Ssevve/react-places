@@ -1,28 +1,24 @@
 import { BusinessMarker, useBusinessesQuery } from '@/features/businesses';
+import Box from '@mui/material/Box';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import {
   INITIAL_MAP_CENTER,
   INITIAL_MAP_ZOOM,
   MIN_MAP_ZOOM,
   POLAND_NORTH_EAST_BOUNDS,
   POLAND_SOUTH_WEST_BOUNDS,
-  useMapCenter,
-} from '@/features/map';
-import { Box, styled } from '@mui/material';
-import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-import { CenterView } from './components';
-
-export const StyledMap = styled(MapContainer)({
-  height: '100%',
-  width: '100%',
-});
+} from '../constants';
+import { useMapCenter } from '../hooks';
+import { CenterView } from './CenterView';
 
 export function Map() {
   const { data: businessesData } = useBusinessesQuery();
   const { center } = useMapCenter();
 
   return (
-    <Box height="100%" width="100%" data-testid="map">
-      <StyledMap
+    <Box height={1} width={1} data-testid="map">
+      <MapContainer
+        style={{ height: '100%', width: '100%' }}
         center={INITIAL_MAP_CENTER}
         minZoom={MIN_MAP_ZOOM}
         zoom={INITIAL_MAP_ZOOM}
@@ -38,7 +34,7 @@ export function Map() {
           return <BusinessMarker key={business.id} business={business} />;
         })}
         <CenterView center={center} zoom={12} />
-      </StyledMap>
+      </MapContainer>
     </Box>
   );
 }
