@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import { TransformedBusiness } from '../types';
 import { BusinessesList } from './BusinessesList';
 import { BusinessesPagination } from './BusinessesPagination';
@@ -23,7 +22,6 @@ export function BusinessesResults({
   return businesses.length ? (
     <Box data-testid="businesses-results">
       <BusinessesList businesses={businesses} />
-      <Divider />
       {pageCount > 1 && <BusinessesPagination currentPage={currentPage} pageCount={pageCount} />}
     </Box>
   ) : (

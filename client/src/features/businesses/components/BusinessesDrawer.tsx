@@ -2,6 +2,7 @@ import { ResponsiveDrawer } from '@/components';
 import { CitiesAutocomplete } from '@/features/cities';
 import ListIcon from '@mui/icons-material/List';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import { useState } from 'react';
 import { useBusinessesQuery } from '../hooks';
 import { BusinessesContainer } from './BusinessesContainer';
@@ -28,6 +29,7 @@ export function BusinessesDrawer() {
         <CitiesAutocomplete />
         {!!businessesData?.businesses && <BusinessesFiltersOpener openFilters={openFilters} />}
       </Box>
+      <Divider />
       <BusinessesContainer openFilters={openFilters} />
       <BusinessesFilters isOpen={showFilters} close={() => setShowFilters(false)} />
     </ResponsiveDrawer>

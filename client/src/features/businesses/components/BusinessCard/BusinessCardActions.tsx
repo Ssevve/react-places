@@ -1,5 +1,4 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
@@ -8,33 +7,38 @@ import Tooltip from '@mui/material/Tooltip';
 import { BusinessCardActionsButton } from './BusinessCardActionsButton';
 import yelpLogo from '/assets/yelp-logo.svg';
 
-interface BusinessCardActionsProps {
+export interface BusinessCardActionsProps {
   yelpUrl: string | undefined;
   name: string;
   isContactExpanded: boolean;
   toggleExpandedContact: () => void;
 }
 
-// TODO: tests
 export function BusinessCardActions({
   name,
   yelpUrl,
   isContactExpanded,
   toggleExpandedContact,
 }: BusinessCardActionsProps) {
-  const contactButtonIcon = isContactExpanded ? (
-    <KeyboardArrowUpIcon aria-hidden sx={{ fontSize: 20 }} />
-  ) : (
-    <KeyboardArrowDownIcon aria-hidden sx={{ fontSize: 20 }} />
-  );
-
   return (
-    <CardActions sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between', px: 2 }}>
+    <CardActions
+      data-testid="business-card-actions"
+      sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}
+    >
       <BusinessCardActionsButton action={() => {}} label="Show on map" startIcon={<RoomRoundedIcon />} />
       <BusinessCardActionsButton
         onClick={toggleExpandedContact}
         label="Contact"
-        endIcon={contactButtonIcon}
+        endIcon={
+          <KeyboardArrowDownIcon
+            aria-hidden
+            sx={{
+              fontSize: 20,
+              rotate: isContactExpanded ? '180deg' : 0,
+              transition: 'rotate 150ms ease-in-out',
+            }}
+          />
+        }
       />
       <Box>
         <Tooltip arrow title="visit Yelp page">

@@ -1,11 +1,10 @@
 import Button, { ButtonProps as MuiButtonProps } from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-interface BusinessCardActionsButtonProps extends MuiButtonProps {
+export interface BusinessCardActionsButtonProps extends MuiButtonProps {
   label: string;
 }
 
-// TODO: tests
 export function BusinessCardActionsButton({ onClick, label, ...props }: BusinessCardActionsButtonProps) {
   return (
     <Button
@@ -19,7 +18,7 @@ export function BusinessCardActionsButton({ onClick, label, ...props }: Business
         '.MuiButton-startIcon': {
           marginRight: 0.25,
         },
-        p: 0,
+        padding: 0,
       }}
     >
       <Typography component="span" variant="subtitle2" fontSize={12} textTransform="none" lineHeight={0}>

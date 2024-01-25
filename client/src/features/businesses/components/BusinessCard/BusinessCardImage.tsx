@@ -17,7 +17,7 @@ export const BusinessCardImage = ({ alt, src, size = 96, fullWidth = false }: Bu
       variant="rounded"
       sx={{
         height: size,
-        width: fullWidth ? '100%' : size,
+        width: fullWidth ? 1 : size,
       }}
     >
       <BrokenImageRoundedIcon sx={{ height: size / 2, width: size / 2 }} />

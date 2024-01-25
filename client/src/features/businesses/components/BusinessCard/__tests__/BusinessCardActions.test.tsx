@@ -14,14 +14,13 @@ const renderBusinessCardActions = (props?: Partial<BusinessCardActionsProps>) =>
 };
 
 describe('BusinessCardActions', () => {
-  it('should render button to center the business on the map', async () => {
+  it('should render button to center the business on the map', () => {
     renderBusinessCardActions();
     expect(screen.getByRole('button', { name: /show on map/i })).toBeInTheDocument();
   });
 
   it('should render button to expand contact info', () => {
-    const expectedUrl = 'yelp.test.com';
-    renderBusinessCardActions({ yelpUrl: expectedUrl });
+    renderBusinessCardActions();
     expect(screen.getByRole('button', { name: /contact/i })).toBeInTheDocument();
   });
 

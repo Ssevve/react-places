@@ -3,7 +3,7 @@ import { BusinessCardSkeleton } from './BusinessCard';
 
 export function BusinessesSkeleton() {
   return (
-    <Box height="100%" overflow="hidden" aria-busy="true" aria-live="polite" role="progressbar">
+    <Box height={1} overflow="hidden" aria-busy="true" aria-live="polite" role="progressbar">
       <BusinessCardSkeleton />
       <BusinessCardSkeleton />
       <BusinessCardSkeleton />
