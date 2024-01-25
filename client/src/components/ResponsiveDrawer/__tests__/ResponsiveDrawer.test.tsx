@@ -1,7 +1,7 @@
 import { createMatchMedia } from '@/tests/createMatchMedia';
 import { render, screen } from '@/tests/utils';
 import { theme } from '@/theme';
-import { ResponsiveDrawer } from './ResponsiveDrawer';
+import { ResponsiveDrawer } from '../ResponsiveDrawer';
 
 describe('ResponsiveDrawer', () => {
   it('should render on mobile devices if open', () => {

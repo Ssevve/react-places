@@ -4,7 +4,7 @@ export interface MobileResponsiveDrawerTogglerProps {
   isDrawerOpen: boolean;
   width: number;
   icon?: React.ReactNode;
-  toggleDrawer: () => void;
+  toggleDrawer: (() => void) | undefined;
 }
 
 export function MobileResponsiveDrawerToggler({
@@ -15,15 +15,13 @@ export function MobileResponsiveDrawerToggler({
 }: MobileResponsiveDrawerTogglerProps) {
   return (
     <ButtonBase
-      onClick={() => toggleDrawer()}
+      onClick={toggleDrawer}
       aria-label={isDrawerOpen ? 'close drawer' : 'open drawer'}
       sx={(theme) => ({
         backgroundColor: isDrawerOpen ? theme.palette.neutral.main : theme.palette.primary.main,
         borderBottomRightRadius: theme.shape.borderRadius,
         borderTopRightRadius: theme.shape.borderRadius,
-        color: isDrawerOpen
-          ? theme.palette.neutral.contrastText
-          : theme.palette.primary.contrastText,
+        color: isDrawerOpen ? theme.palette.neutral.contrastText : theme.palette.primary.contrastText,
         cursor: 'pointer',
         height: 150,
         position: 'absolute',

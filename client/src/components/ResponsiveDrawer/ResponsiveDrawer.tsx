@@ -1,6 +1,6 @@
 import { useDeviceSizes } from '@/hooks';
 import { Box, Drawer, DrawerProps } from '@mui/material';
-import { MobileResponsiveDrawerToggler } from './components/MobileResponsiveDrawerToggler';
+import { MobileResponsiveDrawerToggler } from './MobileResponsiveDrawerToggler';
 
 interface PropsWithoutToggler {
   includeToggler?: never | false;
@@ -38,7 +38,7 @@ export function ResponsiveDrawer({
   ...props
 }: ResponsiveDrawerProps) {
   const { isMobile } = useDeviceSizes();
-  const renderToggler = toggleDrawer && includeToggler && isMobile;
+  const renderToggler = includeToggler && isMobile;
 
   return (
     <Box width={DRAWER_WIDTH} position={isMobile ? 'fixed' : 'static'}>
