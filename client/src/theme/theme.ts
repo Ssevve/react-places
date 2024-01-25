@@ -16,7 +16,9 @@ declare module '@mui/material/styles/createPalette' {
   }
 }
 
-export let theme = createTheme({
+export let theme = createTheme();
+
+theme = createTheme(theme, {
   breakpoints: {
     values: {
       md: 768,
@@ -34,6 +36,24 @@ export let theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          paddingBlock: theme.spacing(1),
+          paddingInline: theme.spacing(2),
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          '&:last-child': {
+            paddingBottom: theme.spacing(1),
+          },
+          paddingBlock: theme.spacing(1),
+        },
+      },
+    },
     MuiSkeleton: {
       defaultProps: {
         animation: 'wave',
@@ -41,19 +61,14 @@ export let theme = createTheme({
     },
   },
   palette: {
-    primary: {
-      main: '#f40d15',
-    },
-  },
-});
-
-theme = createTheme(theme, {
-  palette: {
     neutral: theme.palette.augmentColor({
       color: {
         main: '#d3d3d3',
       },
       name: 'neutral',
     }),
+    primary: {
+      main: '#f40d15',
+    },
   },
 });
