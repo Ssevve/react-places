@@ -1,11 +1,12 @@
 import api from 'api';
 import { Request, Response } from 'express';
+import { env } from '../../config/env';
 import { DEFAULT_BUSINESSES_PER_PAGE, DEFAULT_PAGE } from '../constants';
+import { YelpGetBusinessesQuery } from '../schemas';
 import { getValidRadius } from '../utils';
-import { YelpGetBusinessesQuery } from '../validation';
 
 const sdk = api('@api/yelp-developers/v1.0#8e0h2zlqcimwm0');
-sdk.auth(`Bearer ${process.env.YELP_API_KEY}`);
+sdk.auth(`Bearer ${env.YELP_API_KEY}`);
 
 export async function getBusinesses(
   req: Request<{}, {}, {}, YelpGetBusinessesQuery>,

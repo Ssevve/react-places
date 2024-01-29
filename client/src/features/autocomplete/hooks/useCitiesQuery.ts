@@ -1,22 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchCities } from '../api';
 import { useEffect, useState } from 'react';
+import { fetchCities } from '../api';
 
 export interface UseCitiesQueryProps {
   query?: string;
   delay?: number;
 }
-
-const transformCitiesResults = (data: any) => {
-  const cities = data.filter((result: any) => result.Type === 'City');
-  return cities.map((city: any) => ({
-    country: {
-      id: city.Country.ID,
-      name: city.Country.LocalizedName,
-    },
-    name: city.LocalizedName,
-  }));
-};
 
 export function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -40,6 +29,5 @@ export function useCitiesQuery({ query = '', delay = 300 }: UseCitiesQueryProps)
     enabled: debouncedSearchQuery.length > 2,
     queryFn: () => fetchCities({ query: debouncedSearchQuery }),
     queryKey: ['cities', debouncedSearchQuery],
-    select: transformCitiesResults,
   });
 }

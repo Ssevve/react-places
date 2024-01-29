@@ -1,18 +1,17 @@
 import { env } from '@/config/env';
 import { z } from 'zod';
 
-export const fetchCitiesResponseSchema = z.array(
-  z.object({
-    AdministrativeArea: z.object({
-      LocalizedName: z.string(),
-    }),
-    Country: z.object({
-      ID: z.string(),
-      LocalizedName: z.string(),
-    }),
-    LocalizedName: z.string(),
+const citySchema = z.object({
+  country: z.object({
+    code: z.string(),
+    name: z.string(),
   }),
-);
+  name: z.string(),
+});
+
+const fetchCitiesResponseSchema = z.array(citySchema);
+
+export type City = z.infer<typeof citySchema>;
 
 interface FetchCitiesProps {
   query: string;
@@ -21,7 +20,7 @@ interface FetchCitiesProps {
 export const fetchCities = async ({ query }: FetchCitiesProps) => {
   if (!query) return;
   const url = new URL(`${env.VITE_CITIES_API_URL}/`);
-  url.searchParams.set('q', query);
+  url.searchParams.set('query', query);
   const res = await fetch(url);
   if (!res.ok) throw Error(`Failed to fetch cities (${res.statusText})`);
   return fetchCitiesResponseSchema.parse(await res.json());

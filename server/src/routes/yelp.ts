@@ -1,6 +1,7 @@
 import express from 'express';
 import { getBusinesses } from '../controllers/yelp';
-import { YelpGetBusinessesSchema, validate } from '../validation';
+import { validate } from '../middleware';
+import { YelpGetBusinessesSchema } from '../schemas';
 
 const router = express.Router();
 

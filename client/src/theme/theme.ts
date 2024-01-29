@@ -16,7 +16,13 @@ declare module '@mui/material/styles/createPalette' {
   }
 }
 
-export let theme = createTheme();
+export let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#f40d15',
+    },
+  },
+});
 
 theme = createTheme(theme, {
   breakpoints: {
@@ -67,8 +73,5 @@ theme = createTheme(theme, {
       },
       name: 'neutral',
     }),
-    primary: {
-      main: '#f40d15',
-    },
   },
 });
