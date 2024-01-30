@@ -5,7 +5,6 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
-import { joinAddress } from './utils';
 
 function BusinessCardContactInfoSpan({ children }: React.PropsWithChildren) {
   return (
@@ -24,12 +23,11 @@ function BusinessCardContactInfoIcon({ icon: Icon }: BusinessCardContactInfoIcon
 }
 
 interface BusinessCardContactInfoProps {
-  phone: string | undefined;
-  address: string[];
+  phone: string | null;
+  address: string;
 }
 
 export function BusinessCardContactInfo({ phone, address }: BusinessCardContactInfoProps) {
-  const displayAddress = joinAddress(address);
   return (
     <List disablePadding>
       <ListItem disableGutters>
@@ -39,7 +37,7 @@ export function BusinessCardContactInfo({ phone, address }: BusinessCardContactI
       <Divider />
       <ListItem disableGutters>
         <BusinessCardContactInfoIcon icon={HomeIcon} />
-        <BusinessCardContactInfoSpan>{displayAddress}</BusinessCardContactInfoSpan>
+        <BusinessCardContactInfoSpan>{address}</BusinessCardContactInfoSpan>
       </ListItem>
     </List>
   );

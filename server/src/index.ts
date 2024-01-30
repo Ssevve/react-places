@@ -1,10 +1,11 @@
 import apicache from 'apicache';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
-import { getCities } from './controllers';
-import { validate } from './middleware';
-import { yelpRoutes } from './routes';
-import { getCitiesValidationSchema } from './schemas';
+import { getBusinesses } from './controllers/businesses';
+import { getCities } from './controllers/cities';
+import { validate } from './middleware/validate';
+import { getBusinessesValidationSchema } from './schemas/getBusinessesValidationSchema';
+import { getCitiesValidationSchema } from './schemas/getCitiesValidationSchema';
 
 const app = express();
 
@@ -12,13 +13,13 @@ app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
   res.json({
-    message: 'Hello',
+    message: 'Welcome to the react-places API!',
   });
 });
 
 const cache = apicache.middleware;
 
-app.use('/yelp', cache('12 hours'), yelpRoutes);
+app.get('/businesses', validate(getBusinessesValidationSchema), cache('12 hours'), getBusinesses);
 app.get('/cities', validate(getCitiesValidationSchema), cache('12 hours'), getCities);
 
 app.listen(process.env.PORT, () => {

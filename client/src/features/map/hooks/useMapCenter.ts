@@ -3,11 +3,12 @@ import L from 'leaflet';
 
 export function useMapCenter() {
   const { data } = useBusinessesQuery({ enabled: false });
-  const regionCenter = data?.region.center;
 
-  const cityCenterCoords = regionCenter ? L.latLng(regionCenter.latitude, regionCenter.longitude) : undefined;
+  const cityCenterCoords = data?.cityCenter
+    ? L.latLng(data?.cityCenter.latitude, data?.cityCenter.longitude)
+    : undefined;
 
   return {
-    center: cityCenterCoords,
+    cityCenter: cityCenterCoords,
   };
 }

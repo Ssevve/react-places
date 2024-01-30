@@ -1,43 +1,35 @@
 import { env } from '@/config/env';
 import { z } from 'zod';
-import { businessConstraints } from '../constants';
 
-const coordinatesSchema = z.object({
-  latitude: z.number(),
-  longitude: z.number(),
-});
-
-export const yelpBusinessSchema = z.object({
-  categories: z.array(
-    z.object({
-      title: z.string(),
-    }),
-  ),
-  coordinates: coordinatesSchema,
-  display_phone: z.string().transform((str) => (str.length ? str : undefined)),
+export const businessSchema = z.object({
+  categories: z.array(z.string()),
+  coordinates: z.object({
+    latitude: z.number(),
+    longitude: z.number(),
+  }),
+  displayAddress: z.string(),
+  displayIndex: z.number(),
+  displayPhone: z.string().nullable(),
   id: z.string(),
-  image_url: z.string().optional().nullable(),
-  is_closed: z.boolean(),
-  location: z.object({
-    display_address: z.array(z.string()),
-  }),
+  imageUrl: z.string().nullable(),
+  isClosed: z.boolean(),
   name: z.string(),
-  price: z
-    .string()
-    .min(businessConstraints.priceRating.min)
-    .max(businessConstraints.priceRating.max)
-    .optional(),
+  price: z.number(),
   rating: z.number(),
-  review_count: z.number(),
-  url: z.string().url().optional(),
+  reviewCount: z.number(),
+  yelpUrl: z.string().nullable(),
 });
 
-export const yelpBusinessesResponseSchema = z.object({
-  businesses: z.array(yelpBusinessSchema),
-  region: z.object({
-    center: coordinatesSchema,
+export type Business = z.infer<typeof businessSchema>;
+export type Category = Business['categories'][0];
+
+export const fetchBusinessesResponseSchema = z.object({
+  businesses: z.array(businessSchema),
+  cityCenter: z.object({
+    latitude: z.number(),
+    longitude: z.number(),
   }),
-  total: z.number(),
+  totalBusinesses: z.number(),
 });
 
 interface FetchBusinessesProps {
@@ -49,5 +41,5 @@ export const fetchBusinesses = async ({ searchParams }: FetchBusinessesProps) =>
   const url = `${env.VITE_BUSINESSES_API_URL}?${searchParams.toString()}`;
   const res = await fetch(url);
   if (!res.ok) throw Error(`Failed to fetch businesses (${res.statusText})`);
-  return yelpBusinessesResponseSchema.parse(await res.json());
+  return fetchBusinessesResponseSchema.parse(await res.json());
 };

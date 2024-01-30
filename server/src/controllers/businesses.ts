@@ -2,14 +2,15 @@ import api from 'api';
 import { Request, Response } from 'express';
 import { env } from '../../config/env';
 import { DEFAULT_BUSINESSES_PER_PAGE, DEFAULT_PAGE } from '../constants';
-import { YelpGetBusinessesQuery } from '../schemas';
-import { getValidRadius } from '../utils';
+import { GetBusinessesQueryParams } from '../schemas/getBusinessesValidationSchema';
+import { calculateValidRadius } from '../utils/calculateValidRadius';
+import { transformGetBusinessesResponse } from '../utils/transformGetBusinessesResponse';
 
 const sdk = api('@api/yelp-developers/v1.0#8e0h2zlqcimwm0');
 sdk.auth(`Bearer ${env.YELP_API_KEY}`);
 
 export async function getBusinesses(
-  req: Request<{}, {}, {}, YelpGetBusinessesQuery>,
+  req: Request<{}, {}, {}, GetBusinessesQueryParams>,
   res: Response,
 ) {
   const page = Number(req.query.page) || DEFAULT_PAGE;
@@ -22,9 +23,11 @@ export async function getBusinesses(
       sort_by: 'best_match',
       limit,
       offset: (page - 1) * limit,
-      radius: getValidRadius(Number(req.query.radius)),
+      radius: calculateValidRadius(Number(req.query.radius)),
     });
-    res.json(response.data);
+    res.json(
+      transformGetBusinessesResponse({ data: response.data, businessesPerPage: limit, page }),
+    );
   } catch (err) {
     console.log(err);
     if (err instanceof Error) res.json({ error: err });

@@ -1,11 +1,11 @@
-import { radiusOptions } from './constants';
+import { radiusOptions } from '../constants';
 
 export function floorToNearestNumberDivisibleBy(number: number, divisor: number) {
   const floored = Math.floor(number);
   return floored - (floored % divisor);
 }
 
-export function getValidRadius(radius: number) {
+export function calculateValidRadius(radius: number) {
   if (!radius) {
     return radiusOptions.default;
   } else if (radius > radiusOptions.max) {

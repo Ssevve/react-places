@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
 import { memo } from 'react';
-import { TransformedBusiness } from '../../types';
+import { Business } from '../../api';
 import { BusinessCardActions } from './BusinessCardActions';
 import { BusinessCardBaseInfo } from './BusinessCardBaseInfo';
 import { BusinessCardCategories } from './BusinessCardCategories';
@@ -12,7 +12,7 @@ import { BusinessCardContactInfo } from './BusinessCardContactInfo';
 import { BusinessCardImage } from './BusinessCardImage';
 
 export interface BusinessCardProps {
-  business: Omit<TransformedBusiness, 'coordinates'>;
+  business: Omit<Business, 'coordinates'>;
   isExpanded: boolean;
   toggleExpandedBusiness: (id: string) => void;
 }
@@ -30,9 +30,9 @@ export const BusinessCard = memo(({ business, isExpanded, toggleExpandedBusiness
     reviewCount,
     categories,
     displayPhone,
-    location,
+    displayAddress,
     id,
-    url,
+    yelpUrl,
   } = business;
 
   const highlightBorderWidth = 4;
@@ -92,12 +92,12 @@ export const BusinessCard = memo(({ business, isExpanded, toggleExpandedBusiness
       </CardContent>
       <Collapse in={isExpanded} timeout="auto" easing="ease-in-out" unmountOnExit>
         <CardContent>
-          <BusinessCardContactInfo phone={displayPhone} address={location.displayAddress} />
+          <BusinessCardContactInfo phone={displayPhone} address={displayAddress} />
         </CardContent>
       </Collapse>
       <BusinessCardActions
         isContactExpanded={isExpanded}
-        yelpUrl={url}
+        yelpUrl={yelpUrl}
         name={name}
         toggleExpandedContact={() => toggleExpandedBusiness(id)}
       />

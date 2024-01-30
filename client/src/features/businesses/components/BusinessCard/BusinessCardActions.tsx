@@ -8,7 +8,7 @@ import { BusinessCardActionsButton } from './BusinessCardActionsButton';
 import yelpLogo from '/assets/yelp-logo.svg';
 
 export interface BusinessCardActionsProps {
-  yelpUrl: string | undefined;
+  yelpUrl: string | null;
   name: string;
   isContactExpanded: boolean;
   toggleExpandedContact: () => void;
@@ -44,7 +44,7 @@ export function BusinessCardActions({
         <Tooltip arrow title="visit Yelp page">
           <Link
             aria-label="visit Yelp page"
-            href={yelpUrl}
+            href={yelpUrl || ''}
             marginLeft="auto"
             sx={{ pointerEvents: yelpUrl ? 'auto' : 'none' }}
           >

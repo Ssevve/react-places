@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { env } from '../../config/env';
-import { GetCitiesQueryParams } from '../schemas';
+import { GetCitiesQueryParams } from '../schemas/getCitiesValidationSchema';
 
 const countryWhitelist = [
   { name: 'Argentina', code: 'AR' },

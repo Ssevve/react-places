@@ -16,15 +16,15 @@ export function BusinessCardCategories({ categories }: BusinessCardCategoriesPro
         gap: 0.5,
       }}
     >
-      {categories.map(({ title }) => (
+      {categories.map((category) => (
         <ListItem
-          key={title}
+          key={category}
           sx={{
             padding: 0,
             width: 'max-content',
           }}
         >
-          <Chip key={title} label={title} size="small" sx={{ fontSize: 12, pointerEvents: 'none' }} />
+          <Chip label={category} size="small" sx={{ fontSize: 12, pointerEvents: 'none' }} />
         </ListItem>
       ))}
     </List>
