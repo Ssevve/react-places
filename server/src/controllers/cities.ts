@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { env } from '../../config/env';
+import { GetCitiesQueryParams } from '../schemas';
 
 const countryWhitelist = [
   { name: 'Argentina', code: 'AR' },
@@ -46,11 +47,10 @@ type City = z.infer<typeof citySchema>;
 
 const getCitiesResponseSchema = z.array(citySchema);
 
-export async function getCities(req: Request, res: Response) {
-  const query = req.query.query || '';
+export async function getCities(req: Request<{}, {}, {}, GetCitiesQueryParams>, res: Response) {
   try {
     const url = new URL('https://api.api-ninjas.com/v1/city');
-    url.searchParams.set('name', query.toString());
+    url.searchParams.set('name', req.query.query || '');
     url.searchParams.set('limit', '30'); // min. 1, max. 30
     const response = await fetch(url, {
       headers: {

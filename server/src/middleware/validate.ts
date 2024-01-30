@@ -12,7 +12,10 @@ export const validate =
 
       next();
     } catch (err) {
-      if (err instanceof ZodError) return res.status(400).send(err.errors);
-      else return res.status(500).json({ error: err });
+      if (err instanceof ZodError) {
+        return res.status(400).send(err.errors.map(({ message }) => message));
+      } else {
+        return res.status(500).json({ error: err });
+      }
     }
   };
