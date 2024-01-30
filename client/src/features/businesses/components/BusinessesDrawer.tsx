@@ -1,5 +1,5 @@
 import { ResponsiveDrawer } from '@/components';
-import { CitiesAutocomplete } from '@/features/autocomplete';
+import { CitiesAutocomplete } from '@/features/cities';
 import ListIcon from '@mui/icons-material/List';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
