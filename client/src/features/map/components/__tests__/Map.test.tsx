@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from '@/tests/utils';
-import { Map } from './Map';
-import { mockYelpBusinessesResponse } from '@/__mocks__';
-import camelize from 'camelize-ts';
+import { Map } from '../Map';
+import { mockFetchBusinessesResponse } from '@/__mocks__/data';
 
 const renderMap = () => {
   return render(<Map />, {
@@ -11,13 +10,9 @@ const renderMap = () => {
 
 describe('Map', () => {
   it('should render markers for all businesses', async () => {
-    const expectedBusinesses = camelize(mockYelpBusinessesResponse).businesses.map((business, index) => ({
-      ...business,
-      displayIndex: index + 1,
-    }));
     renderMap();
     await waitFor(() => {
-      expectedBusinesses.forEach(({ displayIndex }) => {
+      mockFetchBusinessesResponse.businesses.forEach(({ displayIndex }) => {
         expect(screen.getByText(displayIndex)).toBeInTheDocument();
       });
     });

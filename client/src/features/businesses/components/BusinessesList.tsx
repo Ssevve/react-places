@@ -1,10 +1,10 @@
-import { BusinessCard, TransformedBusiness } from '@/features/businesses';
+import { BusinessCard, Business } from '@/features/businesses';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useCallback, useState } from 'react';
 
 export interface BusinessesListProps {
-  businesses: Array<TransformedBusiness>;
+  businesses: Array<Business>;
 }
 
 export function BusinessesList({ businesses }: BusinessesListProps) {

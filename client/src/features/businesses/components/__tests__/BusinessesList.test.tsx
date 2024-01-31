@@ -1,13 +1,13 @@
-import { mockTransformedBusiness } from '@/__mocks__/data';
-import { TransformedBusiness } from '@/features/businesses';
+import { mockBusiness } from '@/__mocks__/data';
+import { Business } from '@/features/businesses';
 import { render, screen } from '@/tests/utils';
 import { BusinessesList } from '../BusinessesList';
 
 describe('BusinessesList', () => {
   it('should render all businesses', () => {
-    const expectedBusinesses: Array<TransformedBusiness> = [
-      { ...mockTransformedBusiness, id: '1', name: 'Business 1' },
-      { ...mockTransformedBusiness, id: '2', name: 'Business 2' },
+    const expectedBusinesses: Array<Business> = [
+      { ...mockBusiness, id: '1', name: 'Business 1' },
+      { ...mockBusiness, id: '2', name: 'Business 2' },
     ];
     render(<BusinessesList businesses={expectedBusinesses} />, {
       initialEntries: ['?city=Test'],

@@ -9,6 +9,6 @@ export function useMapCenter() {
     : undefined;
 
   return {
-    cityCenter: cityCenterCoords,
+    center: cityCenterCoords,
   };
 }

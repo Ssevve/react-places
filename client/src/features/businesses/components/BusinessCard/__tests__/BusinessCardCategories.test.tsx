@@ -7,10 +7,10 @@ const renderBusinessCardCategories = (props?: Partial<BusinessCardCategoriesProp
 
 describe('BusinessCardCategories', () => {
   it('should render all categories', () => {
-    const expectedCategories = [{ title: 'english' }, { title: 'breakfast' }];
+    const expectedCategories = ['english', 'breakfast'];
     renderBusinessCardCategories({ categories: expectedCategories });
-    expectedCategories.forEach(({ title }) => {
-      expect(screen.getByText(title)).toBeInTheDocument();
+    expectedCategories.forEach((category) => {
+      expect(screen.getByText(category)).toBeInTheDocument();
     });
   });
 

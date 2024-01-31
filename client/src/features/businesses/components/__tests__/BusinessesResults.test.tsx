@@ -1,11 +1,11 @@
 import { render, screen } from '@/tests/utils';
 import { BusinessesResults, BusinessesResultsProps } from '../BusinessesResults';
-import { mockTransformedBusiness } from '@/__mocks__/data';
+import { mockBusiness } from '@/__mocks__/data';
 
 const renderBusinessesResults = (props?: Partial<BusinessesResultsProps>) => {
   return render(
     <BusinessesResults
-      businesses={[mockTransformedBusiness]}
+      businesses={[mockBusiness]}
       city="Test"
       currentPage={1}
       openFilters={() => {}}

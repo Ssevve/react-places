@@ -9,7 +9,7 @@ const renderBusinessesDrawer = (initialEntries: Array<string> = ['/']) => {
 describe('BusinessesDrawer', () => {
   it('should render city autocomplete input', () => {
     renderBusinessesDrawer();
-    expect(screen.getByRole('combobox', { name: 'Select a city' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Find a city' })).toBeInTheDocument();
   });
 
   it('should render businesses container', () => {

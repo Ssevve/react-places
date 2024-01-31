@@ -1,8 +1,6 @@
-import { mockYelpBusinessesResponse } from '@/__mocks__/data';
+import { mockFetchBusinessesResponse } from '@/__mocks__/data';
 import { createQueryHookWrapper } from '@/tests/createQueryHookWrapper';
 import { renderHook, waitFor } from '@/tests/utils';
-import { BUSINESSES_PER_PAGE } from '../../constants';
-import { transformBusinessesResponse } from '../../utils';
 import { UseBusinessesQueryProps, useBusinessesQuery } from '../useBusinessesQuery';
 
 interface RenderUseBusinessesQueryProps extends UseBusinessesQueryProps {
@@ -28,18 +26,11 @@ describe('useBusinessesQuery', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('should return correctly transformed data on success', async () => {
-    const testPage = 2;
-    const expectedData = transformBusinessesResponse({
-      businessesPerPage: BUSINESSES_PER_PAGE,
-      data: mockYelpBusinessesResponse,
-      page: testPage,
-    });
-
+  it('should return correct data on success', async () => {
     const { result } = renderUseBusinessesQuery({
-      initialEntries: [`/?city=Warsaw&page=${testPage}`],
+      initialEntries: [`/?city=Warsaw`],
     });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
-    expect(result.current.data).toStrictEqual(expectedData);
+    expect(result.current.data).toStrictEqual(mockFetchBusinessesResponse);
   });
 });

@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
-import { TransformedBusiness } from '../types';
+import { Business } from '../api';
+import { BusinessesEmptyList } from './BusinessesEmptyList';
 import { BusinessesList } from './BusinessesList';
 import { BusinessesPagination } from './BusinessesPagination';
-import { BusinessesEmptyList } from './BusinessesEmptyList';
 
 export interface BusinessesResultsProps {
-  businesses: Array<TransformedBusiness>;
+  businesses: Array<Business>;
   currentPage: number;
   pageCount: number;
   openFilters: () => void;

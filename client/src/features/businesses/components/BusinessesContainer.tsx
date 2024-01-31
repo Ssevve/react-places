@@ -17,7 +17,7 @@ export function BusinessesContainer({ openFilters }: BusinessesContainerProps) {
   const city = searchParams.get('city');
   const { data, isLoading, isError, refetch } = useBusinessesQuery();
   const businesses = data?.businesses || [];
-  const totalBusinesses = data?.total || 0;
+  const totalBusinesses = data?.totalBusinesses || 0;
   const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / BUSINESSES_PER_PAGE) : 1;
 
   const shouldRenderResults = businesses && city && !isError && !isLoading;

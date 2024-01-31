@@ -32,6 +32,8 @@ export const fetchBusinessesResponseSchema = z.object({
   totalBusinesses: z.number(),
 });
 
+export type FetchBusinessesResponse = z.infer<typeof fetchBusinessesResponseSchema>;
+
 interface FetchBusinessesProps {
   searchParams: URLSearchParams;
   perPage?: number;

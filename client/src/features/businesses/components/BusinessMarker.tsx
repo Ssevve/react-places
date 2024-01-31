@@ -1,4 +1,4 @@
-import { TransformedBusiness } from '@/features/businesses';
+import { Business } from '@/features/businesses';
 import { InteractiveMarker } from '@/features/map';
 import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 import Box from '@mui/material/Box';
@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 export interface BusinessMarkerProps {
-  business: TransformedBusiness;
+  business: Business;
 }
 
 export const BusinessMarker = ({ business }: BusinessMarkerProps) => {
