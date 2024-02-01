@@ -1,13 +1,9 @@
-import api from 'api';
 import { Request, Response } from 'express';
 import { env } from '../../config/env';
 import { DEFAULT_BUSINESSES_PER_PAGE, DEFAULT_PAGE } from '../constants';
 import { GetBusinessesQueryParams } from '../schemas/getBusinessesValidationSchema';
 import { calculateValidRadius } from '../utils/calculateValidRadius';
 import { transformGetBusinessesResponse } from '../utils/transformGetBusinessesResponse';
-
-const sdk = api('@api/yelp-developers/v1.0#8e0h2zlqcimwm0');
-sdk.auth(`Bearer ${env.YELP_API_KEY}`);
 
 export async function getBusinesses(
   req: Request<{}, {}, {}, GetBusinessesQueryParams>,
@@ -17,19 +13,29 @@ export async function getBusinesses(
   const limit = Number(req.query.perPage) || DEFAULT_BUSINESSES_PER_PAGE;
 
   try {
-    const response = await sdk.v3_business_search({
-      location: req.query.city,
-      price: req.query.price,
-      sort_by: 'best_match',
-      limit,
-      offset: (page - 1) * limit,
-      radius: calculateValidRadius(Number(req.query.radius)),
+    const url = new URL('https://api.yelp.com/v3/businesses/search');
+    url.searchParams.set('location', req.query.city || '');
+    url.searchParams.set('sort_by', 'best_match');
+    url.searchParams.set('limit', limit.toString());
+    url.searchParams.set('offset', ((page - 1) * limit).toString());
+    url.searchParams.set('radius', calculateValidRadius(Number(req.query.radius)).toString());
+    req.query.price && url.searchParams.set('price', req.query.price);
+
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${env.YELP_API_KEY}`,
+      },
     });
-    res.json(
-      transformGetBusinessesResponse({ data: response.data, businessesPerPage: limit, page }),
-    );
+    const data = await response.json();
+
+    if (!response.ok) res.status(response.status).json({ error: data });
+    else {
+      res
+        .status(200)
+        .json(transformGetBusinessesResponse({ data, businessesPerPage: limit, page }));
+    }
   } catch (err) {
     console.log(err);
-    if (err instanceof Error) res.json({ error: err });
+    res.status(500).json({ error: 'Server error' });
   }
 }
