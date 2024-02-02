@@ -1,24 +1,29 @@
 import { Request, Response } from 'express';
 import { env } from '../../config/env';
-import { DEFAULT_BUSINESSES_PER_PAGE, DEFAULT_PAGE } from '../constants';
-import { GetBusinessesQueryParams } from '../schemas/getBusinessesValidationSchema';
+import { businessesSearchResponseSchema } from '../schemas';
+import { BusinessesSearchQueryParams } from '../types';
 import { calculateValidRadius } from '../utils/calculateValidRadius';
-import { transformGetBusinessesResponse } from '../utils/transformGetBusinessesResponse';
+import { transformBusinessesSearchResponse } from '../utils/transformBusinessesSearchResponse';
+
+export const DEFAULT_BUSINESSES_PER_PAGE = 25;
+export const DEFAULT_PAGE = 1;
 
 export async function getBusinesses(
-  req: Request<{}, {}, {}, GetBusinessesQueryParams>,
+  req: Request<{}, {}, {}, BusinessesSearchQueryParams>,
   res: Response,
 ) {
   const page = Number(req.query.page) || DEFAULT_PAGE;
   const limit = Number(req.query.perPage) || DEFAULT_BUSINESSES_PER_PAGE;
+  const offset = (page - 1) * limit;
+  const radius = calculateValidRadius(Number(req.query.radius));
 
   try {
     const url = new URL('https://api.yelp.com/v3/businesses/search');
     url.searchParams.set('location', req.query.city || '');
     url.searchParams.set('sort_by', 'best_match');
     url.searchParams.set('limit', limit.toString());
-    url.searchParams.set('offset', ((page - 1) * limit).toString());
-    url.searchParams.set('radius', calculateValidRadius(Number(req.query.radius)).toString());
+    url.searchParams.set('offset', offset.toString());
+    url.searchParams.set('radius', radius.toString());
     req.query.price && url.searchParams.set('price', req.query.price);
 
     const response = await fetch(url, {
@@ -26,16 +31,23 @@ export async function getBusinesses(
         Authorization: `Bearer ${env.YELP_API_KEY}`,
       },
     });
-    const data = await response.json();
 
-    if (!response.ok) res.status(response.status).json({ error: data });
-    else {
-      res
-        .status(200)
-        .json(transformGetBusinessesResponse({ data, businessesPerPage: limit, page }));
+    if (!response.ok) {
+      const error = await response.json();
+      return res.status(response.status).json(error);
     }
+
+    const businessesSearchData = businessesSearchResponseSchema.parse(await response.json());
+
+    res.status(response.status).json(
+      transformBusinessesSearchResponse({
+        data: businessesSearchData,
+        businessesPerPage: limit,
+        page,
+      }),
+    );
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: 'Server error' });
+    throw err;
   }
 }

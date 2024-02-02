@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { z } from 'zod';
 import { env } from '../../config/env';
-import { GetCitiesQueryParams } from '../schemas/getCitiesValidationSchema';
+import { citiesResponseSchema } from '../schemas';
+import { CitiesQueryParams, City } from '../types';
 
 const countryWhitelist = [
   { name: 'Argentina', code: 'AR' },
@@ -38,16 +38,7 @@ const countryWhitelist = [
   { name: 'United States', code: 'US' },
 ];
 
-const citySchema = z.object({
-  name: z.string(),
-  country: z.string(),
-});
-
-type City = z.infer<typeof citySchema>;
-
-const getCitiesResponseSchema = z.array(citySchema);
-
-export async function getCities(req: Request<{}, {}, {}, GetCitiesQueryParams>, res: Response) {
+export async function getCities(req: Request<{}, {}, {}, CitiesQueryParams>, res: Response) {
   try {
     const url = new URL('https://api.api-ninjas.com/v1/city');
     url.searchParams.set('name', req.query.query || '');
@@ -57,7 +48,13 @@ export async function getCities(req: Request<{}, {}, {}, GetCitiesQueryParams>, 
         'X-Api-Key': env.API_NINJAS_API_KEY,
       },
     });
-    const cities = getCitiesResponseSchema.parse(await response.json());
+
+    if (!response.ok) {
+      const error = await response.json();
+      return res.status(response.status).json(error);
+    }
+
+    const cities = citiesResponseSchema.parse(await response.json());
 
     const filteredCities = cities.filter((city) =>
       countryWhitelist.map(({ code }) => code).includes(city.country),
@@ -76,9 +73,9 @@ export async function getCities(req: Request<{}, {}, {}, GetCitiesQueryParams>, 
       country: countryWhitelist.find(({ code }) => countryCode === code),
     }));
 
-    res.json(transformedCities);
+    res.status(response.status).json(transformedCities);
   } catch (err) {
-    console.log(err);
-    if (err instanceof Error) res.json({ error: err });
+    res.status(500).json({ error: 'Server error' });
+    throw err;
   }
 }

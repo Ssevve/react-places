@@ -24,9 +24,7 @@ export const businessSchema = z.object({
   url: z.string().url().optional(),
 });
 
-export type Business = z.infer<typeof businessSchema>;
-
-export const getBusinessesResponseSchema = z.object({
+export const businessesSearchResponseSchema = z.object({
   businesses: z.array(businessSchema),
   region: z.object({
     center: z.object({
@@ -37,4 +35,27 @@ export const getBusinessesResponseSchema = z.object({
   total: z.number(),
 });
 
-export type GetBusinessesResponse = z.infer<typeof getBusinessesResponseSchema>;
+export const businessesSearchValidationSchema = z.object({
+  query: z.object({
+    city: z.string({
+      required_error: 'City is required',
+    }),
+    perPage: z.string().optional(),
+    page: z.string().optional(),
+    price: z.string().optional(),
+    radius: z.string().optional(),
+  }),
+});
+
+export const citiesValidationSchema = z.object({
+  query: z.object({
+    query: z.string(),
+  }),
+});
+
+export const citySchema = z.object({
+  name: z.string(),
+  country: z.string(),
+});
+
+export const citiesResponseSchema = z.array(citySchema);

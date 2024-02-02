@@ -1,4 +1,4 @@
-import { Business, GetBusinessesResponse } from '../schemas/getBusinessesResponseSchema';
+import { Business, BusinessesSearchResponse } from '../types';
 
 interface TransformBusinessArgs {
   business: Business;
@@ -26,22 +26,22 @@ function transformBusiness({ business, index, businessesPerPage, page }: Transfo
 }
 
 interface TransformBusinessesResponseArgs {
-  data: GetBusinessesResponse;
+  data: BusinessesSearchResponse;
   businessesPerPage: number;
   page: number;
 }
 
-export function transformGetBusinessesResponse({
+export function transformBusinessesSearchResponse({
   data,
   businessesPerPage,
   page,
 }: TransformBusinessesResponseArgs) {
-  const modifiedBusinesses = data.businesses.map((business, index) =>
+  const transformedBusinesses = data.businesses.map((business, index) =>
     transformBusiness({ business, businessesPerPage, index, page }),
   );
 
   return {
-    businesses: modifiedBusinesses,
+    businesses: transformedBusinesses,
     totalBusinesses: data.total,
     cityCenter: data.region.center,
   };
