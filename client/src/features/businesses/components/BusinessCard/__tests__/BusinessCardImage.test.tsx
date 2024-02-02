@@ -36,7 +36,7 @@ describe('BusinessCardImage', () => {
 
   it('should render broken image icon if image src is not valid', () => {
     renderBusinessCardImage({ src: '' });
-    expect(screen.getByTestId('BrokenImageRoundedIcon')).toBeInTheDocument();
+    expect(screen.getByTestId('DomainIcon')).toBeInTheDocument();
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 });
