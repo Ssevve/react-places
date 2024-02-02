@@ -1,5 +1,5 @@
-import { Home } from './Home';
 import { render, screen } from '@/tests/utils';
+import { Home } from '../Home';
 
 const renderHome = () => {
   return render(<Home />);
