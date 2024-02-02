@@ -16,6 +16,7 @@ export function CitiesAutocomplete() {
   const options = search && data ? data : [];
 
   const changeSelectedCity = (city: City | null) => {
+    searchParams.delete('page');
     if (!city) {
       setSearch('');
       setSearchParams((params) => {
