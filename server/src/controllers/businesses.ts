@@ -18,7 +18,7 @@ export async function getBusinesses(
   const radius = calculateValidRadius(Number(req.query.radius));
 
   try {
-    const url = new URL('https://api.yelp.com/v3/businesses/search');
+    const url = new URL(env.YELP_BUSINESSES_SEARCH_ENDPOINT);
     url.searchParams.set('location', req.query.city || '');
     url.searchParams.set('sort_by', 'best_match');
     url.searchParams.set('limit', limit.toString());

@@ -40,7 +40,7 @@ const countryWhitelist = [
 
 export async function getCities(req: Request<{}, {}, {}, CitiesQueryParams>, res: Response) {
   try {
-    const url = new URL('https://api.api-ninjas.com/v1/city');
+    const url = new URL(env.API_NINJAS_CITY_ENDPOINT);
     url.searchParams.set('name', req.query.query || '');
     url.searchParams.set('limit', '30'); // min. 1, max. 30
     const response = await fetch(url, {
@@ -61,10 +61,9 @@ export async function getCities(req: Request<{}, {}, {}, CitiesQueryParams>, res
     );
 
     // API gives back duplicate entries - remove them.
+    // Limit results to only one with the same name.
     const uniqueCities = filteredCities.reduce<Array<City>>((acc, city) => {
-      if (!acc.some((_city) => _city.name === city.name && _city.country === city.country)) {
-        acc.push(city);
-      }
+      if (!acc.some((_city) => _city.name === city.name)) acc.push(city);
       return acc;
     }, []);
 
