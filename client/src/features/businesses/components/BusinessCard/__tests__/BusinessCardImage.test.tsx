@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-node-access */
 import { render, screen } from '@/tests/utils';
 import { BusinessCardImage, BusinessCardImageProps } from '../BusinessCardImage';
 
