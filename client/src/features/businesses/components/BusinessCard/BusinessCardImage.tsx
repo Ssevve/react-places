@@ -1,4 +1,4 @@
-import BrokenImageRoundedIcon from '@mui/icons-material/BrokenImageRounded';
+import DomainIcon from '@mui/icons-material/Domain';
 import Avatar from '@mui/material/Avatar';
 
 export interface BusinessCardImageProps {
@@ -20,7 +20,7 @@ export const BusinessCardImage = ({ alt, src, size = 96, fullWidth = false }: Bu
         width: fullWidth ? 1 : size,
       }}
     >
-      <BrokenImageRoundedIcon sx={{ height: size / 2, width: size / 2 }} />
+      <DomainIcon sx={{ height: size / 2, width: size / 2 }} />
     </Avatar>
   );
 };
