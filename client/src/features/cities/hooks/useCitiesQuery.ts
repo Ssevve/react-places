@@ -26,7 +26,7 @@ export function useDebounce(value: string, delay: number) {
 export function useCitiesQuery({ query = '', delay = 300 }: UseCitiesQueryProps) {
   const debouncedSearchQuery = useDebounce(query, delay);
   return useQuery({
-    enabled: debouncedSearchQuery.length > 2,
+    enabled: !!debouncedSearchQuery,
     queryFn: () => fetchCities({ query: debouncedSearchQuery }),
     queryKey: ['cities', debouncedSearchQuery],
   });
