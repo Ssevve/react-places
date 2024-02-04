@@ -35,6 +35,7 @@ export function BusinessesFiltersOpener({
 }: BusinessesFiltersOpenerProps) {
   return (
     <Button
+      data-testid="businesses-filters-opener"
       onClick={openFilters}
       endIcon={type === 'text' ? null : <TuneIcon />}
       variant={openerTypes[type].variant}

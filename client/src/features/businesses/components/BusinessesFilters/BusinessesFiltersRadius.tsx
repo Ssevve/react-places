@@ -1,7 +1,7 @@
-import { radiusOptions } from '@/features/businesses';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
+import { useFilters } from './hooks/useFilters';
 import { floorToNearestDivisibleBy } from './utils';
 
 function formatRadiusLabelText(radius: number) {
@@ -14,6 +14,7 @@ export interface BusinessesFiltersRadiusProps {
 }
 
 export function BusinessesFiltersRadius({ radius, setRadius }: BusinessesFiltersRadiusProps) {
+  const { radiusOptions } = useFilters();
   const onRadiusChange = (_: Event, radius: number | Array<number>) => {
     if (Array.isArray(radius)) return;
     else setRadius(radius);

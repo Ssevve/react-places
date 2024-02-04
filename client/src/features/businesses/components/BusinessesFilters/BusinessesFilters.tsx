@@ -1,14 +1,12 @@
 import { ResponsiveDrawer } from '@/components/ResponsiveDrawer';
-import { radiusOptions } from '@/features/businesses';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { BusinessesFiltersPrice } from './BusinessesFiltersPrice';
 import { BusinessesFiltersRadius } from './BusinessesFiltersRadius';
 import { BusinessesFiltersSetButton } from './BusinessesFiltersSetButton';
+import { useFilters } from './hooks/useFilters';
 
 export interface BusinessesFiltersProps {
   isOpen: boolean;
@@ -16,22 +14,7 @@ export interface BusinessesFiltersProps {
 }
 
 export function BusinessesFilters({ isOpen, close }: BusinessesFiltersProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [prices, setPrices] = useState(searchParams.get('price')?.split(',') || []);
-  const [radius, setRadius] = useState(Number(searchParams.get('radius')) || radiusOptions.default);
-
-  const setFilters = () => {
-    if (prices.length === 0) searchParams.delete('price');
-    else searchParams.set('price', prices.join(','));
-
-    if (radius) searchParams.set('radius', radius.toString());
-    else searchParams.delete('radius');
-
-    searchParams.delete('page');
-    setSearchParams(searchParams, {
-      replace: true,
-    });
-  };
+  const { setFilters, prices, radius, setPrices, setRadius } = useFilters();
 
   return (
     <ResponsiveDrawer

@@ -9,9 +9,14 @@ import { useSearchParams } from 'react-router-dom';
 import { City } from '../../api';
 import { useCitiesQuery } from '../../hooks';
 
-export function CitiesAutocomplete() {
+interface CitiesAutocompleteProps {
+  disabled: boolean;
+}
+
+export function CitiesAutocomplete({ disabled }: CitiesAutocompleteProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get('city') || '');
+  const currentCity = searchParams.get('city');
+  const [search, setSearch] = useState(currentCity || '');
   const { data, isError, isLoading } = useCitiesQuery({ query: search });
   const options = search && data ? data : [];
 
@@ -32,6 +37,7 @@ export function CitiesAutocomplete() {
 
   return (
     <Autocomplete
+      disabled={disabled}
       disablePortal
       options={options}
       loading={isLoading}

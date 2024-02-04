@@ -7,9 +7,9 @@ const renderBusinessesDrawer = (initialEntries: Array<string> = ['/']) => {
 };
 
 describe('BusinessesDrawer', () => {
-  it('should render city autocomplete input', () => {
+  it('should render controls', () => {
     renderBusinessesDrawer();
-    expect(screen.getByRole('combobox', { name: 'Find a city' })).toBeInTheDocument();
+    expect(screen.getByTestId('businesses-drawer-controls')).toBeInTheDocument();
   });
 
   it('should render businesses container', () => {
@@ -17,9 +17,9 @@ describe('BusinessesDrawer', () => {
     expect(screen.getByTestId('businesses-container')).toBeInTheDocument();
   });
 
-  it('should render filters opener after successful fetch', async () => {
+  it('should render filters opener', () => {
     renderBusinessesDrawer(['/?city=Warsaw']);
-    expect(await screen.findByRole('button', { name: 'Filters' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Filters' })).toBeInTheDocument();
   });
 
   it('should show filters on filters opener click', async () => {

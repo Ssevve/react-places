@@ -1,10 +1,3 @@
-export const radiusOptions = {
-  default: 10000,
-  max: 40000,
-  min: 5000,
-  step: 5000,
-} as const;
-
 export const priceRatings = [
   {
     color: '#69B34C',
