@@ -8,6 +8,7 @@ const openerTypes: Record<string, OpenerType> = {
   button: {
     sx: {
       borderRadius: 6,
+      paddingX: 3,
       width: 'max-content',
     },
     variant: 'outlined',
@@ -39,7 +40,7 @@ export function BusinessesFiltersOpener({
       variant={openerTypes[type].variant}
       size={size}
       color="inherit"
-      sx={openerTypes[type].sx}
+      sx={{ height: 'max-content', ...openerTypes[type].sx }}
     >
       {children || (
         <Typography component="span" fontSize="small">

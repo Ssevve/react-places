@@ -5,8 +5,9 @@ import { BusinessesSearchQueryParams } from '../types';
 import { calculateValidRadius } from '../utils/calculateValidRadius';
 import { transformBusinessesSearchResponse } from '../utils/transformBusinessesSearchResponse';
 
-export const DEFAULT_BUSINESSES_PER_PAGE = 25;
-export const DEFAULT_PAGE = 1;
+const DEFAULT_BUSINESSES_PER_PAGE = 25;
+const DEFAULT_PAGE = 1;
+const DEFAULT_SORT = 'best_match';
 
 export async function getBusinesses(
   req: Request<{}, {}, {}, BusinessesSearchQueryParams>,
@@ -16,11 +17,12 @@ export async function getBusinesses(
   const limit = Number(req.query.perPage) || DEFAULT_BUSINESSES_PER_PAGE;
   const offset = (page - 1) * limit;
   const radius = calculateValidRadius(Number(req.query.radius));
+  const sort = req.query.sort || DEFAULT_SORT;
 
   try {
     const url = new URL(env.YELP_BUSINESSES_SEARCH_ENDPOINT);
     url.searchParams.set('location', req.query.city || '');
-    url.searchParams.set('sort_by', 'best_match');
+    url.searchParams.set('sort_by', sort);
     url.searchParams.set('limit', limit.toString());
     url.searchParams.set('offset', offset.toString());
     url.searchParams.set('radius', radius.toString());

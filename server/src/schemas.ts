@@ -44,6 +44,7 @@ export const businessesSearchValidationSchema = z.object({
     page: z.string().optional(),
     price: z.string().optional(),
     radius: z.string().optional(),
+    sort: z.string().optional(),
   }),
 });
 

@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import { useState } from 'react';
 import { BusinessesContainer } from './BusinessesContainer';
 import { BusinessesFilters, BusinessesFiltersOpener } from './BusinessesFilters';
+import { BusinessesSortSelect } from './BusinessesSortSelect';
 
 export function BusinessesDrawer() {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +26,10 @@ export function BusinessesDrawer() {
     >
       <Box paddingX={1} paddingY={2} gap={2} display="grid">
         <CitiesAutocomplete />
-        <BusinessesFiltersOpener openFilters={openFilters} />
+        <Box display="flex" alignItems="center" justifyContent="space-between" gap={2}>
+          <BusinessesFiltersOpener openFilters={openFilters} />
+          <BusinessesSortSelect />
+        </Box>
       </Box>
       <Divider />
       <BusinessesContainer openFilters={openFilters} />
