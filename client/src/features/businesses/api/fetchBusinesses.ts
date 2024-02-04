@@ -1,7 +1,7 @@
 import { env } from '@/config/env';
 import { z } from 'zod';
 
-export const businessSchema = z.object({
+const businessSchema = z.object({
   categories: z.array(z.string()),
   coordinates: z.object({
     latitude: z.number(),
@@ -23,7 +23,7 @@ export const businessSchema = z.object({
 export type Business = z.infer<typeof businessSchema>;
 export type Category = Business['categories'][0];
 
-export const fetchBusinessesResponseSchema = z.object({
+const fetchBusinessesResponseSchema = z.object({
   businesses: z.array(businessSchema),
   cityCenter: z.object({
     latitude: z.number(),

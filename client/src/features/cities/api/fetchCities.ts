@@ -9,9 +9,9 @@ const citySchema = z.object({
   name: z.string(),
 });
 
-const fetchCitiesResponseSchema = z.array(citySchema);
-
 export type City = z.infer<typeof citySchema>;
+
+const fetchCitiesResponseSchema = z.array(citySchema);
 
 interface FetchCitiesProps {
   query: string;
