@@ -9,7 +9,7 @@ export interface BusinessesResultsProps {
   currentPage: number;
   pageCount: number;
   openFilters: () => void;
-  city: string;
+  city: string | null;
 }
 
 export function BusinessesResults({

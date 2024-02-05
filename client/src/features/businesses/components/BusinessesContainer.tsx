@@ -1,3 +1,4 @@
+import { useCitiesQuery } from '@/features/cities';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
 import { BUSINESSES_PER_PAGE } from '../constants';
@@ -9,35 +10,59 @@ import { BusinessesSkeleton } from './BusinessesSkeleton';
 
 interface BusinessesContainerProps {
   openFilters: () => void;
+  search: string;
+  cityChanged: boolean;
 }
 
-export function BusinessesContainer({ openFilters }: BusinessesContainerProps) {
+export function BusinessesContainer({ openFilters, search, cityChanged }: BusinessesContainerProps) {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
   const city = searchParams.get('city');
-  const shouldFetch = searchParams.get('shouldFetch');
-  const { data, isLoading, isError, refetch: refetchBusinesses } = useBusinessesQuery();
-  const businesses = data?.businesses || [];
-  const totalBusinesses = data?.totalBusinesses || 0;
+
+  const { isSuccess: isCitiesQuerySuccess } = useCitiesQuery({ query: search });
+
+  const {
+    data: businessesQueryData,
+    isLoading: isBusinessesQueryLoading,
+    isError: isBusinessesQueryError,
+    refetch: refetchBusinesses,
+  } = useBusinessesQuery({
+    enabled: isCitiesQuerySuccess && cityChanged && !!city,
+  });
+
+  const businesses = businessesQueryData?.businesses;
+  const totalBusinesses = businessesQueryData?.totalBusinesses || 0;
   const pageCount = totalBusinesses ? Math.ceil(totalBusinesses / BUSINESSES_PER_PAGE) : 1;
 
-  const shouldRenderResults = businesses && city && shouldFetch && !isError && !isLoading;
-
-  return (
-    <Box data-testid="businesses-container" overflow="auto">
-      {isError && <BusinessesFetchError refetch={refetchBusinesses} />}
-      {isLoading && <BusinessesSkeleton />}
-      {shouldRenderResults ? (
+  const renderContent = () => {
+    if (businesses) {
+      return (
         <BusinessesResults
           businesses={businesses}
           currentPage={currentPage}
           pageCount={pageCount}
-          city={city!}
+          city={city}
           openFilters={openFilters}
         />
-      ) : (
-        <BusinessesErrorMessage message="Please select a city and hit the search to find the best places!" />
-      )}
+      );
+    }
+
+    if (isBusinessesQueryError) {
+      return <BusinessesFetchError refetch={refetchBusinesses} />;
+    }
+
+    if (isBusinessesQueryLoading) {
+      return <BusinessesSkeleton />;
+    }
+
+    return (
+      <BusinessesErrorMessage message="You need to provide a city before we can show you cool places to visit!" />
+    );
+  };
+
+  return (
+    <Box data-testid="businesses-container" overflow="auto">
+      {renderContent()}
     </Box>
   );
 }

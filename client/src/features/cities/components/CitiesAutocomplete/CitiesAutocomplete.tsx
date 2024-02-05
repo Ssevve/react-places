@@ -4,48 +4,40 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { City } from '../../api';
-import { useCitiesQuery } from '../../hooks';
+import { City } from '../../types';
 
 interface CitiesAutocompleteProps {
-  disabled: boolean;
+  cities: Array<City>;
+  search: string;
+  setSearch: (search: string) => void;
+  isLoading: boolean;
+  isError: boolean;
+  onCityChange: (city: City | null) => void;
 }
 
-export function CitiesAutocomplete({ disabled }: CitiesAutocompleteProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentCity = searchParams.get('city');
-  const [search, setSearch] = useState(currentCity || '');
-  const { data, isError, isLoading } = useCitiesQuery({ query: search });
-  const options = search && data ? data : [];
-
-  const changeSelectedCity = (city: City | null) => {
-    searchParams.delete('page');
-    if (!city) {
-      setSearch('');
-      setSearchParams((params) => {
-        params.delete('city');
-        return params;
-      });
-    } else {
-      setSearch(city.name);
-      searchParams.set('city', city.name);
-      setSearchParams(searchParams, { replace: true });
-    }
-  };
-
+export function CitiesAutocomplete({
+  cities,
+  search,
+  setSearch,
+  isLoading,
+  isError,
+  onCityChange,
+}: CitiesAutocompleteProps) {
   return (
     <Autocomplete
-      disabled={disabled}
       disablePortal
-      options={options}
+      options={cities}
       loading={isLoading}
       noOptionsText="No cities"
-      value={options.find((city) => city.name === search) || null}
+      value={cities.find((city) => city.name === search) || null}
+      inputValue={search}
+      onInputChange={(_, value) => setSearch(value)}
       clearOnBlur={false}
       filterOptions={(x) => x}
-      onChange={(_, city) => changeSelectedCity(city)}
+      onChange={(_, city) => {
+        console.log('changed');
+        onCityChange(city);
+      }}
       getOptionLabel={({ name }) => name}
       renderOption={(props, option) => {
         return (
@@ -68,9 +60,7 @@ export function CitiesAutocomplete({ disabled }: CitiesAutocompleteProps) {
           {...params}
           error={isError}
           helperText={isError ? 'Error: Failed to load cities' : ''}
-          value={search}
           label="Find a city"
-          onChange={(e) => setSearch(e.target.value)}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

@@ -4,7 +4,7 @@ import { BusinessesErrorMessage } from './BusinessesErrorMessage';
 import { BusinessesFiltersOpener } from './BusinessesFilters';
 
 export interface BusinessesEmptyListProps {
-  city: string;
+  city: string | null;
   openFilters: () => void;
 }
 
@@ -14,7 +14,7 @@ export function BusinessesEmptyList({ city, openFilters }: BusinessesEmptyListPr
       <BusinessesErrorMessage>
         <Box>
           <Typography marginBottom={1} fontWeight={700}>
-            {`No results for ${city}?`}
+            {city ? `No results for ${city}?` : 'No results?'}
           </Typography>
           <Typography>Consider changing the radius value in the</Typography>
           <BusinessesFiltersOpener type="text" openFilters={openFilters}>

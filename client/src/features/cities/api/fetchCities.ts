@@ -1,15 +1,13 @@
 import { env } from '@/config/env';
 import { z } from 'zod';
 
-const citySchema = z.object({
+export const citySchema = z.object({
   country: z.object({
     code: z.string(),
     name: z.string(),
   }),
   name: z.string(),
 });
-
-export type City = z.infer<typeof citySchema>;
 
 const fetchCitiesResponseSchema = z.array(citySchema);
 

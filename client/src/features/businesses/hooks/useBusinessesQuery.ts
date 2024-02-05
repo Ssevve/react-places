@@ -2,13 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { fetchBusinesses } from '../api';
 
-export function useBusinessesQuery() {
+interface UseBusinessesQueryProps {
+  enabled?: boolean;
+}
+
+export function useBusinessesQuery({ enabled = false }: UseBusinessesQueryProps = {}) {
   const [searchParams] = useSearchParams();
 
-  const shouldFetch = !!searchParams.get('shouldFetch') && !!searchParams.get('city');
-
   return useQuery({
-    enabled: shouldFetch,
+    enabled,
     queryFn: () => fetchBusinesses({ searchParams }),
     queryKey: ['businesses', searchParams.toString(), searchParams],
     staleTime: Infinity,
