@@ -40,8 +40,6 @@ export function BusinessesDrawer() {
     }
   };
 
-  const cityChanged = currentCity !== previousCity.current;
-
   return (
     <ResponsiveDrawer
       data-testid="businesses-drawer"
@@ -67,7 +65,11 @@ export function BusinessesDrawer() {
         </Box>
       </Box>
       <Divider />
-      <BusinessesContainer openFilters={openFilters} search={search} cityChanged={cityChanged} />
+      <BusinessesContainer
+        openFilters={openFilters}
+        search={search}
+        isNewCity={currentCity !== previousCity.current}
+      />
       <BusinessesFilters isOpen={showFilters} close={() => setShowFilters(false)} />
     </ResponsiveDrawer>
   );

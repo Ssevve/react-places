@@ -3,14 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchBusinesses } from '../api';
 
 interface UseBusinessesQueryProps {
-  enabled?: boolean;
+  isEnabled?: boolean;
 }
 
-export function useBusinessesQuery({ enabled = false }: UseBusinessesQueryProps = {}) {
+export function useBusinessesQuery({ isEnabled = false }: UseBusinessesQueryProps = {}) {
   const [searchParams] = useSearchParams();
 
   return useQuery({
-    enabled,
+    enabled: isEnabled,
     queryFn: () => fetchBusinesses({ searchParams }),
     queryKey: ['businesses', searchParams.toString(), searchParams],
     staleTime: Infinity,

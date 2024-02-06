@@ -21,9 +21,7 @@ export function useFilters() {
     else searchParams.delete('radius');
 
     searchParams.delete('page');
-    setSearchParams(searchParams, {
-      replace: true,
-    });
+    setSearchParams(searchParams, { replace: true });
   };
 
   return { prices, radius, radiusOptions, setFilters, setPrices, setRadius };

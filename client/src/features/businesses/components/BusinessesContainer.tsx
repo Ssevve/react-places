@@ -11,10 +11,10 @@ import { BusinessesSkeleton } from './BusinessesSkeleton';
 interface BusinessesContainerProps {
   openFilters: () => void;
   search: string;
-  cityChanged: boolean;
+  isNewCity: boolean;
 }
 
-export function BusinessesContainer({ openFilters, search, cityChanged }: BusinessesContainerProps) {
+export function BusinessesContainer({ openFilters, search, isNewCity }: BusinessesContainerProps) {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
   const city = searchParams.get('city');
@@ -27,7 +27,7 @@ export function BusinessesContainer({ openFilters, search, cityChanged }: Busine
     isError: isBusinessesQueryError,
     refetch: refetchBusinesses,
   } = useBusinessesQuery({
-    enabled: isCitiesQuerySuccess && cityChanged && !!city,
+    isEnabled: isCitiesQuerySuccess && isNewCity && !!city,
   });
 
   const businesses = businessesQueryData?.businesses;

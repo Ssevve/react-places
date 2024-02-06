@@ -36,15 +36,11 @@ export function useSort() {
     const sort = e.target.value;
     setSort(sort);
 
-    if (sort === DEFAULT_SORT_OPTION.value) {
-      setSearchParams((params) => {
-        params.delete('sort');
-        return params;
-      });
-    } else {
-      searchParams.set('sort', sort);
-      setSearchParams(searchParams, { replace: true });
-    }
+    if (sort === DEFAULT_SORT_OPTION.value) searchParams.delete('sort');
+    else searchParams.set('sort', sort);
+
+    searchParams.delete('page');
+    setSearchParams(searchParams, { replace: true });
   };
 
   return { handleSortChange, sort, sortOptions };
